@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.adm_clase_titulo}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="claseForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="2" border="0" style="margin: 0 auto;">
+
+        		<h:outputLabel id="cve_lbl"  for="cve" value="#{msg.cat_clase_clave}:" />
+        		<p:inputText id="cve" value="#{clase.clave}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" maxlength="9"/>
+        		
+					     	
+				<h:outputLabel id="desc_lbl"  for="desc" value="#{msg.cat_clase_descripcion}:" />
+        		<p:inputText id="desc" value="#{clase.descripcion}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" maxlength="49"/>		
+        		
+			</h:panelGrid>
+
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admInpcBtn" value="#{msg.btn_consultar}" action="query" global="true" update="claseForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />			
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+			
+			<h:panelGrid id="gridAddUsr" columns="2"
+				cellpadding="5" border="0">
+				<p:commandLink  id="linkAddUsr" action="#{claseAction.addInpcPopUp(flowRequestContext)}" oncomplete="actualizaClaseDlg.show()" update=":actualizaClaseD">
+					<h:graphicImage value="/css/iconos/add.png" style="width : 27px; height : 27px;"/>
+				</p:commandLink>
+				Agregar
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTableClase"
+				rowIndexVar="rowNum" var="c"
+				value="#{clase.clases}">
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_clase_clave}" />
+					</f:facet>
+					<h:outputText value="#{c.clave}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_clase_descripcion}" />
+					</f:facet>
+					<h:outputText value="#{c.descripcion}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					
+					<f:facet name="header">
+							<h:outputText value="#{msg.cat_division_acciones}" />
+						</f:facet>
+					
+					<p:commandLink oncomplete="updateClaseDlg.show();" update=":updateClaseD">
+							<p:graphicImage value="/css/iconos/edit.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{c}"
+								target="#{flowScope.clase.claseSel}" />
+						</p:commandLink>
+					
+					<p:commandLink oncomplete="delclaseDlg.show();" update=":delclaseD">
+							<p:graphicImage value="/css/iconos/delete.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{c}"
+								target="#{flowScope.clase.claseSel}" />
+						</p:commandLink>
+						
+				</p:column>
+			</p:dataTable>
+			 
+			</h:form>
+			
+		
+			<p:dialog id="actualizaClaseD" header="CLASE" widgetVar="actualizaClaseDlg" modal="true" resizable="false" appendToBody="true">
+			<h:form id="addClaseForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+					     	
+					<h:outputLabel id="cve_dlglbl"  for="cvedlg" value="#{msg.cat_clase_clave}:" />
+	        		<p:inputText id="cvedlg" value="#{clase.claseSel.clave}" required="true" requiredMessage="Campo obligatorio"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" maxlength="9"/>
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="cveMsgdlg" for="cvedlg"/> 
+					
+					
+					<h:outputLabel id="desc_dlglbl"  for="descdlg" value="#{msg.cat_clase_descripcion}:" />
+	        		<p:inputText id="descdlg" value="#{clase.claseSel.descripcion}" required="true" requiredMessage="Campo obligatorio"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" maxlength="49"/>	
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="descMsgdlg" for="descdlg"/>
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+			
+				<p:commandButton id="saveDivBtn" value="#{msg.admsitio_guardar}" action="save" global="true" ajax="true" oncomplete="if (!args.validationFailed){actualizaClaseDlg.hide();}" update=":claseForm"/>
+				<p:commandButton value="Salir" onclick="actualizaClaseDlg.hide();"
+						type="button" />
+						
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog id="updateClaseD" header="CLASE" widgetVar="updateClaseDlg" modal="true" resizable="false" appendToBody="true">
+			<h:form id="updClaseForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+					     	
+					<h:outputLabel id="desc_dlglbl"  for="descdlg" value="#{msg.cat_clase_descripcion}:" />
+	        		<p:inputText id="descdlg" value="#{clase.claseSel.descripcion}" required="true" requiredMessage="Campo obligatorio"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" maxlength="49"/>	
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="descMsgdlg" for="descdlg"/>
+					 
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+				
+				<p:commandButton id="updDivBtn" value="#{msg.admsitio_guardar}" action="update" global="true" ajax="true" oncomplete="if (!args.validationFailed){updateClaseDlg.hide();}" update=":claseForm"/>
+				<p:commandButton value="Salir" onclick="updateClaseDlg.hide();"
+						type="button" />
+						
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<!-- DIALOGO ELIMINAR -->
+			<p:dialog id="delclaseD" header="Elimina INPC" widgetVar="delclaseDlg" modal="true" resizable="false">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;"
+					columnClasses="mensajeConfirma">
+					<h:outputText value="#{msg.confirma_delclasecat} #{clase.claseSel.clave} : #{clase.claseSel.descripcion}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+				<h:panelGrid columns="2"  border="0" style="margin: 0 auto;">
+					<p:commandButton id="delinpcBtn" value="#{msg.btn_aceptar}" action="delete" global="true"  ajax="true" oncomplete="delclaseDlg.hide()" update=":claseForm" />
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="delclaseDlg.hide();" />
+				</h:panelGrid>
+				 
+			</h:form>
+			</p:dialog>
+</ui:define>
+</ui:composition>			
+</html>

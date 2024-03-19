@@ -1,0 +1,258 @@
+package com.telcel.gsa.dsaf.dipcel.dao.impl;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.telcel.gsa.dsaf.bean.BajasDepreciadosCienBean;
+import com.telcel.gsa.dsaf.bean.BajasDprCienFormBean;
+import com.telcel.gsa.dsaf.dipcel.dao.CienDepreciadosDipselDao;
+import com.telcel.gsa.dsaf.entity.BajasDepreciadosCien;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+import com.telcel.gsa.dsaf.dao.impl.AbstractDaoImpl;
+
+import org.hibernate.Session;
+
+import com.telcel.gsa.dsaf.util.CfeException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Repository
+public class CienDepreciadosDipselImpl extends AbstractDaoImpl<BajasDepreciadosCien, Integer> implements CienDepreciadosDipselDao, Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4189291921123365148L;
+	/**
+	 * 
+	 */
+	final static Logger logger = LoggerFactory.getLogger(CienDepreciadosDipselImpl.class);
+	@Autowired
+	transient DataSource dataSourceDipcel;
+
+	public CienDepreciadosDipselImpl(){
+		super(BajasDepreciadosCien.class);
+	}
+
+	
+@Override
+public void guardaCienDpr(BajasDepreciadosCien dpr) throws CfeException, SQLException {
+	
+	Connection conn = null;
+	Statement statement = null;
+	PreparedStatement preparedStatement = null;
+	try{
+		
+		conn = dataSourceDipcel.getConnection();
+
+			String selectSQL = "insert into bajas_depreciados_cien "
+					+ "  (mes, anio, fecha_carga, numero_activo,  "+
+						" id_usuario, id_sociedad) "
+			+ " values ( " +
+			dpr.getMes() +","+
+			dpr.getAnio() +","+
+			 "sysdate,'"+
+			 dpr.getNumeroActivo()+"',"+
+			 dpr.getIdUsuario()+","+
+			 dpr.getIdSociedad()+")";
+			
+			preparedStatement = conn.prepareStatement(selectSQL.toString());
+	        
+	        int dato = preparedStatement.executeUpdate();
+	
+	
+	}catch(CfeException e){
+		throw e;
+	}finally{
+		
+		try {
+			if(statement != null) statement.close();
+			if(preparedStatement != null){
+				preparedStatement.close();
+			}
+			if(conn != null){
+				conn.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new CfeException("fallo en metodo guardaCienDpr", e);
+		}
+	}
+	
+	
+	
+}
+
+
+public List<BajasDepreciadosCienBean> consultaCienDpr(BajasDprCienFormBean datos) throws CfeException {
+	List<BajasDepreciadosCienBean> datosDpr = new ArrayList<BajasDepreciadosCienBean>();
+	Connection conn = null;
+	PreparedStatement preparedStatement = null; 
+		try{	
+			conn = dataSourceDipcel.getConnection();
+			Session session = sessionFactory.openSession();
+			StringBuffer selectSQL = new StringBuffer("select c.mes mes, c.anio anio, c.fecha_carga fechaCarga, "
+					+ " c.numero_activo numeroActivo, u.usuario_apaterno paterno,"
+					+ " u.usuario_amaterno materno, u.usuario_nombre nombre, s.desc_sociedad sociedad "
+					+ " from bajas_depreciados_cien c "
+					+ " join bajas_op_usuario u on (u.usuario_id = c.id_usuario) "
+					+ " join baja_cat_sociedad s on (s.id_sociedad = c.id_sociedad) ");
+					
+					selectSQL.append( " where c.id_sociedad =   ");
+					selectSQL.append(datos.getIdSociedad());
+					if (!datos.getMes().equals(null))
+					selectSQL.append( " and  c.mes =   ");
+					selectSQL.append(datos.getMes().getId());
+					if(!datos.getAnio().equals(null))
+					selectSQL.append( " and c.anio =  ");
+					selectSQL.append(datos.getAnio());
+					
+			preparedStatement = conn.prepareStatement(selectSQL.toString());
+            
+            ResultSet rs = preparedStatement.executeQuery();
+			
+            while (rs.next()) {
+            	BajasDepreciadosCienBean datoBeans= new BajasDepreciadosCienBean();
+            	switch(rs.getInt("mes"))
+            		{
+            			case 1:
+            				datoBeans.setDescMes("ENERO");
+            			break;
+            			case 2:
+            				datoBeans.setDescMes("FEBRERO");
+                		break;
+            			case 3:
+            				datoBeans.setDescMes("MARZO");
+                		break;
+            			case 4:
+            				datoBeans.setDescMes("ABRIL");
+                		break;
+            			case 5:
+            				datoBeans.setDescMes("MAYO");
+                		break;
+            			case 6:
+            				datoBeans.setDescMes("JUNIO");
+                		break;
+            			case 7:
+            				datoBeans.setDescMes("JULIO");
+                		break;
+            			case 8:
+            				datoBeans.setDescMes("AGOSTO");
+                		break;
+            			case 9:
+            				datoBeans.setDescMes("SEPTIEMBRE");
+                		break;
+            			case 10:
+            				datoBeans.setDescMes("OCTUBRE");
+                		break;
+            			case 11:
+            				datoBeans.setDescMes("NOVIEMBRE");
+                		break;
+            			case 12:
+            				datoBeans.setDescMes("DICIEMBRE");
+                		break;
+            		}	
+            	datoBeans.setIdMes(rs.getInt("mes"));
+            	datoBeans.setAnio(rs.getInt("anio"));
+            	datoBeans.setFechaCarga(rs.getDate("fechaCarga"));
+            	datoBeans.setNumeroActivo(rs.getString("numeroActivo"));
+            	datoBeans.setaPaterno(rs.getString("paterno"));
+            	datoBeans.setaMaterno(rs.getString("materno"));
+            	datoBeans.setNombre(rs.getString("nombre"));
+            	datoBeans.setDescSociedad(rs.getString("sociedad"));
+            	datoBeans.setNombreCompleto(datoBeans.getaPaterno()+" "+datoBeans.getaMaterno()+" "+datoBeans.getNombre());
+            	
+            	datosDpr.add(datoBeans);
+            }
+	}catch(Exception e){
+		throw new CfeException(e.getMessage(), e);
+	}finally{
+		try {
+			if(preparedStatement != null){
+				preparedStatement.close();
+			}
+			if(conn != null){
+				conn.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error(e.getMessage(),e);
+		}
+	}
+		
+		return datosDpr;
+
+}
+
+public BajasDepreciadosCienBean consultaCienDprValida(BajasDepreciadosCienBean datos) throws CfeException {
+	BajasDepreciadosCienBean datosDpr = new BajasDepreciadosCienBean();
+	Connection conn = null;
+	PreparedStatement preparedStatement = null; 
+		try{	
+			conn = dataSourceDipcel.getConnection();
+			Session session = sessionFactory.openSession();
+			StringBuffer selectSQL = new StringBuffer("select c.mes mes, c.anio anio, c.fecha_carga fechaCarga, "
+					+ " c.numero_activo numeroActivo, u.usuario_apaterno paterno,"
+					+ " u.usuario_amaterno materno, u.usuario_nombre nombre, s.desc_sociedad sociedad "
+					+ " from bajas_depreciados_cien c "
+					+ " join bajas_op_usuario u on (u.usuario_id = c.id_usuario) "
+					+ " join baja_cat_sociedad s on (s.id_sociedad = c.id_sociedad) ");
+					
+					selectSQL.append( " where c.numero_activo =   ");
+					selectSQL.append(datos.getNumeroActivo());
+					
+					
+			preparedStatement = conn.prepareStatement(selectSQL.toString());
+            
+            ResultSet rs = preparedStatement.executeQuery();
+			
+            while (rs.next()) {
+            	BajasDepreciadosCienBean datoBeans= new BajasDepreciadosCienBean();
+            	datoBeans.setIdMes(rs.getInt("mes"));
+            	datoBeans.setAnio(rs.getInt("anio"));
+            	datoBeans.setFechaCarga(rs.getDate("fechaCarga"));
+            	datoBeans.setNumeroActivo(rs.getString("numeroActivo"));
+            	datoBeans.setaPaterno(rs.getString("paterno"));
+            	datoBeans.setaMaterno(rs.getString("materno"));
+            	datoBeans.setNombre(rs.getString("nombre"));
+            	datoBeans.setDescSociedad(rs.getString("sociedad"));
+            	datoBeans.setNombreCompleto(datoBeans.getaPaterno()+" "+datoBeans.getaMaterno()+" "+datoBeans.getNombre());
+            	
+            	datosDpr= datoBeans;
+            }
+	}catch(Exception e){
+		throw new CfeException(e.getMessage(), e);
+	}finally{
+		try {
+			if(preparedStatement != null){
+				preparedStatement.close();
+			}
+			if(conn != null){
+				conn.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error(e.getMessage(),e);
+		}
+	}
+		
+		return datosDpr;
+
+}
+
+
+
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="instRegState">
+
+<view-state id="instRegState" view="../views/instReg.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="instRegAct.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="query" to="detInstReg" />
+
+	<transition on="limpia" to="prtIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="prtIni" view="flowRedirect:instReg-flow" />
+
+<view-state id="detInstReg" view="../views/instRegDet.xhtml" redirect="true"
+		popup="true">
+		
+		<transition on="descarga">
+		<evaluate expression="instRegAct.descarga(flowRequestContext)" />
+		</transition>
+		
+		<transition on="dDesPDF">
+		<evaluate expression="instRegAct.descargaPDF(flowRequestContext)" />
+		</transition>
+		
+		<transition on="regresa" to="inicio" />
+</view-state>
+
+</flow>

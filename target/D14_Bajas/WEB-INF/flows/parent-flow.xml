@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="idx">
+	<secured attributes="ROLE_USER" />
+
+	<on-start>
+		<evaluate expression="login.getUser()"></evaluate>
+	</on-start>
+
+	<view-state id="idx" view="../views/index.xhtml" redirect="true"
+		popup="true">
+	</view-state>
+
+	
+	<view-state id="cargaCien" view="flowRedirect:cargaCien-flow" />
+	<view-state id="bitacora" view="flowRedirect:bitacora-flow" />
+	<view-state id="reporte100" view="flowRedirect:dpr-flow" />
+	<view-state id="repAdqBajRegion" view="flowRedirect:RepAdqBajRegion-flow" />
+	<view-state id="cargaCienNew" view="flowRedirect:cargaCienNew-flow" />
+	<view-state id="repoCienNew" view="flowRedirect:reporteCienNew-flow" />
+
+	<view-state id="adqregView" view="flowRedirect:adqBajaReg-flow" />
+	<view-state id="adqclaView" view="flowRedirect:adqBajaClase-flow" />
+	<view-state id="adqtxtView" view="flowRedirect:adqBajaTxt-flow" />
+
+	<view-state id="dprregView" view="flowRedirect:depreAnioReg-flow" />
+	<view-state id="dprclaView" view="flowRedirect:depreAnioClase-flow" />
+	<view-state id="dprtxtView" view="flowRedirect:depreAnioTxt-flow" />
+
+	<view-state id="costregView" view="flowRedirect:costoReg-flow" />
+	<view-state id="costclaView" view="flowRedirect:costoClase-flow" />
+	<view-state id="costtxtView" view="flowRedirect:costoTxt-flow" />
+
+	<view-state id="totregView" view="flowRedirect:totReg-flow" />
+	<view-state id="totclaView" view="flowRedirect:totClase-flow" />
+	<view-state id="resregView" view="flowRedirect:resReg-flow" />
+	<view-state id="resclaView" view="flowRedirect:resClase-flow" />
+
+	<view-state id="resconcregView" view="flowRedirect:repConceptoReg-flow" />
+	<view-state id="resconcclaView" view="flowRedirect:repConceptClas-flow" />
+	<view-state id="instregView" view="flowRedirect:instReg-flow" />
+	<view-state id="instclaView" view="flowRedirect:instClase-flow" />
+	<view-state id="repconcenView" view="flowRedirect:reporteConcetrado-flow" />
+	<view-state id="repdetallView" view="flowRedirect:repDetallado-flow" />
+	<view-state id="repdetallAjView" view="flowRedirect:repDetalladoAjuste-flow" />
+	<view-state id="resumenAjusteView" view="flowRedirect:resumenAjuste-flow" />
+
+
+	<view-state id="instAjView" view="flowRedirect:instAjuste-flow" />
+
+	<view-state id="inpcadmView" view="flowRedirect:admInpc-flow" />
+	<view-state id="paramadmView" view="flowRedirect:paramadm-flow" />
+	<view-state id="userAdmView" view="flowRedirect:admUsuario-flow" />
+	<view-state id="cargaArchivoView" view="flowRedirect:cargaArchivo-flow" />
+	<view-state id="claseAdmView" view="flowRedirect:admClase-flow" />
+	
+	<view-state id="cargaClaseView" view="flowRedirect:cargaClases-flow" />
+	<view-state id="bitacoraClaseView" view="flowRedirect:bitacoraClase-flow" />
+
+	<view-state id="generaRespadoView" view="flowRedirect:generaRespaldo-flow" />
+	<view-state id="cargaRespadoView" view="flowRedirect:cargaRespaldo-flow" />
+	
+	<view-state id="repdetallBaView" view="flowRedirect:repDetalladoBa-flow" />
+
+	<end-state id="end"
+		view="externalRedirect:servletRelative:/logout?activeTab=springSecurity">
+		<on-entry>
+			<evaluate expression="login.logout()"></evaluate>
+		</on-entry>
+	</end-state>
+
+	<global-transitions>
+		<transition on="home" to="idx" />
+		<transition on="viewCargaCien" to="cargaCien" />
+		<transition on="viewCargaCienNew" to="cargaCienNew" />
+		<transition on="viewBitacora" to="bitacora" />
+		<transition on="viewReporte100" to="reporte100" />
+		<transition on="viewRepoCienNew" to="repoCienNew" />
+		<transition on="viewRepAdqBajRegion" to="repAdqBajRegion" />
+
+		<transition on="adqreg" to="adqregView" />
+		<transition on="adqcla" to="adqclaView" />
+		<transition on="adqtxt" to="adqtxtView" />
+		<transition on="dprreg" to="dprregView" />
+		<transition on="dprcla" to="dprclaView" />
+		<transition on="dprtxt" to="dprtxtView" />
+
+		<transition on="costreg" to="costregView" />
+		<transition on="costcla" to="costclaView" />
+		<transition on="costtxt" to="costtxtView" />
+
+		<transition on="totreg" to="totregView" />
+		<transition on="totcla" to="totclaView" />
+		<transition on="resreg" to="resregView" />
+		<transition on="rescla" to="resclaView" />
+
+		<transition on="resconcreg" to="resconcregView" />
+		<transition on="resconccla" to="resconcclaView" />
+
+		<transition on="instreg" to="instregView" />
+		<transition on="instcla" to="instclaView" />
+
+		<transition on="instaj" to="instAjView" />
+
+		<transition on="inpcadm" to="inpcadmView" />
+		<transition on="paramadm" to="paramadmView" />
+		<transition on="cargaArchivo" to="cargaArchivoView" />
+
+		<transition on="repdetall" to="repdetallView" />
+		<transition on="repconcen" to="repconcenView" />
+		<transition on="userAdm" to="userAdmView" />
+		<transition on="claseadm" to="claseAdmView" />
+		<transition on="repdetallAj" to="repdetallAjView" />
+		<transition on="resumenAjuste" to="resumenAjusteView" />
+		
+		<transition on="cargaClase" to="cargaClaseView" />
+		<transition on="bitacoraClase" to="bitacoraClaseView" />
+		
+		<transition on="generaRespado" to="generaRespadoView" />
+		<transition on="cargaRespado" to="cargaRespadoView" />
+		<transition on="repdetallBa" to="repdetallBaView" />
+		
+
+		<transition on="exit" to="end" />
+
+	</global-transitions>
+
+</flow>

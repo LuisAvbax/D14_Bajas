@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.menu_depre_anioregt}</div>	
+		</h:panelGrid>
+		<h:form id="adqregForm">
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+		
+		<h:panelGrid id="gridfiltros" columns="1" border="0" style="margin: 0 auto;text-align:center;">
+			<h:outputText value="#{dprtxt.calculotxt}" style="font-size:11px;"/>
+			<c:choose>    
+			    <c:when test="#{dprtxt.acum eq 'true'}">  
+			      <h:outputText value="#{dprtxt.mesSeleccion}" style="font-size:11px;" />
+			    </c:when>  
+			    <c:otherwise>  
+			       <h:outputText value="#{dprtxt.mesSeleccion}" style="font-size:11px;" />
+				   <h:outputText value="AÑO: #{dprtxt.anio}" style="font-size:11px;" />
+			    </c:otherwise>  
+			</c:choose>
+			<h:outputText value="CLASE: #{dprtxt.claseReptxt}" style="font-size:11px;" />
+			<h:outputText value="REGIÓN: #{dprtxt.regionReptxt}" style="font-size:11px;" />
+			<h:outputText value="#{dprtxt.textosTitulos}" style="font-size:11px;" />
+			<h:outputText value="AJUSTES: #{dprtxt.ajuste.descripcion}" style="font-size:11px;" />
+			
+			</h:panelGrid>
+		
+		
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+			</h:panelGrid>
+
+			<p:spacer height="10px" />
+
+			
+			<h:panelGrid id="griddescarga" columns="2" cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descarga" >
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDF" action="dDesPDF">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+			</h:commandLink>	
+			</h:panelGrid>
+			
+			
+			<table id="detGeneraltf" style="table-layout:fixed;width: 100%">
+					<tr>
+					<th class="customTblRep1HTfTxt">#{msg.reporte_adq_txt}</th>
+					<th class="customTblRep1HDta">ENE-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">FEB-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">MZO-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">ABR-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">MAY-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">JUN-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">JUL-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">AGO-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">SEP-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">OCT-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">NOV-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">DIC-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HTfTot">TOTAL</th>
+					</tr>
+					
+			<ui:repeat var="dpr" value="#{dprtxt.listRepDepretxt}" varStatus="dprtfst">
+			 <tr>
+			            <td class="customTblRep1Tf">
+			            	<h:outputText value="#{dpr.texto}" />
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.enero ? 0: dpr.enero}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.febrero ? 0: dpr.febrero}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.marzo ? 0: dpr.marzo}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.abril ? 0: dpr.abril}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.mayo ? 0: dpr.mayo}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.junio ? 0: dpr.junio}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.julio ? 0: dpr.julio}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.agosto ? 0: dpr.agosto}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.septiembre ? 0: dpr.septiembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.octubre ? 0: dpr.octubre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.noviembre ? 0: dpr.noviembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1Dtl">
+			            	<h:outputText value="#{empty dpr.diciembre ? 0: dpr.diciembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+			            <td class="customTblRep1TfTot">
+			            	<h:outputText value="#{empty dpr.totalTexto ? 0: dpr.totalTexto}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+			            </td>
+					</tr>
+			
+			</ui:repeat>
+			<tr>
+						<td class="customTblRep1DtlTfTxt">
+							<h:outputText value="#{msg.reporte_adq_total}" />
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.enero}" >
+	            				<f:convertNumber pattern="##,##0.00" locale="es_MX" /> 
+	            			</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.febrero}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.marzo}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.abril}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.mayo}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.junio}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.julio}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.agosto}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.septiembre}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.octubre}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.noviembre}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.diciembre}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+						<td class="customTblRep1TotTfFoot">
+							<h:outputText value="#{dprtxt.totReporteMesGeneral.total}">
+            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+            				</h:outputText>
+						</td>
+					</tr>
+					</table>
+					<br/>
+					<p:spacer height="25px"/>
+					<br/>
+			
+					<!-- 				TABLA AJUSTES -->
+				<c:choose>
+				<c:when test="#{dprtxt.ajuste.clave eq 'TA'}"> 
+				
+				<h:outputText styleClass="subTituloPantalla" value="AJUSTES DEP. AÑO ACTUALIZADA" />
+				<br/>
+				<table id="dataTableAjsutestf" style="table-layout:fixed;width: 100%">
+					<tr>
+					<th class="customTblRep1HTfTxt">#{msg.reporte_adq_txt}</th>
+					<th class="customTblRep1HDta">ENE-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">FEB-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">MZO-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">ABR-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">MAY-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">JUN-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">JUL-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">AGO-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">SEP-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">OCT-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">NOV-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HDta">DIC-#{dprtxt.strAnio}</th>
+					<th class="customTblRep1HTfTot">TOTAL</th>
+					</tr>
+				
+						<ui:repeat var="dpraj" value="#{dprtxt.listRepAjDepreTxt}" varStatus="dprajtfst">
+							<tr>
+					            <td class="customTblRep1Tf">
+					            	<h:outputText value="#{dpraj.texto}" />
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.enero ? 0: dpraj.enero}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.febrero ? 0: dpraj.febrero}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.marzo ? 0: dpraj.marzo}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.abril ? 0: dpraj.abril}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.mayo ? 0: dpraj.mayo}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.junio ? 0: dpraj.junio}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.julio ? 0: dpraj.julio}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.agosto ? 0: dpraj.agosto}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.septiembre ? 0: dpraj.septiembre}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.octubre ? 0: dpraj.octubre}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.noviembre ? 0: dpraj.noviembre}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1Dtl">
+					            	<h:outputText value="#{empty dpraj.diciembre ? 0: dpraj.diciembre}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+					            <td class="customTblRep1TfTot">
+					            	<h:outputText value="#{empty dpraj.totalTexto ? 0: dpraj.totalTexto}">
+										<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+									</h:outputText>
+					            </td>
+							</tr>
+						</ui:repeat>
+							<tr>
+								<td class="customTblRep1DtlTfTxt">
+									<h:outputText value="#{msg.reporte_adq_total}" />
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.enero}" >
+			            				<f:convertNumber pattern="##,##0.00" locale="es_MX" /> 
+			            			</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.febrero}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.marzo}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.abril}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.mayo}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.junio}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.julio}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.agosto}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.septiembre}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.octubre}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.noviembre}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1DtlFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.diciembre}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+								<td class="customTblRep1TotTfFoot">
+									<h:outputText value="#{dprtxt.totReporteMesAjusteGeneral.total}">
+		            					<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+		            				</h:outputText>
+								</td>
+							</tr>
+							<ui:repeat var="grantot" value="#{dprtxt.totReporteMesAjusteGranLst}" varStatus="grantotst">
+						<tr>
+						<td class="customTblRep1DtlTfTxt">
+							<h:outputText value="#{msg.reporte_adq_granTotal}" />
+						</td>
+						
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.enero}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.febrero}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />	
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.marzo}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.abril}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.mayo}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.junio}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.julio}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.agosto}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.septiembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.octubre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.noviembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1DtlFoot">
+							<h:outputText value="#{grantot.diciembre}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTblRep1TotTfFoot">
+							<h:outputText value="#{grantot.total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						</tr>
+						</ui:repeat>
+					</table>
+				
+				</c:when> 
+			</c:choose>
+			<p:spacer height="25px"/>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

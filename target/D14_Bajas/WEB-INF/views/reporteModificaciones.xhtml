@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">Log de modificaciones</div>
+		</h:panelGrid>
+		
+		<h:form id="invoiceForm">
+		<h:messages />
+			<h:panelGrid columns="2"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				
+				<h:outputLabel id="sociedad_lbl"  for="sociedad" value="Sociedad:" />
+        		<p:selectOneMenu id="sociedad" value="#{reporteLogView.sociedadSel}" 
+				style="width:153px" required="true"
+				requiredMessage="Sociedad es un campo obligatorio">
+				 	<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItems value="#{reporteLogView.sociedades}"  var="soc"
+        				itemLabel="#{soc.sociedad}"
+        				itemValue="#{soc.idSociedad}" />
+        		</p:selectOneMenu>
+        		
+        		<h:outputLabel id="tpoReporte_lbl"  for="tpoReporte" value="Tipo reporte:" />
+        		<p:selectOneMenu id="tpoReporte" value="#{reporteLogView.tipoReporteSel}" 
+				style="width:153px" required="true"
+				requiredMessage="Tipo reporte es un campo obligatorio">
+				 	<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItems value="#{reporteLogView.tiposReporte}"  var="tpoRep"
+        				itemLabel="#{tpoRep.descripcion}"
+        				itemValue="#{tpoRep.idTpoRep}" />
+        				<p:ajax event="change" update="invoiceForm"
+        					listener="#{reporteLogView.tpoRepSelectionChanged}" />
+        		</p:selectOneMenu>
+									
+				<h:outputLabel id="proveedor_lbl" for="proveedor" value="Clave proveedor:" />
+				<p:column>
+				<p:inputText id="proveedor" value="#{reporteLogView.filtroClaveProveedor}" style="width:120px;font-weight: bold;"  disabled="#{reporteLogView.proveedorDeshab}"/>
+				<p:commandButton oncomplete="supplierDialog.show()"
+								 icon="ui-icon-search" title="View" disabled="#{reporteLogView.proveedorDeshab}"/>
+				</p:column>
+						
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			<h:panelGrid columns="2"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+					<p:commandButton value="Generar reporte"/>
+					<p:commandButton value="Regresar"  type="button" />	
+			</h:panelGrid>
+			<p:spacer height="30px"/> 
+			<h:panelGrid columns="1"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				<p:commandLink>
+							<h:graphicImage value="/css/iconos/excel-icon.png" style="border:0;width : 63px; height : 63px;"/>
+							</p:commandLink>	
+			</h:panelGrid>
+			</h:form>
+			
+
+	</ui:define>
+</ui:composition>
+</html>

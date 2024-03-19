@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+	
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.reporte_polizasap_titulo}</div>
+		</h:panelGrid>
+		<h:form id="polizaForm">
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+			<h:panelGrid columns="3"
+				cellpadding="5" border="0" style="margin: 0 auto;" columnClasses="polcolumn1,polcolumn2,polcolumn3">
+				
+				<h:outputLabel id="mes_lbl"  for="mes" value="#{msg.reporte_polizasap_mes}:" />
+        		<p:selectOneMenu id="mes" value="#{poliza.mes.id}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.reporte_consumoreg_mesobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{poliza.meses}"  var="m"
+        				itemLabel="#{m.nombre}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="mesMsg" for="mes"/>
+        		  		
+				<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_polizasap_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{poliza.anio}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.reporte_consumoreg_anioobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{poliza.anios}"/>
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioMsg" for="anio"/>
+        		
+        		
+        		<h:outputLabel id="region_lbl"  for="region" value="#{msg.reporte_polizasap_region}:" />
+        		<p:selectOneMenu id="region" value="#{poliza.region}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.reporte_consumoreg_regionobl}" disabled="#{sessionScopeUser.usuarioCfe.cfeOpRol.nombre ne 'IMPL' and sessionScopeUser.usuarioCfe.cfeOpRol.nombre ne 'COORD'}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{poliza.regiones}"  var="m"
+        				itemLabel="#{m.descripcion}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="regionMsg" for="region"/>
+        		
+        		
+        		<h:outputLabel id="tipoPol_lbl"  for="tipoPol" value="#{msg.reporte_polizasap_tpoPoliza}:" />
+        		<p:selectOneMenu id="tipoPol" value="#{poliza.tipoPoliza}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.reporte_consumoreg_tpopolobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{poliza.tiposPoliza}"  var="m"
+        				itemLabel="#{m.value}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="tipoPolMsg" for="tipoPol"/>
+        		
+											
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			<h:panelGrid columns="3"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+					<p:commandButton value="#{msg.btn_consultar}" action="consultaPoliza" update="polizaForm" inmediate="false"/>
+					<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+					<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />	
+			</h:panelGrid>
+			
+			
+			<h:panelGrid id="griddescarga" columns="2"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				<h:commandLink  id="linkdescarga" action="descargaPoliza" rendered="#{poliza.descarga}">
+							<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 50px; height : 50px;"/>
+							</h:commandLink>	
+			</h:panelGrid>
+			 
+			</h:form>
+			
+				
+	</ui:define>
+</ui:composition>
+</html>

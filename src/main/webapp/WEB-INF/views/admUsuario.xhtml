@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.admusuario_titulo}</div>
+		</h:panelGrid>
+<!-- BUSQUEDA DE USUARIOS -->
+		<h:form id="userForm">
+			<h:panelGrid columns="2" cellpadding="5" border="0"
+				style="margin: 0 auto;">
+
+				<h:outputLabel id="usr_lbl" for="usr" value="#{msg.admusuario_noempleado}:" />
+				<p:inputText id="usr" value="#{usuario.filtroNumEmpleado}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" />
+
+				<h:outputLabel id="nombre_lbl" for="nombre" value="#{msg.admusuario_nombre}:" />
+				<p:inputText id="nombre" value="#{usuario.filtroNombre}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" />
+
+				<h:outputLabel id="apat_lbl" for="apat" value="#{msg.admusuario_apaterno}:" />
+				<p:inputText id="apat" value="#{usuario.filtroApellidoPaterno}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" />
+
+				<h:outputLabel id="amat_lbl" for="amat" value="#{msg.admusuario_ameterno}:" />
+				<p:inputText id="amat" value="#{usuario.filtroApellidoMaterno}"
+					style="width:120px;" onkeyup="this.value=this.value.toUpperCase();" />
+				
+				
+				
+			</h:panelGrid>
+			
+			<p:spacer height="10px" />
+			
+			<h:panelGrid  columns="3" cellpadding="5" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="queryRegUser" global="true" update="userForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />			
+            </h:panelGrid>
+
+			<p:spacer height="30px" />
+			
+			<h:panelGrid id="gridAddUsr" columns="2"
+				cellpadding="5" border="0" style="margin: right;">
+				<p:commandLink  id="linkAddUsr" action="#{usuarioAction.addUserPopUp(flowRequestContext)}" oncomplete="addUserDialog.show()" update=":addUserId">
+					<h:graphicImage value="/css/iconos/add.png" style="width : 27px; height : 27px;"/>
+					
+				</p:commandLink>
+				<h:outputText value="#{msg.admusuario_adduser}" />
+			</h:panelGrid>
+			
+			<!-- GRID USUARIOS -->
+			<p:dataTable id="dataTableUsuario"
+				rowIndexVar="rowNum" var="usr" value="#{usuario.usuarios}"
+				selectionMode="single" selection="#{usuario.usuarioSel}" rowKey="#{usr.claveEmpleado}">
+
+				<f:facet name="header">
+				</f:facet>
+				<p:ajax event="rowSelect" listener="#{usuarioAction.buscaDetalleUsuario}" oncomplete="roleInfoDialog.show();" update=":roleInfoDialogId"/>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admusuario_noempleado}" />
+					</f:facet>
+					<h:outputText value="#{usr.claveEmpleado}" />
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admusuario_nombre}" />
+					</f:facet>
+					<h:outputText value="#{usr.nombreCompleto}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<!-- DETALLE USUARIO -->
+		<p:dialog id="roleInfoDialogId" header="Detalle usuario" widgetVar="roleInfoDialog" modal="true" resizable="false">
+			<p:outputPanel id="roleInfoDetail" style="float: right;">
+			<h:form>
+				<h:panelGrid columns="2" border="0" style="margin: 0 auto;"
+					columnClasses="perfilDlglblcolumn,usrperfilDlgdatacolumn">
+
+					<h:outputLabel id="numEmpleado_lbl" for="numEmpleado"
+						value="#{msg.admusuario_noempleado}:" />
+					<h:outputText id="numEmpleado"
+						value="#{usuario.usuarioSel.claveEmpleado}"
+						style="width:220px;" />
+
+					<h:outputLabel id="nombreEmpleado_lbl" for="nombreEmpleado"
+						value="#{msg.admusuario_nombre}:" />
+					<h:outputText id="nombreEmpleado"
+						value="#{usuario.usuarioSel.nombre}" style="width:220px;" />
+
+					<h:outputLabel id="apellidoPaterno_lbl" for="apellidoPaterno"
+						value="#{msg.admusuario_apaterno}:" />
+					<h:outputText id="apellidoPaterno"
+						value="#{usuario.usuarioSel.apaterno}"
+						style="width:220px;" />
+
+					<h:outputLabel id="apellidoMaterno_lbl" for="apellidoMaterno"
+						value="#{msg.admusuario_amaterno}:" />
+					<h:outputText id="apellidoMaterno"
+						value="#{usuario.usuarioSel.amaterno}"
+						style="width:220px;" />
+
+					<h:outputLabel id="direccion_lbl" for="direccion"
+						value="#{msg.admusuario_direccion}:" />
+					<h:outputText id="direccion"
+						value="#{usuario.usuarioSel.direccion}" style="width:220px;" />
+
+					<h:outputLabel id="subdireccion_lbl" for="subdireccion"
+						value="#{msg.admusuario_subdireccion}:" />
+					<h:outputText id="subdireccion"
+						value="#{usuario.usuarioSel.subdireccion}"
+						style="width:220px;" />
+
+					<h:outputLabel id="gerencia_lbl" for="gerencia" 
+						value="#{msg.admusuario_gerencia}:" />
+					<h:outputText id="gerencia"
+						value="#{usuario.usuarioSel.gerencia}" style="width:220px;" />
+
+					<h:outputLabel id="departamento_lbl" for="departamento"
+						value="#{msg.admusuario_departamento}:" />
+					<h:outputText id="departamento"
+						value="#{usuario.usuarioSel.departamento}"
+						style="width:220px;" />
+						
+				<h:outputLabel id="rol_lbl"  for="rol" value="#{msg.admusuario_rol}:" />
+        		<p:selectOneMenu id="rol" value="#{usuario.usuarioSel.bajasOpRol.id}" 
+				style="width:250px">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{usuario.roles}"  var="r"
+        				itemLabel="#{r.descripcion}"
+        				itemValue="#{r.idRol}" />
+        		</p:selectOneMenu>	
+					
+				</h:panelGrid>
+				<h:panelGrid columns="3" style="margin: 0 auto;">
+					<p:commandButton id="saveUsrBtn" value="#{msg.admsitio_guardar}" action="saveUsr" global="true" update=":userForm"/>
+					<p:commandButton id="deleteUsrBtn" value="#{msg.admsitio_eliminar}" action="delUsr" global="true" update=":userForm"/>
+					<p:commandButton value="Salir" onclick="roleInfoDialog.hide();"
+						type="button" />
+				</h:panelGrid>
+		</h:form>
+</p:outputPanel>
+</p:dialog>
+
+<!-- AGREGAR USUARIO -->
+		<p:dialog id="addUserId" header="Agregar usuario" widgetVar="addUserDialog" modal="true" resizable="false">
+			<p:outputPanel id="addUserDetail" style="float: right;">
+			<h:form id="addUserForm">
+				<h:panelGrid columns="2" border="0" style="margin: 0 auto;"
+					columnClasses="addDlglblcolumn,addDlgdatacolumn">
+
+					<h:outputLabel id="addNumEmpleado_lbl" for="addNumEmpleado"
+						value="#{msg.admusuario_noempleado}:" />
+					<p:inputText id="addNumEmpleado"
+						value="#{nvousuario.claveEmpleado}"
+						style="width:160px;" onkeyup="this.value=this.value.toUpperCase();"/>
+
+					<h:outputLabel id="addNombreEmpleado_lbl" for="addNombreEmpleado"
+						value="#{msg.admusuario_nombre}:" />
+					<p:inputText id="addNombreEmpleado"
+						value="#{nvousuario.nombre}" style="width:160px;" onkeyup="this.value=this.value.toUpperCase();"/>
+
+					<h:outputLabel id="addApellidoPaterno_lbl" for="addApellidoPaterno"
+						value="#{msg.admusuario_apaterno}:" />
+					<p:inputText id="addApellidoPaterno"
+						value="#{nvousuario.apaterno}"
+						style="width:160px;" onkeyup="this.value=this.value.toUpperCase();" />
+
+					<h:outputLabel id="addApellidoMaterno_lbl" for="addApellidoMaterno"
+						value="#{msg.admusuario_amaterno}:" />
+					<p:inputText id="addApellidoMaterno"
+						value="#{nvousuario.amaterno}"
+						style="width:160px;" onkeyup="this.value=this.value.toUpperCase();" />
+
+        		
+				</h:panelGrid>
+				
+				<p:spacer height="10px" />
+				
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+					<p:commandButton id="fndBtn" value="#{msg.btn_buscar}" action="queryUser" global="true" update="dataTableUsuarioWS"/>
+					<p:commandButton id="outBtn" value="#{msg.btn_salir}" action="closeAddUsr" />
+				</h:panelGrid>
+				
+				<p:spacer height="10px" />
+				
+				<p:dataTable id="dataTableUsuarioWS" paginator="true" rows="5"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{nvousuario.usuarios.size()}"
+				rowsPerPageTemplate="10,15,50" var="usr" value="#{nvousuario.usuarios}"
+				selectionMode="single" selection="#{usuario.usuarioAdd}" rowKey="#{usr.claveEmpleado}">
+
+				<f:facet name="header">
+				</f:facet>
+				<p:ajax event="rowSelect" listener="#{usuarioAction.asignaAlta}" oncomplete="altaUserDialog.show();" update=":altaUserDialogId"/>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admusuario_noempleado}" />
+					</f:facet>
+					<h:outputText value="#{usr.claveEmpleado}" />
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admusuario_nombre}" />
+					</f:facet>
+					<h:outputText value="#{usr.nombreCompleto}" />
+				</p:column>
+				
+			</p:dataTable>
+			<p:spacer height="10px" />
+		</h:form>
+</p:outputPanel>
+</p:dialog>
+
+
+	<!-- ALTA USUARIO -->
+		<p:dialog id="altaUserDialogId" header="Alta usuario" widgetVar="altaUserDialog" modal="true" resizable="false">
+			<p:outputPanel id="altaUserDetail" style="float: right;">
+			<h:form>
+				<h:panelGrid columns="2" border="0" style="margin: 0 auto;"
+					columnClasses="perfilDlglblcolumn,usrperfilDlgdatacolumn">
+
+					<h:outputLabel id="altanumEmpleado_lbl" for="altanumEmpleado"
+						value="#{msg.admusuario_noempleado}:" />
+					<h:outputText id="altanumEmpleado"
+						value="#{usuario.usuarioAdd.claveEmpleado}"
+						style="width:220px;" />
+
+					<h:outputLabel id="altanombreEmpleado_lbl" for="altanombreEmpleado"
+						value="#{msg.admusuario_nombre}:" />
+					<h:outputText id="altanombreEmpleado"
+						value="#{usuario.usuarioAdd.nombre}" style="width:220px;" />
+
+					<h:outputLabel id="altaapellidoPaterno_lbl" for="altaapellidoPaterno"
+						value="#{msg.admusuario_apaterno}:" />
+					<h:outputText id="altaapellidoPaterno"
+						value="#{usuario.usuarioAdd.apaterno}"
+						style="width:220px;" />
+
+					<h:outputLabel id="altaapellidoMaterno_lbl" for="altaapellidoMaterno"
+						value="#{msg.admusuario_amaterno}:" />
+					<h:outputText id="altaapellidoMaterno"
+						value="#{usuario.usuarioAdd.amaterno}"
+						style="width:220px;" />
+
+					<h:outputLabel id="altadireccion_lbl" for="altadireccion"
+						value="#{msg.admusuario_direccion}:" />
+					<h:outputText id="altadireccion"
+						value="#{usuario.usuarioAdd.direccion}" style="width:220px;" />
+
+					<h:outputLabel id="altasubdireccion_lbl" for="altasubdireccion"
+						value="#{msg.admusuario_subdireccion}:" />
+					<h:outputText id="altasubdireccion"
+						value="#{usuario.usuarioAdd.subdireccion}"
+						style="width:220px;" />
+
+					<h:outputLabel id="altagerencia_lbl" for="altagerencia" 
+						value="#{msg.admusuario_gerencia}:" />
+					<h:outputText id="altagerencia"
+						value="#{usuario.usuarioAdd.gerencia}" style="width:220px;" />
+
+					<h:outputLabel id="altadepartamento_lbl" for="altadepartamento"
+						value="#{msg.admusuario_departamento}:" />
+					<h:outputText id="altadepartamento"
+						value="#{usuario.usuarioAdd.departamento}"
+						style="width:220px;" />
+						
+				<h:outputLabel id="altarol_lbl"  for="altarol" value="#{msg.admusuario_rol}:" />
+        		<p:selectOneMenu id="altarol" value="#{usuario.usuarioAdd.bajasOpRol.id}" 
+				style="width:250px">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{usuario.roles}"  var="r"
+        				itemLabel="#{r.descripcion}"
+        				itemValue="#{r.idRol}" />
+        		</p:selectOneMenu>	
+					
+				</h:panelGrid>
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+					<p:commandButton id="saveUsrBtn" value="#{msg.admsitio_guardar}" action="saveNewUsr" global="true" update=":userForm"/>
+					<p:commandButton value="Salir" onclick="altaUserDialog.hide();"
+						type="button" />
+				</h:panelGrid>
+		</h:form>
+</p:outputPanel>
+</p:dialog>	
+
+	</ui:define>
+</ui:composition>
+</html>

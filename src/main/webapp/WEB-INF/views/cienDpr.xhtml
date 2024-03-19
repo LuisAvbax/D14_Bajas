@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.titCienDpr}</div>
+		</h:panelGrid>
+		
+		<h:form id="dprForm">
+			<h:panelGrid columns="3" cellpadding="5" border="0" style="margin: 0 auto;"
+				columnClasses="impFactGridOne,impFactGridTwo,impFactGridThree">
+        				     	
+				<h:outputLabel id="mes_lbl"  for="mes" value="#{msg.reporte_consumoreg_mes}:" />
+        		<p:selectOneMenu id="mes" value="#{datDpr.mes.id}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{datDpr.meses}"  var="m"
+        				itemLabel="#{m.nombre}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="mesMsg" for="mes"/>
+        		  		
+				<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_consumoreg_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{datDpr.anio}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{datDpr.anios}"/>
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioNsg" for="anio"/>
+        		
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			
+			<!-- BOTONES CONSULTA -->
+			<h:panelGrid columns="4"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				<p:commandButton value="#{msg.btn_consultar}" action="buscaCont" update=":dprForm" inmediate="false"/>
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  global="false" immediate="true"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  global="false" immediate="true"/>
+				<p:commandButton id="delAct" value="#{msg.btn_borrar}" global="true" oncomplete="delAssetDlg.show()" update=":delAssetD" disabled="#{datDpr.delDisabled}"/>
+				
+				
+			</h:panelGrid>
+			
+			<p:spacer height="30px"/> 
+			
+			<h:panelGrid id="griddescarga" columns="2"
+				cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descargaB" rendered="#{datDpr.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>	
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTable" paginator="false" rows="100"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{errores.size()}"
+				 var="err"
+				value="#{datDpr.listBean}">
+
+				<f:facet name="header">
+				</f:facet>
+				<p:column style="text-align: center;">
+				<f:facet name="header">
+						<p:selectBooleanCheckbox value="#{datDpr.todos}" itemLabel="Seleccion">
+            				<p:ajax update="dataTable" listener="#{cienDprAction.manageSelectAll(flowRequestContext)}"/>
+        				</p:selectBooleanCheckbox>
+					</f:facet>
+				<h:selectBooleanCheckbox value="#{err.selected}">
+    			
+    			</h:selectBooleanCheckbox>
+    			</p:column>               ...
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienMes}" />
+					</f:facet>
+					<h:outputText value="#{err.descMes}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienAnio}" />
+					</f:facet>
+					<h:outputText value="#{err.anio}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienNumAct}" />
+					</f:facet>
+					<h:outputText value="#{err.numeroActivo}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titSubnumero}" />
+					</f:facet>
+					<h:outputText value="#{err.subnumero}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienUs}" />
+					</f:facet>
+					<h:outputText value="#{err.nombreCompleto} ">
+					</h:outputText>
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienFcarga}" />
+					</f:facet>
+					<h:outputText value="#{err.fechaCarga}">
+					<f:convertDateTime locale="es_MX" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+			</h:form>
+			
+			
+			<p:dialog id="delAssetD" header="Eliminar activos 100% depreciados" widgetVar="delAssetDlg" modal="true" resizable="false">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;"
+					columnClasses="mensajeConfirma">
+					<h:outputText value="#{msg.confirma_delactivo}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+				<h:panelGrid columns="2"  border="0" style="margin: 0 auto;">
+					<p:commandButton id="delassetBtn" value="#{msg.btn_aceptar}" action="#{cienDprAction.delAsset(flowRequestContext)}" global="false"  ajax="true" oncomplete="delAssetDlg.hide()" update=":dprForm" />
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="delAssetDlg.hide();" />
+				</h:panelGrid>
+				 
+			</h:form>
+			</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

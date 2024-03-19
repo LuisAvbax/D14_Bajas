@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow" start-state="repoCienNew">
+
+	<view-state id="repoCienNew"
+		view="../views/reporteCienNew.xhtml" redirect="true" popup="true">
+		<on-entry>
+			<evaluate
+				expression="reporteCienDeprAct.initFlow(flowRequestContext)" />
+		</on-entry>
+
+		<transition on="limpia" to="refresh" />
+
+		<transition on="regresa" to="inicio" />
+
+		<transition on="generaSolicRep">
+			<evaluate
+				expression="reporteCienDeprAct.generaSolicReporte(flowRequestContext)" />
+		</transition>
+
+		<transition on="consultaReporte">
+			<evaluate
+				expression="reporteCienDeprAct.consultaSolcitudReporte(flowRequestContext)" />
+		</transition>
+
+		<transition on="descargaRptProcesado">
+			<evaluate
+				expression="reporteCienDeprAct.descargaRptProcesado(flowRequestContext)" />
+		</transition>
+
+	</view-state>
+
+	<view-state id="inicio" view="flowRedirect:parent-flow" />
+	<view-state id="refresh"
+		view="flowRedirect:reporteCienNew-flow" />
+</flow>

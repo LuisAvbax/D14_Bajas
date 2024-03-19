@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.factorPotencia_titulo}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="consForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="6" border="0" style="margin: 0 auto;" 
+			columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn,userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+			
+			 <h:outputLabel id="mes_lbl"  for="mes" value="#{msg.reporte_polizasap_mes}:" />
+        		<p:selectOneMenu id="mes" value="#{detfactor.mes.id}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}" >
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{detfactor.meses}"  var="m"
+        				itemLabel="#{m.nombre}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="mesMsg" for="mes"/>
+        	
+        	<h:outputLabel id="tarifa_lbl"  for="tarifa" value="#{msg.admsitio_tarifa}:" />
+        		<p:selectCheckboxMenu id="tarifa" value="#{detfactor.selectedRate}" label="#{msg.reporte_polizasap_seleccione}"
+                              filter="true" filterMatchMode="startsWith" style="width:153px" widgetVar="rateVar">
+            			<f:selectItems value="#{detfactor.tarifas}" var="t"
+            			itemLabel="#{t.clave}"
+	        				itemValue="#{t.id}" />
+        			</p:selectCheckboxMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="tarifaMsg" for="tarifa"/>	  		
+				
+			 <h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_polizasap_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{detfactor.anio}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}" >
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{detfactor.anios}"/>
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioMsg" for="anio"/>
+					     	
+			 	     	
+			<h:outputLabel id="division_lbl"  for="division" value="#{msg.admsitio_division}:" />
+        		<p:selectOneMenu id="division" value="#{detfactor.division.id}" 
+				style="width:153px" >
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{detfactor.divisiones}"  var="d"
+        				itemLabel="#{d.nombre}"
+        				itemValue="#{d.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="divisionnMsg" for="division"/>
+        	
+			<h:outputLabel id="region_lbl"  for="region" value="#{msg.admsitio_region}:" />
+        		<p:selectOneMenu id="region" value="#{detfactor.region.id}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}" >
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{detfactor.regiones}"  var="m"
+        				itemLabel="#{m.descripcion}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="regionMsg" for="region"/>		     	
+			
+        	
+        	<h:outputLabel id="proyecto_lbl"  for="proyectoVal" value="#{msg.admsitio_proyecto}:" />
+	        		<p:selectCheckboxMenu id="proyectoVal" value="#{detfactor.selectedProyects}" label="#{msg.reporte_polizasap_seleccione}"
+                              filter="true" filterMatchMode="startsWith" style="width:153px" widgetVar="proVar">
+            			<f:selectItems value="#{detfactor.proyectos}" var="p"
+            			itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />
+        			</p:selectCheckboxMenu>
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="proyecto_edMsg" for="proyecto_edVal2"/>
+					     	
+			<h:outputLabel id="proveedor_lbl"  for="proveedorVal" value="#{msg.detconsumo_proveedor}:" />
+	        		<p:selectOneMenu id="proveedorVal" value="#{detfactor.proveedor.id}" 
+					style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}" >
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{detfactor.proveedores}"  var="p"
+	        				itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />
+	        		</p:selectOneMenu>	
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="proveedor_edMsg" for="proveedorVal"/>
+
+				<h:outputText for="bFactorPotencia" value="#{msg.detconsumo_bFactorPotencia}:" />
+	           	<p:inputText id="bFactorPotencia" value="#{detfactor.fPotencia}" 
+	                			style="width:120px;"
+	                			maxlength="12" readonly="true"/>	
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="consultaFactor" global="true" update="consForm"/>	
+				<p:commandButton value="#{msg.btn_regresar}" immediate="true" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" immediate="true" action="limpia"  />
+					
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+			
+			<h:panelGrid columns="2"
+				cellpadding="5" border="0">
+				
+							
+			<h:commandLink rendered="#{detfactor.descarga}">
+				<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 33px; height : 33px;"/>
+                <p:dataExporter type="xls" target="dataTableConsumos" fileName="FactorPotencia" />
+            </h:commandLink>	
+			</h:panelGrid>
+
+			<p:dataTable id="dataTableConsumos" paginator="true" rows="10"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{detfactor.consumos.size()}"
+				rowsPerPageTemplate="10,20" var="c"
+				value="#{detfactor.consumos}">
+
+				<f:facet name="header">
+				</f:facet>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_rpu}" />
+					</f:facet>
+					<h:outputText value="#{c.id.consumoRpu}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_nombre}" />
+					</f:facet>
+					<h:outputText value="#{c.cfeOpSitio.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_poblacion}" />
+					</f:facet>
+					<h:outputText value="#{c.cfeOpSitio.cfeCatEstado.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_demanda}" />
+					</f:facet>
+					<h:outputText value="#{c.demanda}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_tarifa}" />
+					</f:facet>
+					<h:outputText value="#{c.cfeOpSitio.tarifa.clave}" />
+				</p:column>
+			
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Desde" />
+					</f:facet>
+					<h:outputText value="#{c.id.consumoFechaInicio}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Hasta" />
+					</f:facet>
+					<h:outputText value="#{c.id.consumoFechaFin}" />
+				</p:column>
+				
+					<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_kwh}"  />
+					</f:facet>
+					<h:outputText value="#{c.kwh}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="consumoTotal" value="#{detconsumo.kwhTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Demanda" />
+					</f:facet>
+					<h:outputText value="#{c.demanda}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Reactivos" />
+					</f:facet>
+					<h:outputText value="#{c.reactivos}" />
+				</p:column>
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="Factor de potencia"  />
+					</f:facet>
+					<h:outputText value="#{c.fp}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+				</p:column>
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_energia}"  />
+					</f:facet>
+					<h:outputText value="#{c.energia}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="energiaTotal" value="#{detfactor.energiaTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_iva}"  />
+					</f:facet>
+					<h:outputText value="#{c.iva}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="ivaTotal" value="#{detfactor.ivaTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_dap}"  />
+					</f:facet>
+					<h:outputText value="#{c.dap}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="dapTotal" value="#{detfactor.dapTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_otros}"  />
+					</f:facet>
+					<h:outputText value="#{c.otros}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="otrosTotal" value="#{detfactor.otrosTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.detconsumo_total}"  />
+					</f:facet>
+					<h:outputText value="#{c.total}">
+					<f:convertNumber pattern="##,##0.00" />
+					</h:outputText>
+					<f:facet name="footer">
+            			<h:outputText id="totalTotal" value="#{detfactor.totalTotal}">
+            			<f:convertNumber pattern="##,##0.00" />
+            			</h:outputText>
+        			</f:facet>
+				</p:column>
+				
+				
+			</p:dataTable>
+			 
+			</h:form>
+
+		
+	</ui:define>
+</ui:composition>
+</html>

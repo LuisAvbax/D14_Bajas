@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bajasClase" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67f80526-2675-4e12-8992-2e7e6e156bd9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="16"/>
+	<parameter name="titulo1" class="java.lang.String"/>
+	<parameter name="rutImagen" class="java.lang.String"/>
+	<parameter name="titulo2" class="java.lang.String"/>
+	<parameter name="ajuste" class="java.lang.String"/>
+	<parameter name="texto" class="java.lang.String"/>
+	<parameter name="region" class="java.lang.String"/>
+	<parameter name="clase" class="java.lang.String"/>
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="tipoCalc" class="java.lang.String"/>
+	<parameter name="totalEn" class="java.math.BigDecimal"/>
+	<parameter name="totalDic" class="java.math.BigDecimal"/>
+	<parameter name="totalFeb" class="java.math.BigDecimal"/>
+	<parameter name="totalMa" class="java.math.BigDecimal"/>
+	<parameter name="totalAb" class="java.math.BigDecimal"/>
+	<parameter name="totalMay" class="java.math.BigDecimal"/>
+	<parameter name="totalJun" class="java.math.BigDecimal"/>
+	<parameter name="totalJul" class="java.math.BigDecimal"/>
+	<parameter name="totalAg" class="java.math.BigDecimal"/>
+	<parameter name="totalSep" class="java.math.BigDecimal"/>
+	<parameter name="totalOct" class="java.math.BigDecimal"/>
+	<parameter name="totalNov" class="java.math.BigDecimal"/>
+	<parameter name="totalTot" class="java.math.BigDecimal"/>
+	<parameter name="AjustesParam" class="java.util.List"/>
+	<parameter name="basicParam" class="java.util.List"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\DSAF_FINANZAS\\Bajas\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="leyendaAjuste" class="java.lang.String"/>
+	<parameter name="ajustSoli" class="java.lang.String"/>
+	<parameter name="anio2" class="java.lang.String"/>
+	<group name="basic">
+		<groupExpression><![CDATA[$P{basicParam}]]></groupExpression>
+		<groupHeader>
+			<band height="76">
+				<subreport>
+					<reportElement x="0" y="0" width="752" height="76" uuid="cca559ed-f0fe-4d76-8e53-3e521515d693"/>
+					<subreportParameter name="anio2">
+						<subreportParameterExpression><![CDATA[$P{anio2}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="AjustesParam">
+						<subreportParameterExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{basicParam})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subBajasClase.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="96">
+				<printWhenExpression><![CDATA[$P{ajustSoli}.equals( "TA" )]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="20" width="752" height="76" uuid="6d912b9c-b1f5-4405-b94b-7075b3208fc7"/>
+					<subreportParameter name="anio2">
+						<subreportParameterExpression><![CDATA[$P{anio2}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="AjustesParam">
+						<subreportParameterExpression><![CDATA[$P{JASPER_REPORTS_CONTEXT}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{AjustesParam})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subBajasAjustClase.jasper"]]></subreportExpression>
+				</subreport>
+				<textField>
+					<reportElement x="0" y="0" width="291" height="20" uuid="6e08fa9e-8f78-4d03-9e73-353aa840276e"/>
+					<textElement>
+						<font fontName="SansSerif" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{leyendaAjuste}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="34" width="396" height="20" uuid="ce1867f5-317a-431b-b326-d93141256152"/>
+					<textElement>
+						<font fontName="SansSerif" size="8" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{AjustesParam}.isEmpty()?"NO HAY AJUSTES PARA MOSTRAR":""]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="69" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="121" height="37" uuid="b725347d-5ac8-46a9-a8c5-643a3a53e83d"/>
+				<imageExpression><![CDATA[$P{rutImagen}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="56" width="200" height="12" uuid="6d4f918a-09ba-4ec2-8c4c-bc25ea1e62cd"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{region}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="33" width="200" height="12" uuid="81017dd8-c090-4000-9404-818823cea7bb"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="11" width="200" height="12" uuid="fb7735fb-68d5-4aaa-8569-d89e48e63afe"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="267" y="45" width="200" height="12" uuid="af1cb46f-420c-48dc-9078-90c0525ed882"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="56" width="200" height="12" uuid="8e4f4d30-372d-4a93-96e2-a321a7e36cda"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ajuste}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="44" width="200" height="12" uuid="413d33af-e526-4ded-8378-87a80fec721a"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="552" y="44" width="200" height="12" uuid="5f208181-ad03-445f-bbc3-fe984b50a2f3"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipoCalc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="21" width="200" height="12" uuid="2d94296d-d1ed-41bd-a05e-afdbac40ef88"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="552" y="56" width="200" height="12" uuid="fb124894-0ea2-4af0-998c-09bc45abe0fe"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{texto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21">
+			<textField evaluationTime="Report">
+				<reportElement x="712" y="0" width="40" height="20" uuid="1ef1ada3-b93f-47af-80de-359ce6e7d944"/>
+				<textElement>
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="632" y="0" width="80" height="20" uuid="4da90f9a-9c93-4949-bbf8-250c0beaab33"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="77" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{ajustSoli}.equals( "TA" )]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="752" height="76" uuid="d873b8e5-5d6c-4a9e-b1cf-b2f654a5e989"/>
+				<subreportParameter name="totalEn">
+					<subreportParameterExpression><![CDATA[$P{totalEn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalOct">
+					<subreportParameterExpression><![CDATA[$P{totalOct}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalMay">
+					<subreportParameterExpression><![CDATA[$P{totalMay}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalTot">
+					<subreportParameterExpression><![CDATA[$P{totalTot}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalDic">
+					<subreportParameterExpression><![CDATA[$P{totalDic}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalFeb">
+					<subreportParameterExpression><![CDATA[$P{totalFeb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalAb">
+					<subreportParameterExpression><![CDATA[$P{totalAb}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalSep">
+					<subreportParameterExpression><![CDATA[$P{totalSep}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalNov">
+					<subreportParameterExpression><![CDATA[$P{totalNov}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalJul">
+					<subreportParameterExpression><![CDATA[$P{totalJul}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalMa">
+					<subreportParameterExpression><![CDATA[$P{totalMa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalJun">
+					<subreportParameterExpression><![CDATA[$P{totalJun}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totalAg">
+					<subreportParameterExpression><![CDATA[$P{totalAg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bajasClasTotal.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1804 @@
+@CHARSET "ISO-8859-1";
+.contenedor{
+	margin: 0px auto;
+	width: 1280px; 	/* Anchura maxima del contenedor es decir (Menu + Content) */
+}
+.header {
+	background: url(core/static/images/sitioOficial/bg_header.png) repeat-x;
+	border-radius: 5px;
+	border-radius: 5px;
+	*border-radius: 5px;
+	_border-radius: 5px;
+	widht: 100%;
+	margin: auto;
+	height: 80px;
+}
+.logo {
+	float: left;
+	margin: 0px 10px 0px 10px;
+}
+.alinearDerechaTexto {
+	text-align: right;
+	
+}
+
+
+.logotelcel{
+transform: translate(-10%, -100%);
+}
+.subHeader{
+	border: 1px solid #1256AD;
+	background: #1256AD url(/css/img/ui-bg_highlight-hard_75_1256AD_1x100.png) 50% 50% repeat-x;
+	font-weight: normal;
+	color: #ffffff;
+	border-radius: 5px;
+
+}
+.texto{
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 12px;
+	color: #ffffff;
+
+}
+.textoBlod{
+	font-weight: bold;
+}
+.middle{
+	vertical-align: middle;
+}
+.iconoSalir{
+	height:20px; 
+	width:20px; 
+	vertical-align: middle;
+}
+.contenedor{
+	margin: 0px auto;
+	width: 1280px; 	/* Anchura maxima del contenedor es decir (Menu + Content) */
+}
+.content {
+	width: 1004px;
+	text-align: center;
+}
+.center {
+	text-align: center;
+}
+.indexImg{
+	height:400px; 
+	width:700px;
+}
+.footer {
+	clear: both;
+	color: #0a3e7f;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	height: 33px;
+	margin: 30px 0 0 0;
+}
+.top {
+	vertical-align: top;
+}
+
+.middle{
+	vertical-align: middle;
+}
+
+.left_menu {
+	width: 195px;
+}
+.menuItmClass{
+font-size: 14px;
+
+}
+.ui-menuitem-text{
+font-weight: bold;
+}
+.menuItmClass{
+font-size: 12px;
+}
+
+.ui-panelmenu-header{
+	border: 0px solid #1256AD ;
+	background: #1256AD 50% 50% repeat-x!important;
+	font-weight: normal;
+	font-size: 16px;
+}
+
+.ui-panelmenu-header :HOVER {
+	color: #ffffff !important;
+}
+
+.ui-panelmenu-header :FIRST-CHILD {
+	color: #ffffff !important;
+}
+
+.ui-panelmenu-header :FIRST-LETTER {
+	color: #ffffff !important;
+}
+
+.ui-panelmenu-header :FIRST-LINE {
+	color: #ffffff !important;
+}
+
+.ui-panelmenu-content{
+	border: 1px solid #1256AD;
+	
+}
+.ui-panelmenu-header a {
+    color: #cccccc !important;
+}
+.tituloPantalla{
+	width: 100%; 
+	color: #4F4F4F; 
+	font-size: 20px; 
+	font-weight: bold; 
+	font-family: Arial, Verdana, sans-serif; 
+	border-bottom: 3px solid #1256AD; 
+	margin: 0px 0px 20px 0px; 
+	padding: 0px 0px 4px 0px;	
+}
+.subTituloPantalla{
+	width: 100%; 
+	color: #4F4F4F; 
+	font-size: 15px; 
+	font-weight: bold; 
+	font-family: Arial, Verdana, sans-serif; 
+	margin: 0px 0px 20px 0px; 
+	padding: 0px 0px 4px 0px;	
+}
+.ui-datatable th div.ui-dt-c{
+background-color: #1256AD;
+color: white;
+
+}
+
+.space{
+height: 33px;
+}
+
+.hspace{
+width: 15px;
+}
+
+.ui-widget{
+font-family: Arial,sans-serif !important;
+font-size: 12px !important;
+}
+
+.factdetlblcolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: bold !important;
+}
+.factdetdatacolumn{
+text-align: left !important;
+width: 130px !important;
+}
+
+.perfilDlglblcolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: bold !important;
+}
+.perfilDlgdatacolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: normal !important;
+}
+.usrperfilDlgdatacolumn{
+text-align: left !important;
+width: 300px !important;
+font-weight: normal !important;
+}
+
+.userDlglblcolumn{
+text-align: left !important;
+width: 100px !important;
+font-weight: bold !important;
+}
+.userDlgdatacolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: normal !important;
+}
+
+.userDlgdatacolumnDir{
+text-align: left !important;
+width: 580px !important;
+font-weight: normal !important;
+}
+.userDlgerrorcolumn{
+text-align: left !important;
+width: 100px !important;
+font-weight: bold !important;
+}
+
+
+.addDlglblcolumn{
+text-align: left !important;
+width: 100px !important;
+font-weight: bold !important;
+}
+.addDlgdatacolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: normal !important;
+}
+
+
+.modcontlblcolumn{
+text-align: left !important;
+width: 140px !important;
+font-weight: bold !important;
+}
+
+.polcolumn1{
+width: 95px !important;
+}
+
+.polcolumn2{
+width: 170px !important;
+}
+
+.polcolumn3{
+width: 170px !important;
+}
+
+.panelFiltroC tbody {
+height: 25px !important;
+}
+.modcontdatacolumn{
+text-align: left !important;
+width: 180px !important;
+}
+
+.modcontprovlblcolumn{
+text-align: left !important;
+width: 140px !important;
+font-weight: bold !important;
+}
+.modcontprovdatacolumn{
+text-align: left !important;
+width: 493px !important;
+}
+
+.warnimgcolumn{
+width: 60px !important;
+}
+.warnmsgcolumn{
+text-align: left !important;
+width: 120 !important;
+}
+
+.ui-dialog-title{
+font-size: 16px !important;
+}
+
+.float-left{
+  float:left;
+}
+.factreglblcolumn{
+ padding: 0px 5px 0px 5px;
+}
+.factregdatacolumn{
+ padding: 0px 5px 0px 5px;
+}
+
+.factlooklblcolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: bold !important;
+}
+.factlookdatacolumn{
+text-align: left !important;
+width: 190px !important;
+}
+.factlookerrorcolumn{
+text-align: left !important;
+width: 150px !important;
+}
+
+.factdetsuplblcolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: bold !important;
+}
+.factdetsupcolumn{
+text-align: left !important;
+width: 482px !important;
+}
+.factdetsupplblcolumn{
+text-align: left !important;
+width: 150px !important;
+font-weight: bold !important;
+}
+.factdetsuppcolumn{
+text-align: left !important;
+width: 160px !important;
+}
+
+.regContraDesgarga{
+text-align: center !important;
+width: 300px !important;
+}
+
+.modfactprovlblcolumn{
+text-align: left !important;
+width: 140px !important;
+font-weight: bold !important;
+}
+.modfactprovdatacolumn{
+text-align: left !important;
+width: 510px !important;
+}
+.rowHeight{
+height: 100px;
+}
+
+.impFactGridOne{
+text-align: left !important;
+width: 111px !important;
+font-weight: bold !important;
+}
+.impFactGridTwo{
+width: 172px
+}
+.impFactGridThree{
+text-align: left !important;
+width: 140px !important;
+font-weight: bold !important;
+}
+.mensajeConfirma{
+	width: 500px !important;
+	font-size: 14px !important;
+}
+
+/* .myTable.ui-datatable table { */
+/*    width: auto; */
+/* } */
+
+/* .ui-datatable-scrollable-header-box { */
+/*     padding-right: 16px !important; originally this is 40px */
+/*  } */
+ 
+/* .ui-datatable-scrollable-body { */
+/*     overflow-x: scroll !important; */
+/* } */
+
+/* estilo para el encabezado de reporte total global*/
+.customTableH{
+/* background-color: #1256AD; */
+background: url(../css/img/nav_top_background.gif);
+color: white;
+/* text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); */
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+/* background-color: #ecebeb; */
+width: 12%;
+}
+
+.customTableHTxt{
+/* background-color: #1256AD; */
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+width: 26%;
+}
+
+.customTableHCombR{
+background: url(../css/img/nav_top_background.gif);
+background-color: #4488e3;
+color: white;
+border-radius: 5px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+.customTableHComb{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+/* estilo para detalle (columna texto) de tablas reporte 2*/
+.customTableDTxt{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 26%;
+}
+
+.customTableDTxtCent{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: center; 
+vertical-align: middle;
+background-color: #fafafa;
+width: 26%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* estilo para detalle de tablas reporte 2*/
+.customTableDet{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+
+.customTableDetTTxtR{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%;
+}
+
+.customTableDetTTxt{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%;
+}
+
+/* estilo para filas de totales reporte 2*/
+.customTableDetT{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDetTR{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+/* background-color: #4488e3; */
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+
+
+/* estilo para el encabezado de reporte institucional*/
+.customTableHInst{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+width: 10%;
+}
+
+.customTableHTxtInst{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 20%;
+}
+
+.customTableHTxtInstAJ{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 30%;
+}
+
+.customTableHCombInst{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+/* estilo para detalle (columna texto) de tablas reporte 2*/
+.customTableDTxtInst{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 20%;
+}
+
+.customTableDTxtInstAJ{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 30%;
+}
+
+.customTableDTxtCentInst{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+}
+
+/* estilo para detalle de tablas reporte 2*/
+.customTableDetInst{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 10%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+
+.customTableDetTTxtInst{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 20%;
+}
+
+
+.customTableDetTTxtInstAJ{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 30%;
+}
+
+.customTableDetTTxtInstAJ{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 30%;
+}
+
+/* estilo para filas de totales reporte 2*/
+.customTableDetTInst{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 10%; 
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* ESTILOS PARA CLOQUE DE REPORTES 1 */
+/* header */
+.customTblRep1HTxt{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12% !important;
+}
+/* header */
+.customTblRep1Reg{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 12% !important;
+}
+.customTblRep1HDta{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 6.5% !important;
+}
+.customTblRep1HTot{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+/* footer txt */
+.customTblRep1DtlTxt{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12% !important;
+}
+/* footer detail */
+.customTblRep1DtlFoot{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 6.5% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+/* footer total */
+.customTblRep1TotFoot{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+.customTblRep1Dtl{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: right; 
+vertical-align: middle;
+background-color: #fafafa;
+width: 6.5% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+.customTblRep1Tot{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: right; 
+vertical-align: middle;
+background-color: #fafafa;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* CLASE REPORTES 1 */
+.customTblRep1HClaTxt{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12% !important;
+
+}
+/* header */
+.customTblRep1Cla{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 12% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+}
+.customTblRep1HClaTot{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 10% !important;
+}
+/* footer txt */
+.customTblRep1DtlClaTxt{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12% !important;
+}
+/* footer total */
+.customTblRep1TotClaFoot{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 10% !important;
+}
+.customTblRep1ClaTot{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: right; 
+vertical-align: middle;
+background-color: #fafafa;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* TEXTO FISCAL REPORTES 1 */
+.customTblRep1HTfTxt{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12% !important;
+
+}
+/* header */
+.customTblRep1Tf{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 12% !important;
+}
+.customTblRep1HTfTot{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 10% !important;
+}
+/* footer txt */
+.customTblRep1DtlTfTxt{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12% !important;
+}
+/* footer total */
+.customTblRep1TotTfFoot{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+.customTblRep1TfTot{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: right; 
+vertical-align: middle;
+background-color: #fafafa;
+width: 10% !important;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* Reporte 3 institucional ajustes */
+.customTableHTxtIA{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 100px;
+}
+
+.customTableHIA{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 120px;
+}
+
+.customTableHIADet{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 40px;
+}
+
+.customTableHCombIA{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+.customTableDTxtIA{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 100px;
+}
+
+.customTableDetIA{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 40px;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDetTTxtIA{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 100px;
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+}
+
+.customTableDetTInstIA{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 40px; 
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/*ESTILOS PARA REPORTES POR CONCEPTO APLICA PARA CLASE Y REGION*/
+.customTableConp{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+/* text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); */
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12%;
+
+}
+.customTableConpAjust{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 24%;
+}
+
+.customTableHCombConp{
+background: url(../css/img/nav_top_background.gif);
+background-color: #4488e3;
+color: white;
+border-radius: 5px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12%;
+}
+
+
+
+.customTableDTxtConp{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 26%;
+}
+
+.customTableDTxtConpMonth{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%;
+}
+
+
+
+.customTableDTxtConpAjust{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 24%;
+}
+
+/* TUTULO DEL SUB TOTAL DE TABLA  */
+.customTableDetTTxConp{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%;
+}
+
+
+
+.customTableDetConp{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDetConpTot{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDTxtConp1{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 36%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+
+
+/*ESTILOS PARA REPORTES DE DETALADO*/
+.customTableHDT{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12%
+}
+
+.customTableHDTDenom{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 25%;
+}
+
+.customTableHTxtDT{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 26%
+}
+
+.customTableHCombDT{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+
+
+.customTableDTxtDT1{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 87%;
+}
+
+.customTableDTxtDT1Txt{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 87%;
+}
+.customTableDTxtCentDT{
+color: black;
+font-size: 11px;
+font-weight: normal;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/* estilo para detalle de tablas reporte 2*/
+.customTableDetDT{
+color: black;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: normal;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 12%
+}
+
+.customTableDetTTxtDTDate{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 26%
+}
+ 
+.customTableDetTTxtDT{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%
+}
+
+.customTableDetTTxtDTRes{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%
+}
+
+.customTableDetTTxtDTResT{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%
+}
+
+.customTableDetTTxtDTMonth{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%
+}
+
+.customTableDetTxtDT{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: left; 
+vertical-align: middle;
+background-color: #fbfbfb;
+}
+
+.customTableDetTxtDTDenom{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: left; 
+vertical-align: middle;
+background-color: #fbfbfb;
+widht: 25%;
+overflow-wrap: break-word;
+word-wrap: break-word;
+-webkit-hyphens: auto;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+hyphens: auto;
+}
+
+/* estilo para filas de totales reporte 2*/
+.customTableDetTDT{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 12%
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDetTDTRD{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 87%
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+/*ESTILOS PARA REPORTES DE CONCENTRADO*/
+.customTableHCN{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12%;
+}
+
+.customTableHCombCN{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+/* color: black; */
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+}
+
+
+.customTableDTxtCNDate{
+color: black;
+background-color: #ecebeb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+width: 20%;
+}
+
+.customTableDTxtCN{
+color: black;
+background-color: #fbfbfb;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: normal;
+text-align: left; 
+vertical-align: middle;
+width: 32%;
+}
+
+.customTableDTxtCNMonth{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%;	
+}
+
+.customTableDetTTxtCN{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 26%;
+}
+
+.customTableDetTCN{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: right; 
+vertical-align: middle;
+background: url(../css/img/nav_top_background.gif);
+font-family: Arial,sans-serif !important;
+white-space: nowrap;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDetCN{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 12%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDTxtCN1{
+color: black;
+font-size: 11px;
+font-weight: bold;
+text-align: left; 
+vertical-align: middle;
+background-color: #ecebeb;
+width: 36%;
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}
+
+.customTableDTxtCN2{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 36%;
+}
+
+
+.encabColumna1{
+font-size: 11px !important;
+width:33% !important;
+text-align: left !important;
+}
+.encabColumn2{
+font-size: 11px !important;
+width: 33% !important;
+text-align: center !important;
+}
+.encabColumna3{
+font-size: 11px !important;
+width: 33% !important;
+text-align: right !important;
+}
+
+/*ESTILOS PARA REPORTES DE DETALADO AJUSTES*/
+.customTableAjHDT{
+background: url(../css/img/nav_top_background.gif);
+color: white;
+border-radius: 5px;
+white-space: nowrap;
+padding: 0px;
+margin: 0px;
+font-family: Arial,sans-serif !important;
+font-size: 11px;
+font-weight: bold;
+text-align: center; 
+vertical-align: middle;
+width: 12%
+}
+
+.customTableDetTTxtAjDT{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%
+}
+
+.customTableDetTTxtAjDTDenom{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: center; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 26%
+overflow-wrap: break-word;
+word-wrap: break-word;
+-webkit-hyphens: auto;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+hyphens: auto;
+}
+
+
+.customTableDetAjDT{
+color: black;
+font-size: 11px;
+font-weight: normal;
+font-family: Arial,sans-serif !important;
+text-align: right; 
+vertical-align: middle;
+background-color: #fbfbfb;
+width: 12%
+word-break: break-word;
+white-space: pre-line;
+overflow-wrap: break-word;
+-ms-word-break: break-word;
+-ms-hyphens: auto;
+-moz-hyphens: auto;
+-webkit-hyphens: auto;
+hyphens: auto;
+word-break: break-all;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="bajaSitio">
+
+<view-state id="bajaSitio" view="../views/bajaSitio.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="sitioAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="preSiteReg">
+		<evaluate expression="sitioAction.registraBajas(flowRequestContext)" />
+	</transition>
+	
+	<transition on="regresa" to="inicio" />
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+</flow>

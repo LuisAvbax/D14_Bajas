@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.cat_proyectos_titulo}</div>
+		</h:panelGrid>
+		<h:messages globalOnly="true" showSummary="false" />
+		<h:form id="prtForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+
+
+				<h:outputText for="clavePrt" value="#{msg.cat_prt_clave}:" />
+				<p:inputText id="clavePrt" value="#{prt.clave}" 
+				      style="width:120px;"
+					     maxlength="12" onkeyup="this.value=this.value.toUpperCase();" />
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="clavePrtMsg" for="clavePrt" />
+
+
+				<h:outputText for="descripcionPrt"
+					value="#{msg.cat_prt_descripcion}:" />
+				<p:inputText id="descripcionPrt" value="#{prt.descripcion}"
+					   style="width:120px;" maxlength="12"
+					      onkeyup="this.value=this.value.toUpperCase();" />
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="descripcionPrtMsg" for="descripcionPrt" />
+
+			</h:panelGrid>
+
+			<p:spacer height="10px" />
+
+			<h:panelGrid columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="queryProyecto" global="true" update="dataTablePrt" />
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa" />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia" />
+			</h:panelGrid>
+			<p:spacer height="30px" />
+
+			<h:panelGrid id="griddescarga" columns="2" cellpadding="5" border="0">
+				<h:commandLink id="linkdescarga" action="descargaPrt" rendered="#{prt.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png"
+						style="width : 43px; height : 43px;" />
+				</h:commandLink>
+			</h:panelGrid>
+
+			<h:panelGrid id="gridAddUsr" columns="2" cellpadding="5" border="0"
+				style="margin: 0 300px;">
+				<p:commandLink id="linkAddUsr" action="#{proyectosAction.addPrtPopUp(flowRequestContext)}" oncomplete="consultaPrtDlg.show()" update=":consultaPrtD">
+					<h:graphicImage value="/css/iconos/add.png"
+						style="width : 27px; height : 27px;" />
+				</p:commandLink>
+			</h:panelGrid>
+
+			<p:dataTable id="dataTablePrt" paginator="true" rows="10"
+				style="width:25px;margin: 0 300px;"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{prt.prt.size()}"
+				rowsPerPageTemplate="10,20" var="i"
+				value="#{prt.prt}">
+
+				<f:facet name="header">
+				</f:facet>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_indice }" />
+					</f:facet>
+					<h:outputText value="#{rowNum+1}" />
+				</p:column>
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_prt_clave}" />
+					</f:facet>
+					<h:outputText value="#{i.clave}" />
+				</p:column>
+
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_prt_descripcion}" />
+					</f:facet>
+					<h:outputText value="#{i.descripcion}" />
+				</p:column>
+
+
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_prt_fecha_creacion}" />
+					</f:facet>
+					<h:outputText value="#{i.fechaCreacion}">
+						<f:convertDateTime locale="es_MX" pattern="dd-MMMM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.cat_prt_acciones}" />
+					</f:facet>
+
+
+					<p:commandLink oncomplete="editaPrtDlg.show();" update=":editaPrtD">
+						<p:graphicImage value="/css/iconos/edit.png" width="20"
+							height="20" />
+						<f:setPropertyActionListener value="#{i}"
+							target="#{flowScope.prt.proyectos}" />
+					</p:commandLink>
+
+
+					<p:commandLink oncomplete="delprtDlg.show();" update=":delprtD">
+						<p:graphicImage value="/css/iconos/delete.png" width="20"
+							height="20" />
+						<f:setPropertyActionListener value="#{i}"
+							target="#{flowScope.prt.proyectos}" />
+					</p:commandLink>
+
+
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+
+		<!-- DIALOGO AGREGAR CC -->
+
+		<p:dialog id="consultaPrtD" header="Alta proyectos" widgetVar="consultaPrtDlg" modal="true" resizable="false" appendToBody="true">
+			<p:outputPanel id="userInfoDetail" style="float: right;">
+				<h:form id="addproyectosF">
+					<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+						columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+
+						<h:outputLabel id="clave_lbl" for="claveVal" value="#{msg.cat_prt_clave}:" />
+						<p:inputText id="claveVal" value="#{prt.proyectos.clave}"
+							style="width:130px;font-weight: bold;" required="true"
+							 requiredMessage="#{msg.admsitio_campoobl}"
+							onkeyup="this.value=this.value.toUpperCase();" />
+						<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="claveValMsg" for="claveVal"/> 
+
+						<h:outputLabel id="descripcion_lbl" for="descripcionVal" value="#{msg.cat_prt_descripcion}:" />
+						<p:inputText id="descripcionVal" value="#{prt.proyectos.descripcion}"
+							style="width:130px;font-weight: bold;" required="true"
+							 requiredMessage="#{msg.admsitio_campoobl}"
+							onkeyup="this.value=this.value.toUpperCase();" />
+						<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+							id="descripcionValMsg" for="descripcionVal" />
+						<p:column></p:column>
+
+					</h:panelGrid>
+					<p:spacer height="10px" />
+
+					<h:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton id="savePrtBtn" value="#{msg.admsitio_guardar}" action="savePrt" global="true" oncomplete="if (!args.validationFailed){consultaPrtDlg.hide();}" update="addproyectosF :prtForm" />
+						<p:commandButton value="Salir" onclick="consultaPrtDlg.hide();" type="button" />
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+
+
+		<!-- DIALOGO Editar pro -->
+		<p:dialog id="editaPrtD" header="Edita Sitio" widgetVar="editaPrtDlg"
+			modal="true" resizable="false">
+			<p:outputPanel id="usrInfoDetail" style="float: right;">
+				<h:form id="updateproyectosF">
+					<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+						columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+
+						<h:outputLabel id="clave_lbl" for="claveVal"
+							value="#{msg.cat_prt_clave}:" />
+						<p:inputText id="claveVal" value="#{prt.proyectos.clave}"
+							style="width:130px;font-weight: bold;" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"
+							onkeyup="this.value=this.value.toUpperCase();" />
+						<h:message
+							style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+							id="claveMsg" for="claveVal" />
+
+
+						<h:outputLabel id="descripcion_lbl" for="descripcionVal"
+							value="#{msg.cat_prt_descripcion}:" />
+						<p:inputText id="descripcionVal"
+							value="#{prt.proyectos.descripcion}"
+							style="width:130px;font-weight: bold;" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"
+							onkeyup="this.value=this.value.toUpperCase();" />
+						<h:message
+							style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+							id="descripcionMsg" for="descripcionVal" />
+						<p:column></p:column>
+
+					</h:panelGrid>
+					<p:spacer height="10px" />
+
+					<h:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton id="savePrtBtn" value="#{msg.admsitio_guardar}" action="updPrt" global="true" oncomplete="if (!args.validationFailed){editaPrtDlg.hide();}" update="updateproyectosF :prtForm" />
+						<p:commandButton value="Salir" onclick="editaPrtDlg.hide();" type="button" />
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+
+
+		<!-- DIALOGO ELIMINAR -->
+		<p:dialog id="delprtD" header="Elimina proyectos" widgetVar="delprtDlg" modal="true" resizable="false">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;" columnClasses="mensajeConfirma">
+					<h:outputText value="#{msg.confirma_delprocat} #{prt.proyectos.clave}" />
+				</h:panelGrid>
+				<p:spacer height="10px" />
+				<h:panelGrid columns="2" border="0" style="margin: 0 auto;">
+					<p:commandButton id="delPrtBtn" value="#{msg.btn_aceptar}" action="eliminaPrt" global="true" ajax="true" oncomplete="delprtDlg.hide()" update=":prtForm" />
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="delprtDlg.hide();" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

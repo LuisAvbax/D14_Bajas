@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+<title>login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/css/estilo.css"
+		type="text/css" />
+		
+<script>
+        PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+                dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D','L','M','M','J','V','S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText : 'Todo el día'
+        };
+        
+        
+        function validaNumeros(e){
+            tecla = (document.all) ? e.keyCode : e.which;
+
+            //Tecla de retroceso para borrar, siempre la permite
+            if (tecla==8){
+                return true;
+            }
+                
+            // Patron de entrada, en este caso solo acepta numeros
+            patron =/[0-9]/;
+            tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+        </script>
+</h:head>
+<h:body>
+	<h:panelGrid id="header" class="contenedor" cellspacing="0"
+		cellpadding="0">
+		<ui:include src="header.xhtml"></ui:include>
+	</h:panelGrid>
+	
+	<p:spacer height="25px"/>
+	<h:panelGrid id="main" class="contenedor" columns="3" cellspacing="0"
+		cellpadding="0" columnClasses="top left_menu,top,top" width="100%">
+		<h:panelGrid id="menu" width="230px;">
+  			<h:form>
+		<p:panelMenu>
+		
+		<p:submenu label="#{msg.menu_cien_depre}" styleClass="menuClass" >
+	            <p:menuitem value="#{msg.menu_cien_carga_arch}" styleClass="menuItmClass" action="viewCargaCien" />
+	           	<p:menuitem value="#{msg.menu_cfe_bitacora}" styleClass="menuItmClass" action="viewBitacora" rendered="true" />
+	           	<p:menuitem value="#{msg.menu_cien_reporte_arch}" styleClass="menuItmClass" action="viewReporte100" rendered="true" />
+	           	<p:menuitem value="#{msg.menu_cien_carga_av}" styleClass="menuItemClass" action="viewCargaCienNew" rendered="true"></p:menuitem>
+	           	<p:menuitem value="#{msg.menu_cien_reporte_av}" styleClass="menuItemClass" action="viewRepoCienNew" rendered="true"></p:menuitem>
+        	</p:submenu>
+        	
+        	<p:submenu label="#{msg.menu_bajas_rep1}" styleClass="menuClass" >
+	            <p:menuitem value="#{msg.menu_bajas_adqregr}" styleClass="menuItmClass" action="adqreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_adqregc}" styleClass="menuItmClass" action="adqcla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_adqregt}" styleClass="menuItmClass" action="adqtxt" rendered="true" />
+	            <p:menuitem value="#{msg.menu_depre_anioregr}" styleClass="menuItmClass" action="dprreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_depre_anioregc}" styleClass="menuItmClass" action="dprcla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_depre_anioregt}" styleClass="menuItmClass" action="dprtxt" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_costoreg}" styleClass="menuItmClass" action="costreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_costoclas}" styleClass="menuItmClass" action="costcla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_costotext}" styleClass="menuItmClass" action="costtxt" rendered="true" />
+        	</p:submenu>
+
+        	<p:submenu label="#{msg.menu_bajas_rep2}" styleClass="menuClass" >
+	            <p:menuitem value="#{msg.menu_bajas_totreg}" styleClass="menuItmClass" action="totreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_totclas}" styleClass="menuItmClass" action="totcla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_restreg}" styleClass="menuItmClass" action="resconcreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_resclas}" styleClass="menuItmClass" action="resconccla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_instreg}" styleClass="menuItmClass" action="instreg" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_instclas}" styleClass="menuItmClass" action="instcla" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_repConcentrado}" styleClass="menuItmClass" action="repconcen" rendered="true" />
+        		<p:menuitem value="#{msg.menu_bajas_repDetallado}" styleClass="menuItmClass" action="repdetall" rendered="true" />
+        		<p:menuitem value="#{msg.menu_bajas_repDetalladoBatch}" styleClass="menuItmClass" action="repdetallBa" rendered="true" />
+        	</p:submenu>
+        	
+        	<p:submenu label="#{msg.menu_bajas_rep3}" styleClass="menuClass" >
+	            <p:menuitem value="#{msg.menu_bajas_repDetalladoAjuste}" styleClass="menuItmClass" action="repdetallAj" rendered="true" />
+	            	            <p:menuitem value="#{msg.menu_bajas_instajustes}" styleClass="menuItmClass" action="instaj" rendered="true" />
+	            <p:menuitem value="#{msg.menu_bajas_resAjuste}" styleClass="menuItmClass" action="resumenAjuste" rendered="true" />
+        	</p:submenu>
+        	
+        	<p:submenu label="#{msg.menu_admon}" styleClass="menuClass" >
+	            <p:menuitem value="#{msg.menu_admon_cargaArch}" styleClass="menuItmClass" action="cargaArchivo" rendered="true" />
+	            <p:menuitem value="#{msg.menu_admon_inpc}" styleClass="menuItmClass" action="inpcadm" rendered="true" />
+	         	<p:menuitem value="#{msg.menu_admon_param}" styleClass="menuItmClass" action="paramadm" rendered="true" />
+	         	<p:menuitem value="#{msg.menu_admon_clase}" styleClass="menuItmClass" action="claseadm" rendered="true" />
+	         	<p:menuitem value="#{msg.menu_admon_clase_carga}" styleClass="menuItmClass" action="cargaClase" rendered="true" />
+	         		<p:menuitem value="#{msg.menu_bitacora_clase}" styleClass="menuItmClass" action="bitacoraClase" rendered="true" />
+	         	<p:menuitem value="#{msg.menu_usuarios_administracion}" styleClass="menuItmClass" action="userAdm" rendered="true" />
+        	</p:submenu>
+        	
+         	<p:submenu label="#{msg.menu_bajas_respaldo}" styleClass="menuClass" rendered="true">
+	            <p:menuitem value="#{msg.menu_bajas_grespaldo}" styleClass="menuItmClass" action="generaRespado" rendered="true"/>
+	            <p:menuitem value="#{msg.menu_bajas_ldrespaldo}" styleClass="menuItmClass" action="cargaRespado" rendered="true"/>
+	            
+        	</p:submenu>
+        	
+		</p:panelMenu>
+	</h:form>
+		</h:panelGrid>
+		<h:panelGrid id="content" width="1050px;">
+			<h:panelGrid  style="margin: 0 0 0 10px;" width="99%" >
+			<p:ajaxStatus
+								onstart="dlgP.show()" oncomplete="dlgP.hide()" />
+				<ui:insert name="content"> Default content</ui:insert>
+				
+			</h:panelGrid>
+		</h:panelGrid>
+	</h:panelGrid>
+	
+	<p:spacer height="25px" />
+	<h:panelGrid id="footer" class="contenedor center" cellspacing="0" cellpadding="0">
+		<ui:include src="footer.xhtml"></ui:include>
+	</h:panelGrid>
+	
+	<!-- DIALOG BUSCAR PROVEEDOR -->       
+<p:dialog id="supplierDialogId" header="#{msg.contrarecibo_dlg_buscarProveedor}" widgetVar="supplierDialog" modal="true" resizable="false">
+	<p:outputPanel id="supplierDetail" style="float: right;">
+    	<h:form>
+	    	<h:panelGrid  columns="2" border="0" style="margin: 0 auto;" columnClasses="factdetlblcolumn,factdetdatacolumn">
+	                
+	        	<h:outputLabel id="razonSocial_lbl" for="razonSocial" value="#{msg.contrarecibo_dlg_razonSocial}:" />
+				<p:inputText id="razonSocial" value="#{contrarecibo.proveedor.nombre}" 
+				style="width:220px;font-weight: bold;text-transform: uppercase"
+				required="true" requiredMessage="Razón social es un campo obligatorio" />
+				<h:column/>
+				 <h:message	style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="razonReqMsg" for="razonSocial"/>
+			</h:panelGrid>
+	        
+	        <p:spacer height="15px"/>
+	        
+	        <h:panelGrid  columns="1" border="0" style="margin: 0 auto;">
+	            <p:commandButton value="#{msg.contrarecibo_dlg_btn_buscar}" action="buscaProv" update="dataDetSupplier razonReqMsg"/>
+	        </h:panelGrid>
+        
+        <p:spacer height="15px"/>
+
+        <p:dataTable id="dataDetSupplier" paginator="true" rows="5"
+			rowIndexVar="rowNum" paginatorPosition="bottom"
+			paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{totalRegistrosHojaT}"
+			rowsPerPageTemplate="5,10,50,100" var="prov"
+			value="#{contrarecibo.proveedores}">
+				
+			<f:facet name="header">
+	
+			</f:facet>
+				
+			<p:column style="text-align: center;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.contrarecibo_dlg_dt_codigoProveedor}" />
+				</f:facet>
+				<h:outputText value="#{prov.codigoProveedor}" />
+			</p:column>
+				
+			<p:column style="text-align: center;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.contrarecibo_dlg_dt_nombreProveedor}" />
+				</f:facet>
+				<h:outputText value="#{prov.nombre}" />
+			</p:column>
+			<p:column style="text-align: center;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.contrarecibo_dlg_dt_accion}" />
+				</f:facet>
+					<p:commandLink action="asignaProv" oncomplete="supplierDialog.hide();" update=":invoiceForm:proveedor,:supplierDialogId">
+						<p:graphicImage value="/css/iconos/tasks.png"
+						width="20" height="20" />
+							<f:setPropertyActionListener value="#{prov}" 
+							target="#{contrarecibo.proveedor}" />
+					</p:commandLink>
+			</p:column>
+            </p:dataTable>
+            
+            <p:spacer height="25px"/>
+   
+             <h:panelGrid  columns="1" style="margin: 0 auto;">
+				<p:commandButton value="#{msg.contrarecibo_dlg_btn_cerrar}" onclick="supplierDialog.hide();" type="button" />
+             </h:panelGrid>
+             </h:form>
+    </p:outputPanel>
+</p:dialog>        
+	<p:dialog id="procesando" header="" widgetVar="dlgP" modal="true" draggable="false"
+		resizable="false" closable="false">
+		<div id="botonesdlgP" style="width: 100%; text-align: center;">
+				<img src="#{facesContext.externalContext.requestContextPath}/css/img/energysphere.gif" 
+				height="150px" width="150px"/>	
+		</div>
+		<div id="botonesdlgP" style="width: 100%; text-align: center;">
+		<h:outputText value="Procesando..."></h:outputText>
+		</div>
+	</p:dialog>	
+</h:body>
+</html>

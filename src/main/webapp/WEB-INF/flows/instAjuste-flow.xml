@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="instAjState">
+
+<view-state id="instAjState" view="../views/instAjuste.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="instActAju.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="query" to="detInstAj" />
+
+	<transition on="limpia" to="prtIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="prtIni" view="flowRedirect:depreAnioReg-flow" />
+
+<view-state id="detInstAj" view="../views/instAjusteDet.xhtml" redirect="true"
+		popup="true">
+		
+		<transition on="descarga">
+		<evaluate expression="instActAju.descarga(flowRequestContext)" />
+		</transition>
+		
+		<transition on="dDesPDF">
+		<evaluate expression="instActAju.descargaPDF(flowRequestContext)" />
+		</transition>
+		
+		<transition on="dDesPDFCorp">
+		<evaluate expression="instActAju.descargaPDFCorpo(flowRequestContext)" />
+		</transition>
+				
+		<transition on="dDesPDFR4a6">
+		<evaluate expression="instActAju.descargaPDF4a6(flowRequestContext)" />
+		</transition>
+		
+		<transition on="dDesPDFR7a9">
+		<evaluate expression="instActAju.descargaPDF7a9(flowRequestContext)" />
+		</transition>
+		
+		<transition on="regresa" to="inicio" />
+</view-state>
+
+</flow>

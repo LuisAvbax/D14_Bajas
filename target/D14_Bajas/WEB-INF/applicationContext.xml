@@ -1,0 +1,145 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	 xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/faces 
+                    	http://www.springframework.org/schema/faces/spring-faces-2.2.xsd
+                    	http://www.springframework.org/schema/webflow-config
+						http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+						http://www.springframework.org/schema/tx
+        				http://www.springframework.org/schema/tx/spring-tx.xsd
+        				http://www.springframework.org/schema/jee
+                        http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+ <context:annotation-config />
+ <context:component-scan annotation-config="true" base-package="com.telcel.gsa.dsaf" />
+	
+	<faces:resources />
+ 	
+	<!--
+		Maps request paths to flows in the flowRegistry; e.g. a path of
+		/registration-flow looks for a flow with id "registration-flow"
+	-->
+	<beans:bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<beans:property name="flowRegistry" ref="flowRegistry" />
+	</beans:bean>
+	<!--
+		Dispatches requests mapped to flows to FlowHandler implementations
+	-->
+	<beans:bean class="org.springframework.faces.webflow.JsfFlowHandlerAdapter">
+		<beans:property name="flowExecutor" ref="flowExecutor" />
+	</beans:bean>
+	<!-- Executes flows: the central entry point into the Spring Web Flow system -->
+    <webflow:flow-executor id="flowExecutor">
+        <webflow:flow-execution-listeners>
+            <webflow:listener ref="facesContextListener"/>
+        	<!-- Uncomment to enable security -->
+			<webflow:listener ref="securityListener" />
+        </webflow:flow-execution-listeners>
+    </webflow:flow-executor>
+	 <!-- The registry of executable flow definitions -->
+    <webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/flows">
+        <webflow:flow-location-pattern value="**/*-flow.xml" />
+    </webflow:flow-registry>
+    
+    <faces:flow-builder-services id="flowBuilderServices" development="true"/>
+    
+   <!-- Resolves views selected for rendering by @Controllers to .xhtml resources 
+		in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".xhtml" />
+	</bean>
+   <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+	<bean class="org.springframework.faces.webflow.JsfFlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+	
+   <!-- A listener maintain one FacesContext instance per Web Flow request. -->
+	<beans:bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
+
+<!-- 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/CADACV6"/>
+	<jee:jndi-lookup id="dataSourceDipcel" jndi-name="jdbc/DIPCELV6"/>
+	<jee:jndi-lookup id="dataSourceSercotel" jndi-name="jdbc/SERCOTELV6"/>
+	<jee:jndi-lookup id="dataSourceAmov" jndi-name="jdbc/AMOVILV6"/>
+     -->
+     <bean id="dataSource"
+         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+             <property name="driverClassName" value="com.informix.jdbc.IfxDriver" />
+             <property name="url" value="jdbc:informix-sqli://10.119.137.206:41022/bajasaf:INFORMIXSERVER=online_sian1" />
+             <property name="username" value="vi50358" />
+             <property name="password" value="!!bajas9" />
+       </bean>
+       <bean id="dataSourceDipcel"
+         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+             <property name="driverClassName" value="com.informix.jdbc.IfxDriver" />
+             <property name="url" value="jdbc:informix-sqli://10.119.137.206:41022/alterno:INFORMIXSERVER=online_sian1" />
+             <property name="username" value="vi50358" />
+             <property name="password" value="!!bajas9" />
+       </bean>
+       <bean id="dataSourceSercotel"
+         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+             <property name="driverClassName" value="com.informix.jdbc.IfxDriver" />
+             <property name="url" value="jdbc:informix-sqli://10.119.137.206:41022/sercotelalterno:INFORMIXSERVER=online_sian1" />
+             <property name="username" value="vi50358" />
+             <property name="password" value="!!bajas9" />
+       </bean>
+       <bean id="dataSourceAmov"
+         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+             <property name="driverClassName" value="com.informix.jdbc.IfxDriver" />
+             <property name="url" value="jdbc:informix-sqli://10.119.137.206:41022/bajas_amov:INFORMIXSERVER=online_sian1" />
+             <property name="username" value="vi50358" />
+             <property name="password" value="!!bajas9" />
+       </bean>
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	
+	<bean id="login"
+		class="com.telcel.gsa.dsaf.action.LoginAction">
+		</bean>
+	
+	<bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <props>
+<!--                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+               
+               <prop key="hibernate.dialect">org.hibernate.dialect.InformixDialect</prop>
+               
+                <prop key="hibernate.show_sql">false</prop>    
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.generate_statistics">false</prop>
+				
+            </props>
+        </property>
+        <property name="packagesToScan">
+			<list>
+				<value>com.telcel.gsa.dsaf</value>
+				<value>com.telcel.gsa.dsaf.dao</value>
+				<value>com.telcel.gsa.dsaf.dipcel.dao</value>
+				<value>com.telcel.gsa.dsaf.sercotel.dao</value>
+				<value>com.telcel.gsa.dsaf.amov.dao</value>
+			</list>
+		</property>
+    </bean>
+    
+    
+    <bean id="transactionManager"
+            class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+               <property name="sessionFactory" ref="sessionFactory"/>
+     </bean>
+
+</beans>
+

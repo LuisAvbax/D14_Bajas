@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="plnPoblacionState">
+
+<view-state id="plnPoblacionState" view="../views/catPoblacion.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="poblacionAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="queryPoblacion">
+		<evaluate expression="poblacionAction.consultaPln(flowRequestContext)" />
+	</transition>
+	
+	<transition on="eliminaPln">
+		<evaluate expression="poblacionAction.eliminaPoblacion(flowRequestContext)" />
+	</transition>
+	
+	<transition on="savePln">
+		<evaluate expression="poblacionAction.guardaPoblacion(flowRequestContext)" />
+	</transition>
+	
+	<transition on="updPln">
+		<evaluate expression="poblacionAction.editaPoblacion(flowRequestContext)" />
+	</transition>
+	
+	<transition on="descargaPln">
+		<evaluate expression="poblacionAction.descargaPoblacion(flowRequestContext)" />
+	</transition>
+		
+	<transition on="limpia" to="plnIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="plnIni" view="flowRedirect:catPoblacion-flow" />
+
+</flow>

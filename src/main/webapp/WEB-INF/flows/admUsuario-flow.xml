@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="admUsuario">
+
+<view-state id="admUsuario" view="../views/admUsuario.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="usuarioAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+	<transition on="limpia" to="viewAdmUsuario" />
+	
+	<transition on="buscaPerf">
+		<evaluate expression="usuarioAction.buscaPerfiles(flowRequestContext)" />
+	</transition>
+	
+	<transition on="queryRegUser">
+		<evaluate expression="usuarioAction.buscaUsuariosRegistrados(flowRequestContext)" />
+	</transition>
+	
+	<transition on="queryUser">
+		<evaluate expression="usuarioAction.buscaUsuarios(flowRequestContext)" />
+	</transition>
+	
+	<transition on="addUserPopUp">
+		<evaluate expression="usuarioAction.abrirAltaUsuario(flowRequestContext)" />
+	</transition>
+	
+	
+	<transition on="queryRole">
+		<evaluate expression="usuarioAction.buscaDetalleUsuario(flowRequestContext)" />
+	</transition>
+	
+	<transition on="saveUsr">
+		<evaluate expression="usuarioAction.guardaRol(flowRequestContext)" />
+	</transition>
+	
+	<transition on="delUsr">
+		<evaluate expression="usuarioAction.bajaUsuario(flowRequestContext)" />
+	</transition>
+	
+	<transition on="saveNewUsr">
+		<evaluate expression="usuarioAction.altaUsuario(flowRequestContext)" />
+	</transition>
+	
+	<transition on="regresa" to="inicioUs"/>
+    
+    <transition on="limpia" to="viewAdmUsuario" />
+</view-state>
+
+<view-state id="viewAdmUsuario" view="flowRedirect:admUsuario-flow" />
+
+<view-state id="inicioUs" view="flowRedirect:parent-flow" />
+
+</flow>

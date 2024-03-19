@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="conRegState">
+
+
+-<view-state popup="true" redirect="true" view="../views/depreAnioActReg.xhtml" id="totRegState">
+
+
+-<on-entry>
+
+<evaluate expression="depreAnioActReg.initFlow(flowRequestContext)"/>
+
+</on-entry>
+
+<transition to="detdprreg" on="query"/>
+
+<transition to="prtIni" on="limpia"/>
+
+<transition to="inicio" on="regresa"/>
+
+</view-state>
+
+<view-state view="flowRedirect:parent-flow" id="inicio"/>
+
+<view-state view="flowRedirect:depreAnioReg-flow" id="prtIni"/>
+
+
+-<view-state popup="true" redirect="true" view="../views/depreAnioActRegDet.xhtml" id="detdprreg">
+
+
+-<transition on="descarga">
+
+<evaluate expression="depreAnioActReg.descarga(flowRequestContext)"/>
+
+</transition>
+
+
+-<transition on="dDesPDF">
+
+<evaluate expression="depreAnioActReg.descargaPDF(flowRequestContext)"/>
+
+</transition>
+
+<transition to="inicio" on="regresa"/>
+
+</view-state>
+
+</flow>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.menu_bajas_totreg}</div>
+		</h:panelGrid>
+		<h:messages globalOnly="true" showSummary="false" />
+		<h:form id="totregForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+
+
+				<h:outputText for="acum" value="#{msg.cat_adq_acum}:" />
+				<p:selectBooleanCheckbox id="acum" value="#{tGlobalReg.acum}" required="true" requiredMessage="Campo requerido">
+            		<p:ajax update="totregForm" listener="#{tGlobalRegAct.acumulaMesesAcum(flowRequestContext)}" />
+        		</p:selectBooleanCheckbox>
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="acumMsg" for="acum" />
+				
+				<h:outputText for="months" value="#{msg.cat_adq_mes}:" />
+				<p:selectManyCheckbox id="months" value="#{tGlobalReg.mesesselect}">
+        			<f:selectItems value="#{tGlobalReg.meses}" var="m" itemLabel="#{m}" itemValue="#{m}" />
+        			<p:ajax update="totregForm" listener="#{tGlobalRegAct.validaAcumulado(flowRequestContext)}" />
+    			</p:selectManyCheckbox>
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="monthsMsg" for="months" />
+					       
+				<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_consumoreg_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{tGlobalReg.anio}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{tGlobalReg.anios}"/>
+					<p:ajax event="valueChange"
+                		listener="#{tGlobalRegAct.computeYearVal(flowRequestContext)}" update="totregForm" />
+					
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioNsg" for="anio"/>
+					     	
+				<h:outputLabel id="calc_lbl"  for="calc" value="#{msg.cat_adq_calculo}:" />
+        		<p:selectOneMenu id="calc" value="#{tGlobalReg.calculo.id}" 
+				style="width:153px" required="true" requiredMessage="#{msg.admsitio_campoobl}" >
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{tGlobalReg.calculos}" var="c"
+        				itemLabel="#{c.descripcion}"
+        				itemValue="#{c.id}" />
+        			<p:ajax event="valueChange"
+                		listener="#{tGlobalRegAct.computeCalcDependants(flowRequestContext)}" update="totregForm" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="calcNsg" for="calc"/>
+
+				<h:outputLabel id="region_lbl"  for="region" value="#{msg.reporte_polizasap_region}:" />
+        		<p:selectCheckboxMenu id="region" value="#{tGlobalReg.region}" filter="true" filterMatchMode="contains" disabled="#{tGlobalReg.regDisabled}"
+				style="width:153px">
+<!-- 				 	<f:selectItem itemLabel="#{msg.reporte_todas_regiones}" itemValue="0" /> -->
+					<f:selectItems value="#{tGlobalReg.regiones}"  var="r"
+        				itemLabel="#{r.descripcion}"
+        				itemValue="#{r.id}" />
+        				<p:ajax event="change"
+                			listener="#{tGlobalRegAct.computeRegDependants(flowRequestContext)}" update="totregForm" />
+                		<p:ajax  event="toggleSelect"
+			            	listener="#{tGlobalRegAct.computeRegDependants(flowRequestContext)}"
+			            	update="totregForm"/>
+        		</p:selectCheckboxMenu>
+				<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="regionNsg" for="region"/>
+			
+				<h:outputLabel id="clase_lbl"  for="clase" value="#{msg.cat_adq_clase}:" />
+	        	<p:selectCheckboxMenu id="clase" value="#{tGlobalReg.clase}" filter="true" filterMatchMode="contains" disabled="#{tGlobalReg.claseDisabled}"
+					style="width:153px">
+<!-- 					 	<f:selectItem itemLabel="#{msg.reporte_todas_clases}" itemValue="0" /> -->
+						<f:selectItems value="#{tGlobalReg.clases}"  var="r"
+	        				itemLabel="#{r.descripcion}"
+	        				itemValue="#{r.clave}" />
+	        			<p:ajax event="change"
+                			listener="#{tGlobalRegAct.computeClassDependants(flowRequestContext)}" update="totregForm" />
+                		<p:ajax  event="toggleSelect"
+			            	listener="#{tGlobalRegAct.computeClassDependants(flowRequestContext)}"
+			            	update="totregForm"/>
+	        	</p:selectCheckboxMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="claseNsg" for="clase"/>
+						     	
+						     	
+				<p:outputLabel for="txt" value="#{msg.cat_adq_txt}" />
+		        <p:selectOneRadio id="txt" value="#{tGlobalReg.texto}"  layout="grid" columns="3">
+		            <f:selectItems value="#{tGlobalReg.textos}" var="t" itemLabel="#{t}" itemValue="#{t}"/>
+		            <p:ajax update="txtd" event="valueChange" listener="#{tGlobalRegAct.updateTxt(flowRequestContext)}" />
+		        </p:selectOneRadio>
+		        <h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="txtNsg" for="txt"/>
+		        
+        		<h:outputLabel id="txtd_lbl"  for="txtd" value="" />       		
+        		<p:selectCheckboxMenu id="txtd" value="#{tGlobalReg.txtDesc}" filter="true" filterMatchMode="contains" disabled="#{tGlobalReg.txtDisabled}"
+					style="width:250px">
+						<f:selectItems value="#{tGlobalReg.txtsDesc}" var="r"
+	        				itemLabel="#{r}"
+	        				itemValue="#{r}" />
+	        	</p:selectCheckboxMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="txtdNsg" for="txtd"/>
+						     	
+				<h:outputLabel id="ajuste_lbl"  for="ajuste" value="#{msg.reporte_ajuste}" />
+        		<p:selectOneMenu id="ajuste" value="#{tGlobalReg.ajuste.clave}" 
+					style="width:153px" required="false">
+				 	<f:selectItem itemLabel="NINGUNO" itemValue="NA" />
+				 	<f:selectItems value="#{tGlobalReg.ajustes}"  var="a"
+	        				itemLabel="#{a.descripcion}"
+	        				itemValue="#{a.clave}" />
+				</p:selectOneMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="ajusteNsg" for="ajuste"/>
+			
+						     	
+			</h:panelGrid>
+
+			<p:spacer height="10px" />
+
+			<h:panelGrid columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="query" actionListener="#{tGlobalRegAct.consulta(flowRequestContext)}" global="true" update="totregForm" disabled="#{tGlobalReg.queryDisabled}"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa" />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia" />
+			</h:panelGrid>
+			<p:spacer height="30px" />
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

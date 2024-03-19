@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.admsitio_perfil}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="perfilForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="2" border="0" style="margin: 0 auto;">
+            
+            <h:outputText for="nombre" value="#{msg.admsitio_nombre}:" />
+	           	<p:inputText id="nombre" value="#{perfil.nombre}" 
+	                			style="width:120px;"
+	                			maxlength="50" />
+			</h:panelGrid>
+
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="queryPerfil" global="true" update="perfilForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" immediate="true" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" immediate="true" action="limpia"  />			
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+		
+			<h:panelGrid id="gridAddPerfil" columns="2"
+				cellpadding="5" border="0">
+				
+				<p:commandLink oncomplete="altaPerfilDlg.show();">
+					<h:graphicImage value="/css/iconos/add.png" style="width : 20px; height : 20px;"/>
+				</p:commandLink>	
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTablePerfiles" paginator="true" rows="10"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{sitio.sitios.size()}"
+				rowsPerPageTemplate="10,20" var="p"
+				value="#{perfil.roles}">
+
+				<f:facet name="header">
+				</f:facet>
+				
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.perfil_indice}" />
+					</f:facet>
+					<h:outputText value="#{p.id}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.perfil_nombre}" />
+					</f:facet>
+					<h:outputText value="#{p.descripcion}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.perfil_fechaCrea}" />
+					</f:facet>
+					<h:outputText value="#{p.fechaCreacion}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_acciones}" />
+					</f:facet>
+				
+					<p:commandLink oncomplete="editaPerfilDlg.show();"
+					update=":editaPerfilD">
+						<p:graphicImage value="/css/iconos/edit.png" width="20"
+							height="20" />
+						<f:setPropertyActionListener value="#{p}"
+							target="#{flowScope.perfil.rolSel}" />
+					</p:commandLink>
+					
+					<p:commandLink action="deletePerfil" global="true" update=":perfilForm">
+						<p:graphicImage value="/css/iconos/delete.png" width="20"
+							height="20" />
+						<f:setPropertyActionListener value="#{p}"
+							target="#{flowScope.perfil.rolSel}" />
+					</p:commandLink>
+					
+				</p:column>
+				
+			</p:dataTable>
+			 
+			</h:form>
+			<!-- DIALOGO ALTA PERFIL -->
+			<p:dialog id="altaPerfilD" header="Alta Perfil" widgetVar="altaPerfilDlg" modal="true" resizable="false">
+			<p:outputPanel id="perfilAddDetail" style="float: right;">
+			<h:form id="altaRolForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+			
+					
+					<h:outputLabel id="perfilDesclbl"  for="perfilDescVal" value="Descripcion:" />
+	        		<p:inputText id="perfilDescVal" value="#{perfil.rolAdd.descripcion}" 
+					style="width:200px;font-weight: bold;" readonly="false" maxlength="50" 
+					onkeyup="this.value=this.value.toUpperCase();" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}"/>	        		
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="perfilDescMsg" for="perfilDescVal"/>
+	        		
+	    		</h:panelGrid>
+				
+				
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton id="savePerfilBtn"
+							value="#{msg.admsitio_guardar}" action="savePerfil" global="true"
+							oncomplete="if (!args.validationFailed){altaPerfilDlg.hide();}" update="altaRolForm :perfilForm"/>
+						<p:commandButton value="Salir" immediate="true" onclick="altaPerfilDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		
+		
+		<!-- DIALOGO EDITA PERFIL -->
+			<p:dialog id="editaPerfilD" header="Edita Perfil" widgetVar="editaPerfilDlg" modal="true" resizable="false">
+			<p:outputPanel id="PerfilEditDetail" style="float: right;">
+			<h:form id="editaRolForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+
+					<h:outputLabel id="perfilbl" for="perfilEdNomVal" value="Clave" />
+					<p:inputText id="perfilEdNomVal" value="#{perfil.rolSel.nombre}"
+						style="width:200px;font-weight: bold;" readonly="false" maxlength="10" 
+						onkeyup="this.value=this.value.toUpperCase();" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}"/>
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="erfilEdNomMsg" for="erfilEdNomVal"/>	
+			
+					
+					<h:outputLabel id="perfilEdDesclbl"  for="perfilEdDescVal" value="Descripcion:" />
+	        		<p:inputText id="perfilEdDescVal" value="#{perfil.rolSel.descripcion}" 
+					style="width:200px;font-weight: bold;" readonly="false" maxlength="50" 
+					onkeyup="this.value=this.value.toUpperCase();" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}"/>	        		
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="perfilEdDescMsg" for="perfilEdDescVal"/>
+	        		
+	    		</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+						<p:commandButton id="savePerfilBtn"
+							value="#{msg.admsitio_guardar}" action="updatePerfil" global="true"
+							oncomplete="if (!args.validationFailed){editaPerfilDlg.hide();}"
+							update=":perfilForm editaRolForm" />
+						<p:commandButton value="Salir" onclick="editaPerfilDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

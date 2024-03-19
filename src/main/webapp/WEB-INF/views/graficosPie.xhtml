@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.grafico_titulo}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="graphpieForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true"/>
+			
+			<h:panelGrid id="panelGraph" columns="3" border="0" style="margin: 0 auto;">
+
+	        	<h:outputLabel id="lgOP"  for="gOp" value="Tipo:" />
+        		<p:selectOneMenu id="gOp" value="#{grafp.tpoG.id}" 
+				style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{grafp.lista}"  var="r"
+        				itemLabel="#{r.descripcion}"
+        				itemValue="#{r.id}" />
+        		</p:selectOneMenu>
+	              <h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="gTipoMessage" for="gOp"/>
+				
+				<h:outputLabel id="lgAnio"  for="gAnio" value="#{msg.reporte_consumoreg_anio}:" />
+        		<p:selectOneMenu id="gAnio" value="#{grafp.anio}" 
+				style="width:153px" required="true" requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{grafp.anios}"/>
+        		</p:selectOneMenu>
+	              <h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="gAnioMessage" for="gAnio"/>
+					     	
+				
+	       <h:outputLabel id="mes_lbl"  for="gMes" value="#{msg.reporte_consumoreg_mes}:" />
+        	<p:selectOneMenu id="gMes" value="#{grafp.month.id}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue="" />
+					<f:selectItems value="#{grafp.months}"  var="m"
+        				itemLabel="#{m.nombre}"
+        				itemValue="#{m.id}" />
+        	</p:selectOneMenu>
+        	<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="gMesMessage" for="gMes"/>
+        	         						
+			</h:panelGrid>
+
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="queryGrapSite" global="true" update="graphpieForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />			
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+
+		
+			<p:spacer height="30px"/>
+	
+			
+				<p:pieChart value="#{grafp.piemodel}" legendPosition="e" sliceMargin="5"
+					diameter="300" fill="true" showDataLabels="true" dataFormat="value"
+					style="width:100%; height:400px"/>
+			</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.bitacora_clase_titulo}</div>
+		</h:panelGrid>
+		
+		<h:form id="bitacoraForm">
+					<h:panelGrid columns="3" cellpadding="5" border="0" style="margin: 0 auto;"
+				columnClasses="impFactGridOne,impFactGridTwo,impFactGridThree">
+        				     	
+				<h:outputText for="tpoCarga" value="#{msg.bitacora_filtro_carga}:" />
+                <p:selectOneMenu id="tpoCarga" value="#{bitacora.proceso}" 
+				style="width:153px">
+				 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue="" />
+					<f:selectItems value="#{bitacora.procesos}"/>
+        		</p:selectOneMenu>
+        		<p:column></p:column>
+        		
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			
+			<!-- BOTONES CONSULTA -->
+			<h:panelGrid columns="3"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				<p:commandButton value="#{msg.btn_consultar}" action="buscaCont" update=":bitacoraForm" inmediate="false"/>
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  global="false" immediate="true"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  global="false" immediate="true"/>
+			</h:panelGrid>
+			
+			<p:spacer height="30px"/> 
+			
+			<h:panelGrid id="griddescarga" columns="2"
+				cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descargaB" rendered="#{bitacora.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>	
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTableBitacora" paginator="true" rows="100"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{errores.size()}"
+				rowsPerPageTemplate="100,300,500" var="err"
+				value="#{bitacora.listOpBitacora}">
+
+				<f:facet name="header">
+				</f:facet>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.bitacora_linea}" />
+					</f:facet>
+					<h:outputText value="#{err.bitacoraLinea}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.bitacora_tipoCarga}" />
+					</f:facet>
+					<h:outputText value="#{err.bitacoraProceso}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.bitacora_descripcion}" />
+					</f:facet>
+					<h:outputText value="#{err.bitacoraDescripcion}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.bitacora_uscarga}" />
+					</f:facet>
+					<h:outputText value="#{err.nombreUsuario}" />
+				</p:column>
+				
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.bitacora_fechaCarga}" />
+					</f:facet>
+					<h:outputText value="#{err.bitacoraFechaCreacion}">
+					<f:convertDateTime locale="es_MX" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+			</h:form>
+			
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.menu_bajas_resclas}</div>	
+		</h:panelGrid>
+		<h:form id="totregForm">
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+		
+		<h:panelGrid id="gridfiltros" columns="1" border="0" style="margin: 0 auto;text-align:center;">
+			<h:outputText value="#{resumenClas.calculotxt}" style="font-size:11px;"/>
+			<c:choose>    
+			    <c:when test="#{resumenClas.acum eq 'true'}">  
+			      <h:outputText value="#{resumenClas.mesSeleccion}" style="font-size:11px;" />
+			    </c:when>  
+			    <c:otherwise>  
+			       <h:outputText value="#{resumenClas.mesSeleccion}" style="font-size:11px;" />
+				   <h:outputText value="AÑO: #{resumenClas.anio}" style="font-size:11px;" />
+			    </c:otherwise>  
+			</c:choose>
+			<h:outputText value="CLASE: #{resumenClas.claseReptxt}" style="font-size:11px;" />
+			<h:outputText value="REGIÓN: #{resumenClas.regionReptxt}" style="font-size:11px;" />
+			<h:outputText value="#{resumenClas.textosTitulos}" style="font-size:11px;" />
+			<h:outputText value="AJUSTES: #{resumenClas.ajuste.descripcion}" style="font-size:11px;" />
+			
+			</h:panelGrid>
+			
+			<p:spacer height="10px" />
+			
+			<h:panelGrid id="griddescarga" columns="2" cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descarga" >
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDF" action="dDesPDF">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+			</h:commandLink>	
+			</h:panelGrid>
+			
+			<p:spacer height="5px"/>
+			
+			
+<!-- 		         TABLA GENERAL        -->
+				<table id="detGeneral" style="table-layout:fixed;width:100%">
+					<tr>
+					<td class="customTableConp">TEXTO<br/>BAJA</td>
+					<td class="customTableConp">PERIODO<br/>BAJA</td>
+					<td class="customTableConp">ADQUISICION<br/>BAJA</td>
+					<td class="customTableConp">ACUMULADA<br/>BAJA</td>
+					<td class="customTableConp">EJERCICIO<br/>BAJA</td>
+					<td class="customTableConp">DEPRECIACION<br/>TOTAL</td>
+					<td class="customTableConp">COSTO<br/>HISTORICO</td>
+					<td class="customTableConp">COSTO<br/>ACTUALIZADO</td>
+					<td class="customTableConp">DEP. AÑO<br/>ACTUALIZADA</td>
+					</tr>
+				<ui:repeat var="clase" value="#{resumenClas.detClases}" varStatus="clastc">
+		            <tr>
+			            <td colspan="9" class="customTableHCombConp">
+			            	<h:outputText value="CLASE: #{clase.nombre}" />
+			            </td>
+			            
+					</tr>
+					<ui:repeat var="region" value="#{clase.regiones}" varStatus="regstc">
+					<tr>
+						<td colspan="9" class="customTableHCombConp">
+			            	<h:outputText value="REGIÓN: #{region.nombre}" />
+			            </td>
+					</tr>
+						<ui:repeat var="texto" value="#{region.textos}" varStatus="txtstc">
+						<tr>
+						<td class="customTableDTxtConp">
+							<h:outputText value="#{texto.texto_baja}" />
+						</td>
+						
+						<td class="customTableDTxtConpMonth">
+							<h:outputText value="#{texto.perbajaObj.id}">
+								
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.adq_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.adq_ac_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />	
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.ejercicio_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.depr_tot}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.costo_h}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.costo_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.depre_anual_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						</tr>
+						</ui:repeat>
+						<tr>
+						<td colspan="2" class="customTableDetTTxConp">
+							<h:outputText value="TOTAL REGION: #{region.nombre}">
+							</h:outputText>
+						</td>
+	
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_adq_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_adq_ac_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_ejercicio_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_depr_tot}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_costo_h}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_costo_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{region.all_depre_anual_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+					</ui:repeat>
+					<tr>
+						<td colspan="2" class="customTableDetTTxConp">
+							<h:outputText value="TOTAL CLASE: #{clase.nombreCorto}" />
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_adq_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_adq_ac_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_ejercicio_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_depr_tot}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_costo_h}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_costo_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{clase.all_depre_anual_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</ui:repeat>
+				<tr>
+						<td colspan="2" class="customTableDetTTxConp">
+							<h:outputText value="TOTAL:" />
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.adq_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.adq_ac_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.ejercicio_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.depr_tot}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.costo_h}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.costo_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteGeneral.depre_anual_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</table>
+				
+				<p:spacer height="25px"/>
+				
+				
+<!-- 				TABLA AJUSTES -->
+				<c:choose>
+				<c:when test="#{resumenClas.ajuste.clave eq 'TA'}"> 
+				<div id="TituloAjustes" class="subTituloPantalla">AJUSTES POR TIPO</div>
+				<table id="detAjuste" style="table-layout:fixed;width:100%">
+					<tr>
+					<td class="customTableConpAjust">ACTIVOS</td>
+					<td class="customTableConp">ADQUISICION<br/>BAJA</td>
+					<td class="customTableConp">ACUMULADA<br/>BAJA</td>
+					<td class="customTableConp">EJERCICIO<br/>BAJA</td>
+					<td class="customTableConp">DEPRECIACION<br/>TOTAL</td>
+					<td class="customTableConp">COSTO<br/>HISTORICO</td>
+					<td class="customTableConp">COSTO<br/>ACTUALIZADO</td>
+					<td class="customTableConp">DEP. AÑO<br/>ACTUALIZADA</td>
+					</tr>
+						<ui:repeat var="texto" value="#{resumenClas.listTotalGlobalAjCla}" varStatus="clastcaj">
+						<tr>
+						<td class="customTableDTxtConp">
+							<h:outputText value="#{texto.texto_baja}" />
+						</td>
+						
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.adq_baja != null ? texto.adq_baja : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.adq_ac_baja != null ? texto.adq_ac_baja : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />	
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.ejercicio_baja != null ? texto.ejercicio_baja : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.depr_tot != null ? texto.depr_tot : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.costo_h != null ? texto.costo_h : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.costo_act != null ? texto.costo_act : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConp">
+							<h:outputText value="#{texto.depre_anual_act != null ? texto.depre_anual_act : 0.00}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						</tr>
+						</ui:repeat>
+						<tr>
+						<td class="customTableDetTTxConp">
+							<h:outputText value="TOTAL AJUSTES POR TIPO:">
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.adq_baja != null ? resumenClas.totReporteAjGeneral.adq_baja : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.adq_ac_baja != null ? resumenClas.totReporteAjGeneral.adq_ac_baja : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.ejercicio_baja != null ? resumenClas.totReporteAjGeneral.ejercicio_baja : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.depr_tot != null ? resumenClas.totReporteAjGeneral.depr_tot : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.costo_h != null ? resumenClas.totReporteAjGeneral.costo_h : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.costo_act != null ? resumenClas.totReporteAjGeneral.costo_act : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totReporteAjGeneral.depre_anual_act != null ? resumenClas.totReporteAjGeneral.depre_anual_act : 0.00}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<td class="customTableDTxtConpAjust">
+							<h:outputText value="GRAN TOTAL AJUSTADO:" />
+						</td>
+						
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.adq_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.adq_ac_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />	
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.ejercicio_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.depr_tot}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.costo_h}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.costo_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetConpTot">
+							<h:outputText value="#{resumenClas.totalGlobalClaTot.depre_anual_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						</tr>
+				</table>
+				
+				
+				</c:when> 
+			</c:choose>
+			<p:spacer height="25px"/>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

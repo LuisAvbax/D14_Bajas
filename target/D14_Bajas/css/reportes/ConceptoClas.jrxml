@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConceptoClas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6204a181-e175-4641-ab5f-f597a6b632a7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="basicParam" class="java.util.List">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<field name="region" class="java.lang.String"/>
+	<field name="region_dsc" class="java.lang.String"/>
+	<field name="clase_dsc" class="java.lang.String"/>
+	<field name="texto_baja" class="java.lang.String"/>
+	<field name="perbaja" class="java.lang.Short"/>
+	<field name="adq_baja" class="java.math.BigDecimal"/>
+	<field name="adq_ac_baja" class="java.math.BigDecimal"/>
+	<field name="ejercicio_baja" class="java.math.BigDecimal"/>
+	<field name="depr_tot" class="java.math.BigDecimal"/>
+	<field name="costo_h" class="java.math.BigDecimal"/>
+	<field name="costo_act" class="java.math.BigDecimal"/>
+	<field name="depre_anual_act" class="java.math.BigDecimal"/>
+	<variable name="adq_baja_1" class="java.math.BigDecimal" resetType="Group" resetGroup="clase" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja}]]></variableExpression>
+	</variable>
+	<variable name="adq_ac_baja_1" class="java.math.BigDecimal" resetType="Group" resetGroup="clase" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_ac_baja}]]></variableExpression>
+	</variable>
+	<variable name="adq_baja_2" class="java.math.BigDecimal" resetType="Group" resetGroup="region" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja}]]></variableExpression>
+	</variable>
+	<variable name="adq_ac_baja_2" class="java.math.BigDecimal" resetType="Group" resetGroup="region" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_ac_baja}]]></variableExpression>
+	</variable>
+	<variable name="adq_baja_3" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja}]]></variableExpression>
+	</variable>
+	<variable name="adq_ac_baja_3" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_ac_baja}]]></variableExpression>
+	</variable>
+	<group name="region">
+		<groupExpression><![CDATA[$F{region}]]></groupExpression>
+		<groupHeader>
+			<band height="26">
+				<textField>
+					<reportElement x="0" y="0" width="226" height="20" uuid="01fa636d-1299-4e31-97ef-691d082e7e4d"/>
+					<textFieldExpression><![CDATA[$F{region}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" uuid="c8ad0be6-6731-445b-b6ae-014aeac1ccd1"/>
+					<text><![CDATA[total region]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="region">
+					<reportElement x="200" y="0" width="100" height="20" uuid="a12512ff-7f4f-45ef-be7c-930820c57952"/>
+					<textFieldExpression><![CDATA[$V{adq_baja_2}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="region">
+					<reportElement x="300" y="0" width="100" height="20" uuid="5415787f-3ebb-43a7-ab0a-ff3b218aa47d"/>
+					<textFieldExpression><![CDATA[$V{adq_ac_baja_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="clase">
+		<groupExpression><![CDATA[$F{clase_dsc}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="0" y="0" width="437" height="20" uuid="e8591ea9-0c1b-41a2-8475-463bd72b0441"/>
+					<textFieldExpression><![CDATA[$F{clase_dsc}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<textField>
+					<reportElement x="200" y="0" width="100" height="20" uuid="286520d7-cd43-4f69-bdb7-7fc060651959"/>
+					<textFieldExpression><![CDATA[$V{adq_baja_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="300" y="0" width="100" height="20" uuid="35d20090-2871-41fb-8052-923daaeaa8b7"/>
+					<textFieldExpression><![CDATA[$V{adq_ac_baja_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="2" width="100" height="20" uuid="9f4ec16a-4a74-47b0-8ca9-a4f9d218dd96"/>
+					<text><![CDATA[total clase]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="237" y="10" width="100" height="20" uuid="9d7addf6-06b7-49e7-acdf-af06f2b049bf"/>
+				<text><![CDATA[Prueba de reporte complejo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="82b598b3-7a2d-40e3-bb66-460d3b332792"/>
+				<text><![CDATA[texto_baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="92392a76-a0e4-45a3-bf6d-71353c6e89de"/>
+				<text><![CDATA[adq_baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20" uuid="44e380c8-27c5-4453-b992-083f4761249b"/>
+				<text><![CDATA[adq_ac_baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="7297cb29-ca3e-47fb-b13a-dd0a93cf68b9"/>
+				<text><![CDATA[perbaja]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="abddc595-96bd-4066-8a0b-6a1fc60c6984"/>
+				<textFieldExpression><![CDATA[$F{texto_baja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="6f64e25b-4327-45f3-8312-1573c8db37ae"/>
+				<textFieldExpression><![CDATA[$F{adq_baja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="440a68c5-8df5-4a1a-b1ee-6649cedec9a9"/>
+				<textFieldExpression><![CDATA[$F{adq_ac_baja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="dcf3bb1e-3c23-4c24-8290-204dee598233"/>
+				<textFieldExpression><![CDATA[$F{perbaja}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e50d3744-487b-4638-9ee0-df4776927c9f"/>
+				<text><![CDATA[total general]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="97d84017-8a54-4703-9b95-317ba064572e"/>
+				<textFieldExpression><![CDATA[$V{adq_baja_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="54d5bbd5-4ae0-4bf2-9233-06e3f38c23f4"/>
+				<textFieldExpression><![CDATA[$V{adq_ac_baja_3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

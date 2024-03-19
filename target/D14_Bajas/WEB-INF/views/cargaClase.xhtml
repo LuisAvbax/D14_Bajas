@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+
+
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.carga_clases_titulo}</div>
+		</h:panelGrid>
+
+		<h:form id="cargaCienForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true" />
+			<h:panelGrid columns="3" cellpadding="5" border="0" style="margin: 0 auto;" columnClasses="polcolumn1,polcolumn2,polcolumn3">
+				
+				
+				<h:outputLabel id="cargaArch_lbl"  for="cargaArch_lbl" value="#{msg.carga_deprecia_cien_carga}:" />
+				 <p:fileUpload fileUploadListener="#{claseCargaAction.handleSiteFile}"
+	                mode="advanced"
+	                customUI="true"
+	                label="Agregar archivo"
+	                dragDropSupport="false"
+	                fileLimit="1"
+	                sizeLimit="10485760"
+	                allowTypes="/(\.|\/)(xls|xlsx)$/"
+	                invalidSizeMessage="El tamaño maximo del archivo es de un mega!"
+	                invalidFileMessage="Solo se permiten archivos en formato excel!"
+	                id="uploader1"
+	                widgetVar="uploader1"
+	                update="cargaCienForm"
+	                auto="true"
+	                cancelLabel="Cancelar" uploadLabel="Cargar Archivo"
+                />  	
+				
+			</h:panelGrid>
+			<p:spacer height="5px" />
+			<h:panelGrid columns="2" style="margin: 0 auto;">
+				<p:commandButton  id="regSitBtn" action="guardarClase" value="#{msg.admsitio_guardar}" disabled="#{claseCarga.guardar}" update="cargaCienForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa" />
+			</h:panelGrid>
+			
+			<p:spacer height="20px" />
+			
+			<h:panelGrid columns="1" style="margin: 0 auto;">
+				<h:outputText value="#{claseCarga.msm}" />
+			</h:panelGrid>
+			
+			<p:spacer height="10px" />
+			
+			<h:panelGrid columns="1" style="margin: 0 auto;">
+<!-- 				<h:outputLabel id="titTabla_lbl"  for="titTabla" value="#{msg.titTablaCien}:" /> -->
+				<p:dataTable id="dataTable" paginator="false." 
+					style="width:250px;" rowIndexVar="rowNum"
+					paginatorPosition="bottom"
+					paginatorTemplate=" Total de Registros: #{claseCarga.clases.size()}"
+				    var="datoCarga" value="#{claseCarga.clases}">
+	
+					<f:facet name="header">
+					</f:facet>
+	
+					<p:column style="text-align: left;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.reporte_clase_clave}" />
+						</f:facet>
+						<h:outputText value="#{datoCarga.clave}" />
+					</p:column>
+					
+					<p:column style="text-align: left;">
+						<f:facet name="header">
+							<h:outputText value="#{msg.reporte_clase}" />
+						</f:facet>
+						<h:outputText value="#{datoCarga.descripcion}" />
+					</p:column>
+		
+				</p:dataTable>
+			</h:panelGrid>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

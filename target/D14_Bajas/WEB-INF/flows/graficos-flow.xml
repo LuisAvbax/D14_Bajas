@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="gState">
+
+<view-state id="gState" view="../views/graficos.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="graficoAction.initFlow(flowRequestContext)" />
+    </on-entry>
+	
+    <transition on="queryGrapMnt">
+		<evaluate expression="graficoAction.graficoMonto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="saveCc">
+		<evaluate expression="graficoAction.guardaCentro(flowRequestContext)" />
+	</transition>
+	
+	<transition on="bajaCc">
+		<evaluate expression="graficoAction.bajaCentro(flowRequestContext)" />
+	</transition>
+	
+	
+		
+	<transition on="limpia" to="ccIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="ccIni" view="flowRedirect:graficos-flow" />
+
+</flow>

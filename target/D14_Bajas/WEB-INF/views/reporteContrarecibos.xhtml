@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">Reporte contrarecibos por fecha de revisión</div>
+		</h:panelGrid>
+		
+		<h:form id="reporteContraForm">
+		<h:messages />
+			<h:panelGrid columns="2"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				
+				<h:outputLabel id="sociedad_lbl"  for="sociedad" value="Sociedad:" />
+        		<p:selectOneMenu id="sociedad" value="#{reporteContraView.sociedadSel}" 
+				style="width:153px" required="true"
+				requiredMessage="Sociedad es un campo obligatorio">
+				 	<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItems value="#{reporteContraView.sociedades}"  var="soc"
+        				itemLabel="#{soc.sociedad}"
+        				itemValue="#{soc.idSociedad}" />
+        		</p:selectOneMenu>
+        		
+        		<h:outputLabel id="tpoReporte_lbl"  for="tpoReporte" value="Tipo reporte:" />
+        		<p:selectOneMenu id="tpoReporte" value="#{reporteContraView.tipoReporteSel}" 
+				style="width:153px" required="true"
+				requiredMessage="Tipo reporte es un campo obligatorio">
+				 	<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItems value="#{reporteContraView.tiposReporte}"  var="tpoRep"
+        				itemLabel="#{tpoRep.descripcion}"
+        				itemValue="#{tpoRep.idTpoRep}" />
+        				<p:ajax event="change" update="reporteContraForm"
+        					listener="#{reporteContraView.tpoRepSelectionChanged}" />
+        		</p:selectOneMenu>
+									
+				<h:outputLabel id="proveedor_lbl" for="proveedor" value="Clave proveedor:" />
+				<p:column>
+				<p:inputText id="proveedor" value="#{reporteContraView.filtroClaveProveedor}" disabled="#{reporteContraView.proveedorDeshab}" style="width:120px;font-weight: bold;" />
+				<p:commandButton oncomplete="supplierDialog.show()"
+								 icon="ui-icon-search" title="View" disabled="#{reporteContraView.proveedorDeshab}"/>
+				</p:column>
+				
+				<h:outputLabel id="fechaInicio_lbl" for="fechaInicio" value="Fecha inicio:" />
+				<p:calendar id="fechaInicio" value="#{reporteContraView.filtroFechaInicio}" showOn="button"
+    						popupIconOnly="false" pattern ="dd/MM/yyyy" readonlyInput="true" disabled="#{reporteContraView.fechaInicioDeshab}">
+    							<p:ajax event="dateSelect" update="fechaFin" />
+				</p:calendar>
+				<h:outputLabel id="fechaFin_lbl" for="fechaFin" value="Fecha fin:" />
+				<p:calendar id="fechaFin" value="#{reporteContraView.filtroFechaFin}" showOn="button"
+    						popupIconOnly="false" pattern ="dd/MM/yyyy" mindate="#{reporteContraView.filtroFechaInicio}"
+    						readonlyInput="true" disabled="#{reporteContraView.fechaFinDeshab}">
+				</p:calendar>
+				
+			</h:panelGrid>
+			<p:spacer height="10px"/> 
+			<h:panelGrid columns="2"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+					<p:commandButton value="Generar reporte"/>
+					<p:commandButton value="Regresar"  type="button" />	
+			</h:panelGrid>
+			<p:spacer height="30px"/> 
+			<h:panelGrid columns="1"
+				cellpadding="5" border="0" style="margin: 0 auto;">
+				<p:commandLink>
+							<h:graphicImage value="/css/iconos/excel-icon.png" style="border:0;width : 63px; height : 63px;"/>
+							</p:commandLink>	
+			</h:panelGrid>
+			</h:form>
+	
+    
+    <p:dialog id="supplierDialogId" header="Buscar proveedor" widgetVar="supplierDialog" modal="true" resizable="false">
+        <p:outputPanel id="supplierDetail" style="float: right;">
+            <h:panelGrid  columns="2" border="0" style="margin: 0 auto;" columnClasses="factdetlblcolumn,factdetdatacolumn">
+                
+                <h:outputLabel id="razonSocial_lbl" for="razonSocial" value="Razon Social:" />
+				<p:inputText id="razonSocial" value="#{reporteView.filtroProveedor}" style="width:220px;font-weight: bold;" />
+				
+            </h:panelGrid>
+            <p:spacer height="15px"/>
+            <h:panelGrid  columns="1" border="0" style="margin: 0 auto;">
+            <p:commandButton value="Buscar"/>
+            </h:panelGrid>
+            <p:spacer height="15px"/>
+            
+            <p:dataTable id="dataDetSupplier" paginator="true" rows="5"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{totalRegistrosHojaT}"
+				rowsPerPageTemplate="5,10,50,100" var="prov"
+				value="#{reporteView.proveedores}">
+				
+				<f:facet name="header">
+	
+				</f:facet>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="Codigo proveedor" />
+					</f:facet>
+					 <h:outputText value="#{prov.codigoProveedor}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="Nombre proveedor" />
+					</f:facet>
+					 <h:outputText value="#{prov.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+							<h:outputText value="Accion" />
+					</f:facet>
+	                 <p:commandLink oncomplete="supplierDialog.hide();" update=":reporteContraForm">
+						<p:graphicImage value="/css/iconos/tasks.png"
+									width="20" height="20" />
+						
+					</p:commandLink>
+				</p:column>
+				
+				
+				
+            </p:dataTable>
+            <p:spacer height="25px"/>
+   
+             <h:panelGrid  columns="1" style="margin: 0 auto;">
+				<p:commandButton value="Cerrar" onclick="supplierDialog.hide();" type="button" />
+             </h:panelGrid>
+             
+        </p:outputPanel>
+    </p:dialog>	
+	</ui:define>
+</ui:composition>
+</html>

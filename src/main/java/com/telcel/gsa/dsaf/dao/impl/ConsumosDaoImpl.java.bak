@@ -1,0 +1,82 @@
+package com.telcel.gsa.dsaf.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.telcel.gsa.dsaf.dao.ConsumosDao;
+import com.telcel.gsa.dsaf.entity.CfeOpConsumo;
+import com.telcel.gsa.dsaf.entity.CfeOpConsumoId;
+import com.telcel.gsa.dsaf.util.CfeException;
+@Repository
+public class ConsumosDaoImpl extends AbstractDaoImpl<CfeOpConsumo, CfeOpConsumoId> implements ConsumosDao{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 159702680619790020L;
+
+	public ConsumosDaoImpl(){
+		super(CfeOpConsumo.class);
+	}
+	@Transactional(value = "transactionManager")
+	@Override
+	public void cargaConsumos(List<CfeOpConsumo> consumos) {
+		System.out.println("save incomes.....");
+		try{
+			saveList(consumos);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+//		for(CfeOpConsumo c: consumos){
+//			try {
+//				save(c);
+//				System.out.println("RPU: " + c.getId().getConsumoRpu());
+//			} catch (Exception e) {
+//				throw new CfeException("Error al cargar consumo", e);
+//			}
+//		}
+		
+	}
+	@Transactional(value = "transactionManager")
+	@Override
+	public void cargaConsumo(CfeOpConsumo consumo) throws CfeException {
+		System.out.println("save income.....");
+		
+			try {
+				save(consumo);
+			} catch (CfeException e) {
+				throw e;
+			}
+		
+	}
+	@Transactional(value = "transactionManager")
+	@Override
+	public void limpiaConsumos() throws CfeException {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+		System.out.println("clean consumos.....");
+
+		StringBuilder queryString = new StringBuilder("DELETE FROM CFE_OP_CONSUMO ");
+		queryString.append("WHERE EXTRACT( MONTH FROM CONSUMO_FECHA_CREACION) = EXTRACT(MONTH FROM ADD_MONTHS(sysdate,-1)) ");
+		queryString.append("AND EXTRACT( YEAR FROM CONSUMO_FECHA_CREACION) = EXTRACT(YEAR FROM ADD_MONTHS(sysdate,-1)) "); 
+		
+		Query query = session.createSQLQuery(queryString.toString());	
+		query.executeUpdate();
+		tx.commit();
+		
+		}catch(CfeException e){
+			throw e;
+		}finally{
+			session.close();
+		}
+
+		
+	}
+}

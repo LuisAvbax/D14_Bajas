@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.admsitio_titulo}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="siteForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+			
+			 <h:outputLabel id="region_lbl"  for="region" value="#{msg.admsitio_region}:" />
+        		<p:selectOneMenu id="region" value="#{flowScope.sitio.region.id}"
+				style="width:153px" disabled="#{sessionScopeUser.usuarioCfe.cfeOpRol.nombre ne 'IMPL' and sessionScopeUser.usuarioCfe.cfeOpRol.nombre ne 'COORD'}">
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{flowScope.sitio.regiones}"  var="m"
+        				itemLabel="#{m.descripcion}"
+        				itemValue="#{m.id}" />
+<!--         			<p:ajax listener="#{admSitioAction.cargaDivisiones(flowRequestContext)}" update="divisionF" />  -->
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="regionMsg" for="region"/>
+					     	
+			<h:outputLabel id="division_lbl"  for="divisionF" value="#{msg.admsitio_division}:" />
+        		<p:selectOneMenu id="divisionF" value="#{flowScope.sitio.division.id}" 
+				style="width:153px" >
+				 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+					<f:selectItems value="#{flowScope.sitio.divisiones}"  var="d"
+        				itemLabel="#{d.nombre}"
+        				itemValue="#{d.id}" />
+        		</p:selectOneMenu>
+        	<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="divisionMsg" for="divisionF"/>
+			<h:outputLabel id="tarifa_lbl"  for="tarifa" value="#{msg.admsitio_tarifa}:" />
+        	<p:selectCheckboxMenu id="tarifa" value="#{flowScope.sitio.selectedRate}" label="#{msg.reporte_polizasap_seleccione}"
+                              filter="true" filterMatchMode="startsWith" style="width:153px" widgetVar="rateVar">
+            			<f:selectItems value="#{flowScope.sitio.tarifas}" var="t"
+            			itemLabel="#{t.clave}"
+	        				itemValue="#{t.id}" />
+        	</p:selectCheckboxMenu>	     	
+        	<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="tarifaMsg" for="tarifa"/>
+        		
+        		<h:outputText for="rpu" value="#{msg.admsitio_rpu}:" />
+	           	<p:inputText id="rpu" value="#{flowScope.sitio.rpu}" 
+	                			style="width:120px;"
+	                			maxlength="12" />
+	              <h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="rpuMsg" for="rpu"/>  			
+	             
+			
+           		<h:outputText for="nombre" value="#{msg.admsitio_nombre}:" />
+	           	<p:inputText id="nombre" value="#{flowScope.sitio.nombre}" 
+	                			style="width:120px;"
+	                			maxlength="50"
+	                			onkeyup="this.value=this.value.toUpperCase();" />
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="nombreMsg" for="nombre"/>
+        		
+			</h:panelGrid>
+
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="querySite" global="true" update="siteForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />			
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+			
+			<h:panelGrid id="griddescarga" columns="2"
+				cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descargaSitios" rendered="#{sitio.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>	
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTablePolizaSap" paginator="true" rows="10"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{sitio.sitios.size()}"
+				rowsPerPageTemplate="10,20" var="s"
+				value="#{flowScope.sitio.sitios}">
+
+				<f:facet name="header">
+				</f:facet>
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_division}" />
+					</f:facet>
+					<h:outputText value="#{s.division.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_rpu}" />
+					</f:facet>
+					<h:outputText value="#{s.rpu}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_nombre}" />
+					</f:facet>
+					<h:outputText value="#{s.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_region}" />
+					</f:facet>
+					<h:outputText value="#{s.region.clave}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_poblacion}" />
+					</f:facet>
+					<h:outputText value="#{s.cfeCatEstado.nombre}" />
+				</p:column>
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_demanda}"  />
+					</f:facet>
+					<h:outputText value="#{s.demanda}" />
+				</p:column>
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_tarifa}"  />
+					</f:facet>
+					<h:outputText value="#{s.tarifa.clave}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_ctasap}" />
+					</f:facet>
+					<h:outputText value="#{s.cuentaContable}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admSitio_baja}" />
+					</f:facet>
+					<h:outputText value="#{s.autorizaBaja eq true ? 'SI':'NO'}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_acciones}" />
+					</f:facet>
+				
+					<p:commandLink oncomplete="consultaUsuarioDlg.show();"
+					update=":consultaUsuarioD">
+							<p:graphicImage value="/css/iconos/view.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{s}"
+								target="#{flowScope.sitio.sitioSel}" />
+					</p:commandLink>
+
+					<c:if test= "#{sessionScopeUser.usuarioCfe.cfeOpRol.nombre eq 'IMPL'}">
+					<p:commandLink oncomplete="editaUsuarioDlg.show();"
+				update=":editaUsuarioD" rendered="#{!s.autorizaBaja}">
+						<p:graphicImage value="/css/iconos/edit.png" width="20"
+							height="20" />
+						<f:setPropertyActionListener value="#{s}"
+							target="#{flowScope.sitio.sitioSel}" />
+					</p:commandLink>
+					</c:if>
+				</p:column>
+					<p:column style="text-align: center;">
+					<f:facet name="header">
+							<h:outputText value="#{msg.admsitio_ceco}" />
+						</f:facet>
+						<p:commandLink action="conceco" oncomplete="querycecoDlg.show();"
+						  rendered="#{!s.autorizaBaja}" update=":querycecoD">
+            					<p:graphicImage value="/css/iconos/edit.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{s}"
+								target="#{flowScope.sitio.sitioSel}" />
+						</p:commandLink>
+						
+					</p:column>
+			</p:dataTable>
+			 
+			</h:form>
+			
+			<!-- DIALOGO AGREGA CENTRO DE COSTOS -->
+			<p:dialog id="agregaCCD" header="Alta centro de costos" widgetVar="agregaCCDlg" modal="true" appendToBody="true"                             
+			resizable="false">
+			<h:form id="addCcDForm">
+				<h:messages id="msgAddCc" globalOnly="true" showSummary="false" showDetail="true" autoUpdate="true" 
+					style="color: red; font-family: 'New Century Schoolbook', serif;" />
+				<h:panelGrid id="cccPG" columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+				
+				<h:outputLabel id="csap_ed_lbl" for="csap_edVal" value="#{msg.admsitio_cuentasap}:" />
+					<p:inputText id="csap_edVal" value="#{flowScope.sitio.sitioSel.cuentaContable}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"/>
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="csap_edMsg" for="csap_edVal"/>
+					     	
+				<h:outputLabel id="ceco_lbl"  for="ceco_edVal" value="#{msg.admsitio_ceco}:" />
+					<p:selectOneMenu id="ceco_edVal" value="#{flowScope.sitio.centroCostoAsoc.cfeCatCc.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.centrosCosto}"  var="d"
+	        				itemLabel="#{d.clave}"
+	        				itemValue="#{d.id}" />
+	        		</p:selectOneMenu>
+							
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="division_edMsg" for="ceco_edVal"/>	
+					<h:outputLabel id="percent_lbl" for="percent_Val" value="#{msg.admsitio_percent}:" />
+					<p:inputText id="percent_Val" value="#{flowScope.sitio.centroCostoAsoc.porcentaje}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"/>
+						
+					<h:message style="color: red;
+ 					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="percent_msg" for="percent_Val"/>		     	
+			</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+					<p:commandButton id="saveccBtn" value="#{msg.admsitio_guardar}" oncomplete="if(!args.validationFailed){agregaCCDlg.hide();}" action="guardacc" global="true" update="msgAddCc addCcDForm :queryCCForm"/>
+					<p:commandButton value="Salir" onclick="agregaCCDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>   
+		
+		<!-- EDITA CENTRO DE COSTOS -->
+			<p:dialog id="editCCD" header="Modifica centro de costos" widgetVar="editCCDlg" modal="true" appendToBody="true" 
+			resizable="false">
+			<h:form id="eddCcDForm">
+				<h:messages id="msgEddCc" globalOnly="true" showSummary="false" showDetail="true" autoUpdate="true" 
+					style="color: red; font-family: 'New Century Schoolbook', serif;" />
+				<h:panelGrid id="edCcPG" columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+				
+				<h:outputLabel id="csap_edd_lbl" for="csap_eddVal" value="#{msg.admsitio_cuentasap}:" />
+					<p:inputText id="csap_eddVal" value="#{flowScope.sitio.sitioSel.cuentaContable}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"/>
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="csap_eddMsg" for="csap_edVal"/>
+					     	
+				<h:outputLabel id="ceco_edd_lbl"  for="ceco_edd_edVal" value="#{msg.admsitio_ceco}:" />
+	        		<p:selectOneMenu id="ceco_edd_edVal" value="#{flowScope.sitio.centroCostoAsoc.cfeCatCc.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.centrosCosto}"  var="d"
+	        				itemLabel="#{d.clave}"
+	        				itemValue="#{d.id}" />
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="division_eddMsg" for="ceco_edVal"/>	
+				
+					<h:outputLabel id="percent_edd_lbl" for="percent_edd_Val" value="#{msg.admsitio_percent}:" />
+					<p:inputText id="percent_edd_Val" value="#{flowScope.sitio.centroCostoAsoc.porcentaje}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" required="true"
+							requiredMessage="#{msg.admsitio_campoobl}"/>
+					<h:message style="color: red;
+ 					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="percent_edd_msg" for="percent_Val"/>		     	
+			</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+					<p:commandButton id="saveeddccBtn" value="#{msg.admsitio_guardar}" oncomplete="if(!args.validationFailed){editCCDlg.hide();}" action="editacc" global="true" update="msgEddCc eddCcDForm :queryCCForm"/>
+					<p:commandButton value="Salir" onclick="editCCDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		
+		<!-- DIALOGO CONF ELIMINA -->
+			<p:dialog id="delcecoD" header="Aviso" widgetVar="delcecoDlg" modal="true" resizable="false">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;"
+					columnClasses="mensajeConfirma">
+				<h:outputText value="#{msg.confirma_delceco} #{flowScope.sitio.centroCostoAsoc.cfeCatCc.clave}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+				<h:panelGrid columns="2"  border="0" style="margin: 0 auto;">
+					<p:commandButton id="delCcBtn" value="#{msg.btn_aceptar}" action="bajaCc" global="true"  ajax="true" oncomplete="delcecoDlg.hide()" update=":queryCCForm"/>
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="delcecoDlg.hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>	
+			
+		<!-- CONSULTA CENTRO DE COSTOS -->
+			<p:dialog id="querycecoD" header="Centros de costos" widgetVar="querycecoDlg" modal="true" appendToBody="true"
+			resizable="false">
+			<h:form id="queryCCForm">
+			<p:spacer height="5px"/>
+			<h:panelGrid id="gridAddCc" columns="2"
+				cellpadding="5" border="0">
+					<p:commandLink  action="cleanAddCc" oncomplete="agregaCCDlg.show();"
+						  rendered="#{!s.autorizaBaja}" update=":agregaCCD">
+							<p:graphicImage value="/css/iconos/add.png" width="20"
+								height="20" />
+					</p:commandLink>
+			</h:panelGrid>
+				<p:dataTable id="cecoTable" paginator="true" rows="5"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{flowScope.sitio.centrosCostoAsoc.size()}"
+				rowsPerPageTemplate="10,20"
+				editable="true" editMode="cell" value="#{flowScope.sitio.centrosCostoAsoc}" var="asoc">
+
+				<f:facet name="header">
+				</f:facet>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_indice }" />
+					</f:facet>
+					<h:outputText value="#{rowNum+1}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_ceco}" />
+					</f:facet>
+					<h:outputText value="#{asoc.cfeCatCc.clave}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.admsitio_percent}" />
+					</f:facet>
+					<h:outputText value="#{asoc.porcentaje}" />
+				</p:column>				
+					<p:column style="text-align: center;">
+					
+					<f:facet name="header">
+							<h:outputText value="#{msg.admsitio_ceco}" />
+						</f:facet>
+						
+						<p:commandLink oncomplete="delcecoDlg.show();"
+					update=":delcecoD" rendered="#{!s.autorizaBaja}">
+							<p:graphicImage value="/css/iconos/delete.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{asoc}"
+								target="#{flowScope.sitio.centroCostoAsoc}" />
+						</p:commandLink>
+						
+						<p:commandLink  oncomplete="editCCDlg.show();"
+					update=":editCCD" rendered="#{!s.autorizaBaja}">
+							<p:graphicImage value="/css/iconos/edit.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{asoc}"
+								target="#{flowScope.sitio.centroCostoAsoc}" />
+								
+						</p:commandLink>
+					</p:column>
+			
+			</p:dataTable>
+			</h:form>
+		</p:dialog>
+			
+			<!-- DIALOGO CONSULTA SITIO -->
+			<p:dialog id="consultaUsuarioD" header="Consulta Sitio" widgetVar="consultaUsuarioDlg" modal="true" resizable="false">
+			<p:outputPanel id="userInfoDetail" style="float: right;">
+			<h:form>
+				<h:panelGrid columns="6" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn,userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+
+					<h:outputLabel id="rpu_lbl" for="rpuVal" value="#{msg.admsitio_rpu}:" />
+					<p:inputText id="rpuVal" value="#{flowScope.sitio.sitioSel.rpu}"
+						style="width:130px;font-weight: bold;" readonly="true" />
+						
+					<p:column></p:column>				
+					
+					
+					<h:outputLabel id="division_lbl"  for="divisionVal" value="#{msg.admsitio_division}:" />
+	        		<p:selectOneMenu id="divisionVal" value="#{flowScope.sitio.sitioSel.division.id}" 
+					style="width:153px" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.divisiones}"  var="d"
+	        				itemLabel="#{d.nombre}"
+	        				itemValue="#{d.id}" />
+	        		</p:selectOneMenu>
+	        		
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="nombre_lbl" for="nombreVal" value="#{msg.admsitio_nombre}:" />
+					<p:inputText id="nombreVal" value="#{flowScope.sitio.sitioSel.nombre}"
+						style="width:200px;font-weight: bold;" readonly="true"/>
+						
+						<p:column></p:column>
+						
+						<h:outputLabel id="proyecto_lbl"  for="proyectoVal2" value="#{msg.admsitio_proyecto}:" />
+	        		<p:selectOneMenu id="proyectoVal2" value="#{flowScope.sitio.sitioSel.proyecto.id}" 
+					style="width:153px" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.proyectos}"  var="p"
+	        				itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />
+	        		</p:selectOneMenu>	
+	        		
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="id_lbl" for="idVal" value="#{msg.admsitio_clave}:" />
+					<p:inputText id="idVal" value="#{flowScope.sitio.sitioSel.clave}"
+						style="width:130px;font-weight: bold;" readonly="true" />
+						
+					<p:column></p:column>
+						
+	        		<h:outputLabel id="region_lbl"  for="regionVal" value="#{msg.admsitio_region}:" />
+	        		<p:selectOneMenu id="regionVal" value="#{flowScope.sitio.sitioSel.region.id}" 
+					style="width:153px" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.regiones}"  var="r"
+	        				itemLabel="#{r.clave}"
+	        				itemValue="#{r.id}" />
+	        		</p:selectOneMenu>
+	        		
+	        		<p:column></p:column>
+	        				
+	        		<h:outputLabel id="medidor1_lbl" for="medidorVal1" value="#{msg.admsitio_medidor}:" />
+					<p:inputText id="medidorVal1" value="#{flowScope.sitio.sitioSel.medidor}"
+						style="width:130px;font-weight: bold;" readonly="true" />
+						
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="poblacion_lbl"  for="poblacionVal" value="#{msg.admsitio_poblacion}:" />
+	        		<p:selectOneMenu id="poblacionVal" value="#{flowScope.sitio.sitioSel.cfeCatEstado.id}" 
+					style="width:153px" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.estados}"  var="p"
+	        				itemLabel="#{p.nombre}"
+	        				itemValue="#{p.id}" />
+	        			</p:selectOneMenu>	
+	        		<p:column></p:column>	
+	        		
+	        		<h:outputLabel id="numCuenta_lbl" for="numCuentaVal" value="#{msg.admsitio_numcuenta}:" />
+					<p:inputText id="numCuentaVal" value="#{flowScope.sitio.sitioSel.numCuenta}"
+						style="width:200px;font-weight: bold;" readonly="true" />
+	        				
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="tarifa_lbl"  for="tarifaVal" value="#{msg.admsitio_tarifa}:" />
+	        		<p:selectOneMenu id="tarifaVal" value="#{flowScope.sitio.sitioSel.tarifa.id}" 
+					style="width:153px" disabled="true">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.tarifas}"  var="p"
+	        				itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />	        				
+	        				
+	        		</p:selectOneMenu>
+	        		
+					<p:column></p:column>
+					
+					<h:outputLabel id="csap_lbl" for="csapVal" value="#{msg.admsitio_cuentasap}:" />
+					<p:inputText id="csapVal" value="#{flowScope.sitio.sitioSel.cuentaContable}"
+						style="width:130px;font-weight: bold;" readonly="true" />
+						
+					
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="razsoc_lbl" for="razsocVal" value="#{msg.admsitio_razonsocial}:" />
+					<p:inputText id="razsocVal" value="#{flowScope.sitio.sitioSel.razonSocial}"
+						style="width:150px;font-weight: bold;" readonly="true" />
+	        		
+	        		<p:column></p:column>
+	        		
+	        		<h:outputLabel id="demanda_lbl" for="demandaVal" value="#{msg.admsitio_demanda}:" />
+					<p:inputText id="demandaVal" value="#{flowScope.sitio.sitioSel.demanda}"
+						style="width:130px;font-weight: bold;" readonly="true" />
+						
+					<p:column></p:column>
+
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3" border="0"
+					columnClasses="userDlglblcolumn,userDlgdatacolumnDir,userDlgerrorcolumn">
+					
+					<h:outputLabel id="direccion_lbl" for="direccionVal" value="#{msg.admsitio_dirTelcel}:" />
+					<p:inputText id="direccionVal" value="#{flowScope.sitio.sitioSel.direccionTelcel}"
+						style="width:550px;font-weight: bold;" readonly="true" />
+						<p:column></p:column>
+						<h:outputLabel id="domicilio_lbl" for="domicilioVal" value="#{msg.admsitio_dirCfe}:" />
+					<p:inputText id="domicilioVal" value="#{flowScope.sitio.sitioSel.direccionCfe}"
+						style="width:550px;font-weight: bold;" readonly="true" />
+						<p:column></p:column>
+					</h:panelGrid>
+				
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="1" style="margin: 0 auto;">
+					<p:commandButton value="Salir" onclick="consultaUsuarioDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		
+		
+		<!-- DIALOGO EDITA SITIO -->
+			<p:dialog id="editaUsuarioD" header="Modifica Sitio" widgetVar="editaUsuarioDlg" modal="true" resizable="false">
+			<p:outputPanel id="userEditDetail" style="float: right;">
+			<h:form>
+				<h:panelGrid id="editaSitioPanel" columns="6" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn,userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+
+					<h:outputLabel id="rpu_ed_lbl" for="rpu_edVal" value="#{msg.admsitio_rpu}:" />
+					<p:inputText id="rpu_edVal" value="#{flowScope.sitio.sitioSel.rpu}"
+						style="width:130px;font-weight: bold;" required="true" requiredMessage="#{msg.admsitio_campoobl}" readonly="true" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="rpu_edMsg" for="rpu_edVal"/>				
+					
+					
+					<h:outputLabel id="division_ed_lbl"  for="division_edVal" value="#{msg.admsitio_division}:" />
+	        		<p:selectOneMenu id="division_edVal" value="#{flowScope.sitio.sitioSel.division.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{sitio.divisiones}"  var="d"
+	        				itemLabel="#{d.nombre}"
+	        				itemValue="#{d.id}" />
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="division_edMsg" for="division_edVal"/>	
+	        		
+	        		<h:outputLabel id="nombre_ed_lbl" for="nombre_edVal" value="#{msg.admsitio_nombre}:" />
+					<p:inputText id="nombre_edVal" value="#{flowScope.sitio.sitioSel.nombre}"
+						style="width:200px;font-weight: bold;" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}"/>
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="nombre_edMsg" for="nombre_edVal"/>	
+						
+					<h:outputLabel id="proyecto_ed_lbl"  for="proyecto_edVal2" value="#{msg.admsitio_proyecto}:" />
+	        		<p:selectOneMenu id="proyecto_edVal2" value="#{flowScope.sitio.sitioSel.proyecto.id}" 
+					style="width:153px" >
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{sitio.proyectos}"  var="p"
+	        				itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />
+	        		</p:selectOneMenu>	
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="proyecto_edMsg" for="proyecto_edVal2"/>	
+	        		
+	        		<h:outputLabel id="id_ed_lbl" for="id_edVal" value="#{msg.admsitio_clave}:" />
+					<p:inputText id="id_edVal" value="#{flowScope.sitio.sitioSel.clave}"
+						style="width:130px;font-weight: bold;" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="id_edMsg" for="id_edVal"/>	
+
+						
+	        		<h:outputLabel id="region_ed_lbl"  for="region_edVal" value="#{msg.admsitio_region}:" />
+	        		<p:selectOneMenu id="region_edVal" value="#{flowScope.sitio.sitioSel.region.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.regiones}"  var="r"
+	        				itemLabel="#{r.clave}"
+	        				itemValue="#{r.id}" />
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="region_edMsg" for="region_edVal"/>	
+	        				
+	        		<h:outputLabel id="medidor1_ed_lbl" for="medidor_edVal1" value="#{msg.admsitio_medidor}:" />
+					<p:inputText id="medidor_edVal1" value="#{flowScope.sitio.sitioSel.medidor}"
+						style="width:130px;font-weight: bold;" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="medidor_edMsg" for="medidor_edVal1"/>
+	        		
+	        		<h:outputLabel id="poblacion_ed_lbl"  for="poblacion_edVal" value="#{msg.admsitio_poblacion}:" />
+	        		<p:selectOneMenu id="poblacion_edVal" value="#{flowScope.sitio.sitioSel.cfeCatEstado.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.estados}"  var="p"
+	        				itemLabel="#{p.nombre}"
+	        				itemValue="#{p.id}" />
+	        			</p:selectOneMenu>	
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="poblacion_edMsg" for="poblacion_edVal"/>	
+	        		
+	        		<h:outputLabel id="numCuenta_ed_lbl" for="numCuenta_edVal" value="#{msg.admsitio_numcuenta}:" />
+					<p:inputText id="numCuenta_edVal" value="#{flowScope.sitio.sitioSel.numCuenta}"
+						style="width:200px;font-weight: bold;" />
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="numCuenta_edMsg" for="numCuenta_edVal"/>	
+	        		
+	        		<h:outputLabel id="tarifa_ed_lbl"  for="tarifa_edVal" value="#{msg.admsitio_tarifa}:" />
+	        		<p:selectOneMenu id="tarifa_edVal" value="#{flowScope.sitio.sitioSel.tarifa.id}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_polizasap_seleccione}" itemValue="" />
+						<f:selectItems value="#{flowScope.sitio.tarifas}"  var="p"
+	        				itemLabel="#{p.clave}"
+	        				itemValue="#{p.id}" />	        				
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="tarifa_edMsg" for="tarifa_edVal"/>	
+					
+					<h:outputLabel id="csap_ed_lbl" for="csap_edVal" value="#{msg.admsitio_cuentasap}:" />
+					<p:inputText id="csap_edVal" value="#{flowScope.sitio.sitioSel.cuentaContable}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="csap_edMsg" for="csap_edVal"/>	
+	        		
+	        		<h:outputLabel id="razsoc_ed_lbl" for="razsoc_edVal" value="#{msg.admsitio_razonsocial}:" />
+					<p:inputText id="razsoc_edVal" value="#{flowScope.sitio.sitioSel.razonSocial}"
+						style="width:150px;font-weight: bold;" />
+	        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="razsoc_edMsg" for="razsoc_edVal"/>
+	        		
+	        		<h:outputLabel id="demanda_ed_lbl" for="demanda_edVal" value="#{msg.admsitio_demanda}:" />
+					<p:inputText id="demanda_edVal" value="#{flowScope.sitio.sitioSel.demanda}"
+						style="width:130px;font-weight: bold;" onkeypress="return validaNumeros(event)" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="demanda_edMsg" for="razsoc_edVal"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3" border="0"
+					columnClasses="userDlglblcolumn,userDlgdatacolumnDir,userDlgerrorcolumn">
+					
+					<h:outputLabel id="direccion_ed_lbl" for="direccion_edVal" value="#{msg.admsitio_dirTelcel}:" />
+					<p:inputText id="direccion_edVal" value="#{flowScope.sitio.sitioSel.direccionTelcel}"
+						style="width:550px;font-weight: bold;" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="direccion_edMsg" for="direccion_edVal"/>
+					     	
+					<h:outputLabel id="domicilio_ed_lbl" for="domicilio_edVal" value="#{msg.admsitio_dirCfe}:" />
+					<p:inputText id="domicilio_edVal" value="#{flowScope.sitio.sitioSel.direccionCfe}"
+						style="width:550px;font-weight: bold;" />
+					<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="domicilio_edMsg" for="domicilio_edVal"/>
+					</h:panelGrid>
+				
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+					
+					<p:commandButton id="saveLocBtn" value="#{msg.admsitio_guardar}" action="saveSite" global="true" oncomplete="if (!args.validationFailed){editaUsuarioDlg.hide();}" update=":siteForm :userEditDetail"/>
+					<p:commandButton value="Salir" onclick="editaUsuarioDlg.hide();"
+						type="button" />
+				</h:panelGrid>
+			</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		
+		
+	</ui:define>
+</ui:composition>
+</html>

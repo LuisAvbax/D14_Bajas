@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="1">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.carga_cfe_titulo}</div>
+		</h:panelGrid>
+		
+		<h:form id="invoiceForm" enctype="multipart/form-data">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="2" border="0" style="margin: 0 auto;">
+			 <h:outputText value="Archivo:" />
+                <p:fileUpload fileUploadListener="#{facturaAction.handleFile}"
+                mode="advanced"
+                label="Agregar archivo"
+                dragDropSupport="false"
+                fileLimit="1"
+                sizeLimit="10000000"
+                allowTypes="/(\.|\/)(xls|xlsx)$/"
+                invalidSizeMessage="El tamaño maximo del archivo es de un mega!"
+                invalidFileMessage="Solo se permiten archivos en formato excel!"
+                id="uploader1"
+                widgetVar="uploader1"
+                update="msgFile regConBtn"
+                cancelLabel="Cancelar" uploadLabel="Subir"
+                />  		
+        		
+        		 
+        		 <h:outputText value="Reemplazar carga:" />
+
+        		<p:selectOneRadio value="#{consumo.reemplazaOp.valor}" required="true" requiredMessage="#{msg.msg_obl_repcargamsg_obl_repcarga}">
+                <f:selectItems value="#{consumo.reempList}" var="c" 
+                itemLabel="#{c.etiqueta}" itemValue="#{c.valor}"/>
+            	</p:selectOneRadio>
+        		
+			</h:panelGrid>				
+			<!-- FILTROS CREAR CONTRARECIBO -->		
+			
+			
+            <p:spacer height="25px"/>
+            
+            <h:panelGrid  columns="2" style="margin: 0 auto;">
+				<p:commandButton id="regConBtn" value="#{msg.contrarecibo_btn_registrar}" action="preReg" global="true" disabled="#{regConDis}" update="regConBtn msgFile uploader1"/>
+				<p:commandButton value="#{msg.contrarecibo_btn_salir}" action="regresa"  />			
+            </h:panelGrid>
+             
+</h:form>
+<!-- DIALOG CALCULAR FECHA --> 
+<p:dialog id="invRegDialog" header="Registrar factura" widgetVar="invoiceRegDlg" modal="true" appendToBody="true" resizable="false">
+	<p:outputPanel id="invoiceReg1" style="width:50%">
+		<h:form id="condForm">
+    		<div>
+        		<div id="caledarioDiv" class="float-left">
+        			<p:calendar id="calendario" value="#{contrarecibo.fechaPagoCal}" mode="inline" mindate="calwidget.today()" widgetVar="calwidget" locale="es">
+        				<p:ajax event="dateSelect" update="fechaPago" listener="#{facturaAction.onDateSelect}" />
+       			 	</p:calendar>
+        		</div>
+        		<div id="campos" class="float-left">
+        			
+        			<h:panelGrid border="0" columns="3" columnClasses="factreglblcolumn factregdatacolumn">
+       				 <h:outputText value="Condicion pago: " />
+        			 <p:spinner id="diasPago" value="#{contrarecibo.condicionPago}" min="0" max="999999" stepFactor="1" 
+        				size="6"/>
+        			<h:column></h:column>
+        			</h:panelGrid>
+         			<p:spacer height="15px"/>
+         		
+	        		<div align="center">
+	        			<h:panelGrid border="0" columns="2" columnClasses="factreglblcolumn factregdatacolumn">
+	        				<p:commandButton value="Calcular fecha" action="calcFecha" update="fechaPago" style="margin: 0 auto;"/>
+	        				<p:commandButton value="Limpiar" action="#{facturaAction.limpiaFecha()}" update="fechaPago" style="margin: 0 auto;"/>
+	        			</h:panelGrid>
+	        		</div>
+  					
+	        		<p:spacer height="10px"/>
+	        		
+	        		<h:panelGrid columns="3" columnClasses="factreglblcolumn factregdatacolumn" style="margin: 0 auto;">
+	        			<h:outputLabel id="fechaPago_lbl"  for="fechaPago" value="Fecha de pago:" />
+	        			<p:inputText id="fechaPago" value="#{contrarecibo.fechaPagoS}" readonly="true"/>
+	        		</h:panelGrid>
+         		
+	         		<p:spacer height="15px"/>
+	        
+	        		<div align="center">
+	        			<p:commandButton value="Registrar" action="regFact" update=":contraRegDialog"/>
+	        		</div>
+        		</div>
+        	</div>
+        </h:form>
+    </p:outputPanel>  
+</p:dialog>
+        
+  <!-- DIALOG REGISTRO -->       
+ <p:dialog id="contraRegDialog" header="Registro" widgetVar="contraRegDlg" modal="true" resizable="false">
+ 	<p:outputPanel id="contraRegPanel" style="width:50%">
+ 	
+        <h:form>
+        	<h:panelGrid columns="1" style="margin: 0 auto;" columnClasses="regContraDesgarga">
+        		<h:outputText id="regFactResumen" value="Se registraron la siguientes facturas: " />
+        	</h:panelGrid>
+			
+			<p:spacer height="15px"/>
+			<h:panelGrid columns="1" style="margin: 0 auto;" columnClasses="regContraDesgarga">
+        		<h:outputText id="folioRegistro" style="font:bold;" value="Folio: #{contrarecibo.folioCaptura}" />
+		        <h:commandLink action="descargaCont">
+					<h:graphicImage value="/css/iconos/Pdf-icon.png" style="border:0;width : 63px; height : 55px;"/>
+				</h:commandLink>
+        	</h:panelGrid>
+        
+        	<p:spacer height="10px"/>
+        	<h:panelGrid columns="1" style="margin: 0 auto;">
+        		<p:commandButton value="Aceptar" type="button" onclick="contraRegDlg.hide();invoiceRegDlg.hide();invoiceDlg.hide();"/>
+       		 </h:panelGrid>
+		
+		</h:form>
+  	</p:outputPanel>
+</p:dialog>
+
+  <p:dialog id="noFactDialog" header="Registrar contrarecibo" widgetVar="noFactDlg" modal="true" resizable="false">
+        <p:outputPanel id="NoFactPanel" style="float: right;">
+        <h:form>
+        <h:panelGrid  columns="2" style="margin: 0 auto;" columnClasses="warnimgcolumn,warnmsgcolumn">
+        <p:graphicImage value="/css/iconos/question.png"
+									width="40" height="40" />
+		<p>Debe seleccionar al menos una factura... </p>
+        </h:panelGrid>
+        <p:spacer height="15px"/>
+        <h:panelGrid  columns="2" style="margin: 0 auto;">
+				<p:commandButton value="Aceptar" onclick="noFactDlg.hide();" type="button" />
+             </h:panelGrid>
+        </h:form>
+        </p:outputPanel>
+    </p:dialog>
+	 
+	 <p:dialog id="NoProvDialog" header="Registrar contrarecibo" widgetVar="noProvDlg" modal="true" resizable="false">
+        <p:outputPanel id="NoProvPanel" style="float: right;">
+        <h:form>
+        <h:panelGrid  columns="2" style="margin: 0 auto;" columnClasses="warnimgcolumn,warnmsgcolumn">
+        <p:graphicImage value="/css/iconos/question.png"
+									width="40" height="40" />
+		<p>El proveedor no se encuentra registrado... </p>
+        </h:panelGrid>
+        <p:spacer height="15px"/>
+        <h:panelGrid  columns="2" style="margin: 0 auto;">
+				<p:commandButton value="Aceptar" onclick="noProvDlg.hide();" type="button" />
+             </h:panelGrid>
+        </h:form>
+        </p:outputPanel>
+    </p:dialog>
+		
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.menu_bajas_resAjuste}</div>	
+		</h:panelGrid>
+		<h:form id="totregForm">
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+		
+		<h:panelGrid id="gridfiltros" columns="1" border="0" style="margin: 0 auto;text-align:center;">
+			<h:outputText value="#{resumenAjust.calculotxt}" style="font-size:11px;"/>
+			<c:choose>    
+			    <c:when test="#{resumenAjust.acum eq 'true'}">  
+			      <h:outputText value="#{resumenAjust.mesSeleccion}" style="font-size:11px;" />
+			    </c:when>  
+			    <c:otherwise>  
+			       <h:outputText value="#{resumenAjust.mesSeleccion}" style="font-size:11px;" />
+				   <h:outputText value="AÑO: #{resumenAjust.anio}" style="font-size:11px;" />
+			    </c:otherwise>  
+			</c:choose>
+			<h:outputText value="CLASE: #{resumenAjust.claseReptxt}" style="font-size:11px;" />
+			<h:outputText value="REGIÓN: #{resumenAjust.regionReptxt}" style="font-size:11px;" />
+			<h:outputText value="#{resumenAjust.textosTitulos}" style="font-size:11px;" />
+			
+			</h:panelGrid>
+			
+			<p:spacer height="10px" />
+			
+			<h:panelGrid id="griddescarga" columns="2" cellpadding="5" border="0">
+				<h:commandLink  id="linkdescarga" action="descarga" >
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDF" action="dDesPDF">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+			</h:commandLink>	
+			</h:panelGrid>
+			
+			<p:spacer height="5px"/>
+			
+			
+<!-- 		         TABLA GENERAL        -->
+				
+				<table id="detGeneral" style="table-layout:fixed;width:100%">
+					<tr>
+					<td class="customTableAjHDT">CLASE</td>
+					<td class="customTableAjHDT">ADQUISICION<br/>BAJA</td>
+					<td class="customTableAjHDT">COSTO<br/>ACTUALIZADO</td>
+					<td class="customTableAjHDT">DEP. AÑO<br/>ACTUALIZADA</td>
+					</tr>
+				
+					<ui:repeat var="ajustTipo" value="#{resumenAjust.listReporteDetalladoTip}" varStatus="clast">
+						<tr>
+							<td class="customTableDetTTxtDTRes">
+								<h:outputText value=" #{ajustTipo.descTipo}:">
+								</h:outputText>
+							</td>
+						
+							<td class="customTableDetTDT">
+								<h:outputText value="#{ajustTipo.totalTipo.adq_baja}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+							<td class="customTableDetTDT">
+								<h:outputText value="#{ajustTipo.totalTipo.costo_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+							<td class="customTableDetTDT">
+								<h:outputText value="#{ajustTipo.totalTipo.depre_anual_act}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+						</tr>
+						<ui:repeat var="texto" value="#{ajustTipo.textos}" varStatus="clast">
+						<tr>
+							<td class="customTableDetTTxtAjDT">
+								<h:outputText value="#{texto.clase}" />
+							</td>
+							<td class="customTableDetAjDT">
+								<h:outputText value="#{texto.adq_baja}">
+									<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+							<td class="customTableDetAjDT">
+								<h:outputText value="#{texto.costo_act}">
+									<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+							<td class="customTableDetAjDT">
+								<h:outputText value="#{texto.depre_anual_act}">
+									<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+								</h:outputText>
+							</td>
+						</tr>
+						</ui:repeat>
+						
+					
+				</ui:repeat>
+				<tr>
+						<td class="customTableDetTTxtDTResT">
+							<h:outputText value="TOTAL:" />
+						</td>
+					
+						<td class="customTableDetTDT">
+							<h:outputText value="#{resumenAjust.totReporteGeneral.adq_baja}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTDT">
+							<h:outputText value="#{resumenAjust.totReporteGeneral.costo_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTDT">
+							<h:outputText value="#{resumenAjust.totReporteGeneral.depre_anual_act}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</table>
+			
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

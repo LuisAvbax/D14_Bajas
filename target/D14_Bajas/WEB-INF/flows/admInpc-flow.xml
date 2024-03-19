@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="inpcState">
+
+<view-state id="inpcState" view="../views/admInpc.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="inpcAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="query">
+		<evaluate expression="inpcAction.consulta(flowRequestContext)" />
+	</transition>
+	
+	<transition on="save">
+		<evaluate expression="inpcAction.guardar(flowRequestContext)" />
+	</transition>
+	
+	<transition on="update">
+		<evaluate expression="inpcAction.actualizar(flowRequestContext)" />
+	</transition>
+	
+	<transition on="delete">
+		<evaluate expression="inpcAction.baja(flowRequestContext)" />
+	</transition>
+	<transition on="addDivisionPopUp">
+		<evaluate expression="inpcAction.addPopUp(flowRequestContext)" />
+	</transition>
+		
+	<transition on="limpia" to="inpcIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="inpcIni" view="flowRedirect:admInpc-flow" />
+
+</flow>

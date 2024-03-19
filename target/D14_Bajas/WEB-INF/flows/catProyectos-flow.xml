@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="prtProyectosState">
+
+<view-state id="prtProyectosState" view="../views/catProyectos.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="proyectosAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="queryProyecto">
+		<evaluate expression="proyectosAction.consultaPrt(flowRequestContext)" />
+	</transition>
+	
+	<transition on="eliminaPrt">
+		<evaluate expression="proyectosAction.eliminaProyecto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="savePrt">
+		<evaluate expression="proyectosAction.guardaProyecto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="updPrt">
+		<evaluate expression="proyectosAction.editaProyecto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="descargaPrt">
+		<evaluate expression="proyectosAction.descargaProyecto(flowRequestContext)" />
+	</transition>
+		
+	<transition on="limpia" to="prtIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="prtIni" view="flowRedirect:catProyectos-flow" />
+
+</flow>

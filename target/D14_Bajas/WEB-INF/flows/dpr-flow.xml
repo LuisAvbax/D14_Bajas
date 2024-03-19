@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="dprCien">
+
+<view-state id="dprCien" view="../views/cienDpr.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="cienDprAction.initFlow(flowRequestContext)" />
+    </on-entry>
+
+	<transition on="limpia" to="bitacoraIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+	<transition on="buscaCont">
+		<evaluate expression="cienDprAction.consultaDpr(flowRequestContext)" />
+	</transition>
+	
+	<transition on="descargaB">
+		<evaluate expression="cienDprAction.descarga(flowRequestContext)" />
+	</transition>
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="bitacoraIni" view="flowRedirect:bitacora-flow" />
+
+</flow>

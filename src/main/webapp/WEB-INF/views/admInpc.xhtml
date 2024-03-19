@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.adm_inpc_titulo}</div>
+		</h:panelGrid>
+		<h:messages  globalOnly="true" showSummary="false"/>
+		<h:form id="inpcForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+
+        		<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_consumoreg_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{idce.anio}" 
+				style="width:153px">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{idce.anios}"/>
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioNsg" for="anio"/>
+					     	
+				<h:outputLabel id="mes_lbl"  for="mes" value="#{msg.cat_adq_mes}:" />
+        		<p:selectOneMenu id="mes" value="#{idce.mes.id}" 
+				style="width:153px">
+				 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue="" />
+					<f:selectItems value="#{idce.meses}"  var="m"
+        				itemLabel="#{m.nombre}"
+        				itemValue="#{m.id}" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="mesMsg" for="mes"/>			
+        		
+			</h:panelGrid>
+
+			<p:spacer height="10px"/> 
+			
+			<h:panelGrid  columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admInpcBtn" value="#{msg.btn_consultar}" action="query" global="true" update="inpcForm"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />			
+            </h:panelGrid>
+			<p:spacer height="30px"/>
+			
+			<h:panelGrid id="gridAddUsr" columns="2"
+				cellpadding="5" border="0">
+				<p:commandLink  id="linkAddUsr" action="#{inpcAction.addInpcPopUp(flowRequestContext)}" oncomplete="actualizaInpcDlg.show()" update=":actualizaInpcD">
+					<h:graphicImage value="/css/iconos/add.png" style="width : 27px; height : 27px;"/>
+				</p:commandLink>
+				Agregar
+			</h:panelGrid>
+			
+			<p:dataTable id="dataTableInpc"
+				rowIndexVar="rowNum"
+				var="i"
+				value="#{idce.inpcs}">
+
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.inpc_anio}" />
+					</f:facet>
+					<h:outputText value="#{i.anio}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.inpc_mes}" />
+					</f:facet>
+					<h:outputText value="#{i.mesTxt.nombre}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.inpc_valor}" />
+					</f:facet>
+					<h:outputText value="#{i.indice}" >
+					<f:convertNumber pattern="#,##0.000000000000" locale="es_MX"  />
+					</h:outputText>
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					
+					<f:facet name="header">
+							<h:outputText value="#{msg.cat_division_acciones}" />
+						</f:facet>
+					
+					<p:commandLink oncomplete="updateInpcDlg.show();" update=":updateInpcD">
+							<p:graphicImage value="/css/iconos/edit.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{i}"
+								target="#{flowScope.idce.inpc}" />
+						</p:commandLink>
+					
+					<p:commandLink oncomplete="delinpcDlg.show();" update=":delinpcD">
+							<p:graphicImage value="/css/iconos/delete.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{i}"
+								target="#{flowScope.idce.inpc}" />
+						</p:commandLink>
+						
+				</p:column>
+
+			</p:dataTable>
+			 
+			</h:form>
+			
+		
+			<p:dialog id="actualizaInpcD" header="INPC" widgetVar="actualizaInpcDlg" modal="true" resizable="false" appendToBody="true">
+			<h:form id="addInpcForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+					     	
+					<h:outputLabel id="anio_dlglbl"  for="aniodlg" value="#{msg.reporte_consumoreg_anio}:" />
+	        		<p:selectOneMenu id="aniodlg" value="#{idce.inpc.anio}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+						<f:selectItems value="#{idce.anios}"/>
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="anioNsgdlg" for="aniodlg"/> 
+					
+					
+					<h:outputLabel id="mes_dlglbl"  for="mesdlg" value="#{msg.cat_adq_mes}:" />
+	        		<p:selectOneMenu id="mesdlg" value="#{idce.inpc.mes}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue="" />
+						<f:selectItems value="#{idce.meses}"  var="m"
+	        				itemLabel="#{m.nombre}"
+	        				itemValue="#{m.id}" />
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="mesMsgdlg" for="mes"/>
+						     	
+					<h:outputText for="indice_dlglbl" value="indice:" />
+	           		<p:inputText id="indicedlg" value="#{idce.inpc.indice}" 
+	                			style="width:120px;" required="true"
+								requiredMessage="#{msg.admsitio_campoobl}" onkeypress="if(event.which &lt; 46 || event.which &gt; 57) return false;">
+	                			<f:convertNumber pattern="#,##0.000000000000" locale="es_MX" />
+	                			</p:inputText>
+	              	<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="indicelblMsg" for="indicedlg"/> 
+					 
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+			
+				<p:commandButton id="saveDivBtn" value="#{msg.admsitio_guardar}" action="save" global="true" ajax="true" oncomplete="if (!args.validationFailed){actualizaInpcDlg.hide();}" update=":inpcForm :actualizaInpcD"/>
+				<p:commandButton value="Salir" onclick="actualizaInpcDlg.hide();"
+						type="button" />
+						
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog id="updateInpcD" header="INPC" widgetVar="updateInpcDlg" modal="true" resizable="false" appendToBody="true">
+			<h:form id="updInpcForm">
+				<h:panelGrid columns="3" border="0" style="margin: 0 auto;"
+					columnClasses="userDlglblcolumn,userDlgdatacolumn,userDlgerrorcolumn">
+					     	
+					<h:outputLabel id="anio_dlgulbl"  for="aniodlgu" value="#{msg.reporte_consumoreg_anio}:" />
+	        		<p:selectOneMenu id="aniodlgu" value="#{idce.inpc.anio}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+						<f:selectItems value="#{idce.anios}"/>
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="anioNsgdlgu" for="aniodlgu"/> 
+					
+					
+					<h:outputLabel id="mes_dlglblu"  for="mesdlgu" value="#{msg.cat_adq_mes}:" />
+	        		<p:selectOneMenu id="mesdlgu" value="#{idce.inpc.mes}" 
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue="" />
+						<f:selectItems value="#{idce.meses}"  var="m"
+	        				itemLabel="#{m.nombre}"
+	        				itemValue="#{m.id}" />
+	        		</p:selectOneMenu>
+	        		<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="mesMsgdlgu" for="mes"/>
+						     	
+					<h:outputText for="indice_dlglblu" value="indice:" />
+	           		<p:inputText id="indice_dlglblu" value="#{idce.inpc.indice}" 
+	                			style="width:120px;"
+	                			maxlength="16" required="true"
+								requiredMessage="#{msg.admsitio_campoobl}" onkeypress="if(event.which &lt; 46 || event.which &gt; 57) return false;">
+	                			<f:convertNumber pattern="#,##0.000000000000" locale="es_MX"  />
+	                			</p:inputText>
+	              	<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="indicelblMsgu" for="indice_dlglblu"/> 
+					 
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+
+				<h:panelGrid columns="2" style="margin: 0 auto;">
+				
+				<p:commandButton id="updDivBtn" value="#{msg.admsitio_guardar}" action="update" global="true" ajax="true" oncomplete="if (!args.validationFailed){updateInpcDlg.hide();}" update=":inpcForm :updateInpcD"/>
+				<p:commandButton value="Salir" onclick="updateInpcDlg.hide();"
+						type="button" />
+						
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<!-- DIALOGO ELIMINAR -->
+			<p:dialog id="delinpcD" header="Elimina INPC" widgetVar="delinpcDlg" modal="true" resizable="false">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;"
+					columnClasses="mensajeConfirma">
+					<h:outputText value="#{msg.confirma_delinpccat}  #{idce.inpc.anio} y mes: #{idce.inpc.mesTxt.nombre} con el valor: #{idce.inpc.indice}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+				<h:panelGrid columns="2"  border="0" style="margin: 0 auto;">
+					<p:commandButton id="delinpcBtn" value="#{msg.btn_aceptar}" action="delete" global="true"  ajax="true" oncomplete="delinpcDlg.hide()" update=":inpcForm" />
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="delinpcDlg.hide();" />
+				</h:panelGrid>
+				 
+			</h:form>
+			</p:dialog>
+</ui:define>
+</ui:composition>			
+</html>

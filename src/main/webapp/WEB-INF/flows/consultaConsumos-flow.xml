@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="consumoState">
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="consumoState" view="../views/consultaConsumos.xhtml" redirect="true"
+		popup="true" >
+		
+	<on-entry>
+      <evaluate expression="detConsumoAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="consultaConsumos">
+      <evaluate expression="detConsumoAction.consultaConsumos(flowRequestContext)" />
+    </transition>
+    
+    <transition on="descargaConsumo">
+      <evaluate expression="detConsumoAction.descargaConsumos(flowRequestContext)" />
+    </transition>
+    
+	<transition on="limpia" to="consumosIni" />
+	<transition on="regresa" to="inicio" />
+
+</view-state>
+
+ <view-state id="consumosIni" view="flowRedirect:consultaConsumos-flow" />
+
+</flow>

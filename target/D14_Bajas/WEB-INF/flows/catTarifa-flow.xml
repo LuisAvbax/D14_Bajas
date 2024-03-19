@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="tfaTarifaState">
+
+<view-state id="tfaTarifaState" view="../views/catTarifa.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="tarifaAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="queryTarifa">
+		<evaluate expression="tarifaAction.consultaTfa(flowRequestContext)" />
+	</transition>
+	
+	<transition on="eliminaTfa">
+		<evaluate expression="tarifaAction.eliminaTarifa(flowRequestContext)" />
+	</transition>
+	
+	<transition on="saveTfa">
+		<evaluate expression="tarifaAction.guardaTarifa(flowRequestContext)" />
+	</transition>
+	
+	<transition on="updTfa">
+		<evaluate expression="tarifaAction.editaTarifa(flowRequestContext)" />
+	</transition>
+	
+	<transition on="descargaTfa">
+		<evaluate expression="tarifaAction.descargaTarifa(flowRequestContext)" />
+	</transition>
+		
+	<transition on="limpia" to="tfaIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="tfaIni" view="flowRedirect:catTarifa-flow" />
+
+</flow>

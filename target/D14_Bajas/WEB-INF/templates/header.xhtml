@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+<title>login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/css/estiloLogin.css"
+		type="text/css" />
+</h:head>
+<h:body>
+<ui:component>
+	
+	<div class="header" style="background: url(#{facesContext.externalContext.requestContextPath}/css/img/icon_bg_header_90.png) repeat-x">
+		 <div style="height:65px; width:400px">
+			<img src="#{facesContext.externalContext.requestContextPath}/css/img/logobajas.png" class="logo"/>	
+		</div>
+		
+		<div class="alinearDerechaTexto logotelcel"
+			style="background: url(#{facesContext.externalContext.requestContextPath}/css/img/logo_telcel_2023.png) no-repeat;height:35px; width:125px; float:right;" />
+		</div>
+	
+		<h:panelGrid columns="4" border="0" width="1280px" style="height:20px"
+			class="subHeader">
+			<h:panelGrid style="width:750px;">
+		
+			</h:panelGrid>
+			<h:panelGrid columns="2" border="0" style="width:520px;"
+				class="alinearDerechaTexto">
+					<h:panelGroup class="alinearDerechaTexto">
+						<h:outputLabel value="Bienvenido: #{sessionScopeUser.usuarioCfe.nombreCompleto}" class="texto textoBlod middle" />
+						<p:spacer width="15px"/>
+						<h:outputLabel value="Region: #{sessionScopeUser.usuarioCfe.bajasCatRegion}" class="texto textoBlod middle" />
+					</h:panelGroup>
+					<h:form>
+						<h:commandLink value="Salir" styleClass="texto textoBlod middle" style="color: #ffffff;" action="exit"/>
+						<img src="#{facesContext.externalContext.requestContextPath}/css/img/exit.png" class="iconoSalir"/>
+					</h:form>
+			</h:panelGrid>
+		</h:panelGrid>
+	
+	
+</ui:component>
+</h:body>
+</html>

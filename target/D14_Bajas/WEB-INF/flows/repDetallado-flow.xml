@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="repDetalleState">
+
+<view-state id="repDetalleState" view="../views/repoDetalle.xhtml" redirect="true" popup="true" >
+	<on-entry>
+      <evaluate expression="repDetalladoAct.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="query" to="dettotreg" />
+
+	<transition on="limpia" to="prtIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="prtIni" view="flowRedirect:repDetallado-flow" />
+
+<view-state id="dettotreg" view="../views/repoDetalleDet.xhtml" redirect="true"
+		popup="true">
+		
+		<transition on="descarga">
+		<evaluate expression="repDetalladoAct.descarga(flowRequestContext)" />
+		</transition>
+		
+		<transition on="dDesPDF">
+		<evaluate expression="repDetalladoAct.descargaPDF(flowRequestContext)" />
+		</transition>
+		
+		<transition on="regresa" to="inicio" />
+</view-state>
+
+</flow>

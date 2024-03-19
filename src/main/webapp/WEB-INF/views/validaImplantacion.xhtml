@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+
+	<c:if test="#{sessionScopeUser.usuarioCfe.cfeOpRol.nombre eq 'IMPL'}">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.valImplantacion_titulo}</div>
+		</h:panelGrid>
+	</c:if>
+	
+	<c:if test="#{sessionScopeUser.usuarioCfe.cfeOpRol.nombre eq 'CXP'}">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.valcxp_titulo}</div>
+		</h:panelGrid>
+	</c:if>
+		<h:form id="valForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+
+			<p:dataTable style="width:200px; margin: 0 auto;" id="dataTableValImp" paginator="true" rows="10"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{sitio.sitios.size()}"
+				rowsPerPageTemplate="10,20" var="ci"
+				value="#{validacion.consumosImp}">
+
+				<f:facet name="header">
+				</f:facet>
+				
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.valImplantacion_mes}" />
+					</f:facet>
+					<h:outputText value="#{ci.mestxt}" />
+				</p:column>
+				
+				<p:column style="text-align: left;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.valImplantacion_anio}" />
+					</f:facet>
+					<h:outputText value="#{ci.anio}" />
+				</p:column>
+				
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.valImplantacion_accion}" />
+					</f:facet>
+				
+					<p:commandLink oncomplete="confirmaValDlg.show();"
+					update=":confirmaVal">
+							<p:graphicImage value="/css/iconos/check.png" width="20"
+								height="20" />
+							<f:setPropertyActionListener value="#{ci}"
+								target="#{flowScope.validacion.consumoSelImp}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+			 
+			</h:form>
+			<!-- DIALOGO CONSULTA SITIO -->
+			<p:dialog id="confirmaVal" header="Aviso" widgetVar="confirmaValDlg" modal="true" resizable="false">
+			<p:outputPanel id="userInfoDetail" style="float: right;">
+			<h:form>
+				<h:panelGrid columns="1" border="0" style="margin: 0 auto;"
+					columnClasses="mensajeConfirma">
+				<h:outputText value="#{msg.confirma_validacion} #{validacion.consumoSelImp.mestxt} #{validacion.consumoSelImp.anio}" />
+				</h:panelGrid>
+				<p:spacer height="10px"/> 
+				<h:panelGrid columns="2"  border="0" style="margin: 0 auto;">
+					<p:commandButton id="saveLocBtn" value="#{msg.btn_aceptar}" action="saveVal" global="true" update=":valForm"/>
+					<p:commandButton value="#{msg.btn_cancelar}" onclick="confirmaValDlg.hide();" />
+				</h:panelGrid>
+			</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

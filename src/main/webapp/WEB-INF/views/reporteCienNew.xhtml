@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.titCienDpr}</div>
+		</h:panelGrid>
+		<h:form id="dprForm">
+			<p:messages id="messages" showDetail="true" closable="true" />
+			<h:panelGrid columns="3" cellpadding="5" border="0"
+				style="margin: 0 auto;"
+				columnClasses="impFactGridOne,impFactGridTwo,impFactGridThree">
+
+				<h:outputLabel id="mes_lbl" for="mes"
+					value="#{msg.reporte_consumoreg_mes}:" />
+				<p:selectOneMenu id="mes" value="#{datDpr.mes.id}"
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}"
+						itemValue="" />
+					<f:selectItems value="#{datDpr.meses}" var="m"
+						itemLabel="#{m.nombre}" itemValue="#{m.id}" />
+				</p:selectOneMenu>
+				<h:message
+					style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					id="mesMsg" for="mes" />
+
+				<h:outputLabel id="anio_lbl" for="anio"
+					value="#{msg.reporte_consumoreg_anio}:" />
+				<p:selectOneMenu id="anio" value="#{datDpr.anio}"
+					style="width:153px" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}">
+					<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}"
+						itemValue="" />
+					<f:selectItems value="#{datDpr.anios}" />
+				</p:selectOneMenu>
+				<h:message
+					style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					id="anioNsg" for="anio" />
+
+			</h:panelGrid>
+			<p:spacer height="10px" />
+
+			<!-- BOTONES CONSULTA -->
+			<h:panelGrid columns="4" cellpadding="5" border="0"
+				style="margin: 0 auto;">
+				<p:commandButton value="Generar Reporte" action="generaSolicRep"
+					update=":dprForm" inmediate="false" />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"
+					global="false" immediate="true" />
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"
+					global="false" immediate="true" />
+
+			</h:panelGrid>
+
+		</h:form>
+
+		<p:spacer height="30px" />
+		<h:form>
+			<p:dataTable id="dataTable" paginator="true" rows="15"
+				rowIndexVar="rowNum" paginatorPosition="bottom"
+				paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Total de Registros: #{errores.size()}"
+				var="rep" value="#{datDpr.opDocumentoBean}">
+
+					<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.batch_anio}" />
+					</f:facet>
+					<h:outputText value="#{rep.anio}" />
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.batch_periodo}" />
+					</f:facet>
+					<h:outputText value="#{rep.periodo}" />
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.titCienUs}" />
+					</f:facet>
+					<h:outputText
+						value="#{rep.usuario_creacion.nombre} #{rep.usuario_creacion.apaterno} #{rep.usuario_creacion.amaterno}">
+					</h:outputText>
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.batch_fecha_solicitud}" />
+					</f:facet>
+					<h:outputText value="#{rep.fecha_creacion}">
+						<f:convertDateTime locale="es_MX" pattern="dd/MM/yyyy HH:mm:ss z" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="text-align: center;">
+					<f:facet name="header">
+						<h:outputText value="#{msg.batch_estatus_rep}" />
+					</f:facet>
+					<h:outputText value="#{rep.estatus.descripcion}" />
+				</p:column>
+
+				<p:column style="text-align: center;" rendered="#{datDpr.descarga}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.batch_descarga}" />
+					</f:facet>
+					<h:commandLink id="linkdescarga" action="descargaRptProcesado">
+						<h:graphicImage value="/css/iconos/excel-icon.png"
+							style="width : 25px; height : 25px;" />
+					</h:commandLink>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

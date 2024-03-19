@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resumenXregion" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cdbac195-eeb6-4986-ae93-9b96b9634f4a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="paramFecha" class="java.lang.String"/>
+	<parameter name="paramAnio" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cont.c_cve_proveedor, prov.c_razon_social, cont.m_monto_total, cont.c_tipo_moneda,
+factrev.d_fecha_revision,factrev.d_fecha_pago, usr.c_user_nombre, fact.i_num_factura, fact.m_monto_fact
+FROM  contrarecibos cont
+inner join proveedores prov
+on cont.c_cve_proveedor = prov.c_cve_proveedor
+inner join facturas fact
+on cont.i_id_alta = fact.i_id_alta
+inner join factrevisadas factrev
+on cont.i_id_alta = factrev.i_id_alta
+inner join usuarios usr
+on factrev.c_user_revision = usr.c_user_login
+where cont.c_cve_proveedor in ('20802534')
+order by  cont.c_cve_proveedor]]>
+	</queryString>
+	<field name="dap" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[dap]]></fieldDescription>
+	</field>
+	<field name="energia" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[energia]]></fieldDescription>
+	</field>
+	<field name="iva" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[iva]]></fieldDescription>
+	</field>
+	<field name="otros" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[otros]]></fieldDescription>
+	</field>
+	<field name="region" class="java.lang.String">
+		<fieldDescription><![CDATA[region]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[subtotal]]></fieldDescription>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[total]]></fieldDescription>
+	</field>
+	<variable name="energia_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{energia}]]></variableExpression>
+	</variable>
+	<variable name="dap_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{dap}]]></variableExpression>
+	</variable>
+	<variable name="otros_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{otros}]]></variableExpression>
+	</variable>
+	<variable name="subtotal_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{subtotal}]]></variableExpression>
+	</variable>
+	<variable name="iva_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{iva}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<image>
+				<reportElement x="12" y="0" width="121" height="37" uuid="bf013286-9e95-4fb0-bbc6-27f376c2d31b"/>
+				<imageExpression><![CDATA["C:\\Users\\VI5XXAA\\Documents\\David\\DSAF\\PagoProveedores\\imgs\\TelceLogo3.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="133" y="0" width="235" height="20" backcolor="#FFFFFF" uuid="b0c5ce30-5667-4327-9b8f-a0eebf7ff283"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN POR REGIÓN]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="174" y="22" width="66" height="20" backcolor="#FFFFFF" uuid="d58d9956-e976-4bed-84f4-885ae534c3c7"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{paramFecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="246" y="22" width="53" height="20" backcolor="#FFFFFF" uuid="edf83cd7-6591-4926-81f7-528cad3e8e33"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{paramAnio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="13" y="6" width="607" height="1" uuid="7ad4841a-c514-4c1c-bf72-70a4b54f848a"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="13" y="11" width="607" height="1" uuid="204a89d8-4488-4933-b502-8f16da58ba90"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="2" width="68" height="20" backcolor="#CCCCCC" uuid="4ab12bb8-259d-480d-a438-a91360f491de"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="2" width="96" height="20" backcolor="#CCCCCC" uuid="9235210d-33a1-4584-8c24-83d24bccfeb2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENERGíA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="2" width="83" height="20" backcolor="#CCCCCC" uuid="ab0dc309-f895-498d-a33e-f0bdc719bac7"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OTROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="2" width="95" height="20" backcolor="#CCCCCC" uuid="c43c17ef-47bc-41ed-aa90-d36a0a46dc97"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="2" width="83" height="20" backcolor="#CCCCCC" uuid="09b1c61c-fd11-49b4-aa10-cf60b52590eb"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="2" width="88" height="20" backcolor="#CCCCCC" uuid="fdc070d7-832e-406d-a8e1-dc8722f822f5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="537" y="2" width="83" height="20" backcolor="#CCCCCC" uuid="c7e13c10-4730-4c99-9ca6-4a1d92596b52"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="13" y="1" width="55" height="20" uuid="3fa8df10-e9e7-4013-ab3d-cedb10c6dda4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{region}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="82" y="1" width="70" height="20" uuid="37748370-b28b-44c8-8271-b27eba7a9a1b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{energia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="270" y="0" width="70" height="20" uuid="6d3d0ea1-cb5d-4d88-a06b-b1882eccca25"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{otros}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="355" y="1" width="81" height="20" uuid="f5b07aff-f5e2-4a20-bab4-b25fc8d68915"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="180" y="1" width="73" height="20" uuid="1ab88ce0-1603-41fa-b75c-f6dbdf7d7149"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{dap}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="537" y="1" width="72" height="20" uuid="e2c14874-7bb4-4ee3-86b2-1cd2623c0129"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="452" y="1" width="69" height="20" uuid="27862465-aa58-4f79-82a7-4febce84b20e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="81" y="0" width="68" height="20" backcolor="#FFFFFF" uuid="56e7df36-76ad-4fa1-9d60-30ebd96aae1b"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{energia_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="178" y="0" width="66" height="20" uuid="71de2132-e672-4896-b5c5-cd0f8ead7ffb"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{dap_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="270" y="0" width="65" height="20" uuid="58597ee6-b924-47da-991d-9a619d8ed212"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{otros_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="355" y="0" width="65" height="20" uuid="77533c7d-949a-4190-bb00-756dcaa31d8f"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{subtotal_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="452" y="0" width="69" height="20" uuid="b97343cb-b589-4606-a99a-8f92f993acfb"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{iva_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="537" y="0" width="72" height="20" uuid="e3e91b68-f2c6-4cbd-8b9e-706c7a12c4e8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="21" y="0" width="47" height="20" backcolor="#CCCCCC" uuid="2f151b13-e3a4-4529-ac0d-4f324e3b4a7e"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

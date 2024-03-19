@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="perfilState">
+
+<view-state id="perfilState" view="../views/admPerfil.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="admPerfilAction.initFlow(flowRequestContext)" />
+    </on-entry>
+	
+	<transition on="queryPerfil">
+		<evaluate expression="admPerfilAction.consultaPerfiles(flowRequestContext)" />
+	</transition>
+	
+	<transition on="savePerfil">
+		<evaluate expression="admPerfilAction.agregaPerfil(flowRequestContext)" />
+	</transition>
+	
+	<transition on="updatePerfil">
+		<evaluate expression="admPerfilAction.actualizaPerfil(flowRequestContext)" />
+	</transition>
+	
+	<transition on="deletePerfil">
+		<evaluate expression="admPerfilAction.eliminaPerfil(flowRequestContext)" />
+	</transition>
+	
+	<transition on="limpia" to="adminSitIni" />
+	
+	<transition on="regresa" to="inicio" />
+	
+</view-state>
+
+<view-state id="inicio" view="flowRedirect:parent-flow" />
+
+<view-state id="adminSitIni" view="flowRedirect:adminPerfil-flow" />
+
+</flow>

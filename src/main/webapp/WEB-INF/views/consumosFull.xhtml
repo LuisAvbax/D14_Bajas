@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.reporte_consumoreg_full}</div>
+		</h:panelGrid>
+		
+		<h:form id="resumenForm">
+		
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+		
+		<h:panelGrid columns="3" cellpadding="5" border="0" style="margin: 0 auto;">
+			<h:outputLabel id="mes_lbl"  for="mes" value="#{msg.reporte_consumoreg_mes}:"/>
+				
+        	<p:selectOneMenu id="mes" value="#{consumosFull.mes.id}" style="width:153px" required="true" requiredMessage="#{msg.reporte_consumoreg_mesobl}">
+			 	<f:selectItem itemLabel="#{msg.contrarecibo_seleccione}" itemValue=""/>
+				<f:selectItems value="#{consumosFull.meses}"  var="m" itemLabel="#{m.nombre}" itemValue="#{m.id}" />
+        	</p:selectOneMenu>
+        	
+        	<h:message style="color: red; font-family: 'New Century Schoolbook', serif;" id="mesMsg" for="mes"/>	  		
+        		  		
+			<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_consumoreg_anio}:" />
+        	
+        	<p:selectOneMenu id="anio" value="#{consumosFull.anio}" style="width:153px" required="true" requiredMessage="#{msg.reporte_consumoreg_anioobl}">
+			 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+				<f:selectItems value="#{consumosFull.anios}"/>
+        	</p:selectOneMenu>
+        			
+        	<h:message style="color: red; font-family: 'New Century Schoolbook', serif;" id="anioMsg" for="anio"/>
+        													
+		</h:panelGrid>
+			
+		<p:spacer height="10px"/> 
+			
+		<h:panelGrid columns="3" cellpadding="5" border="0" style="margin: 0 auto;">
+				<h:commandLink  id="linkdescarga" action="buscaconsumo" rendered="#{consumosFull.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa"  />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia"  />		
+		</h:panelGrid>
+						
+		</h:form>
+			
+				
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans   
+			http://www.springframework.org/schema/beans/spring-beans.xsd 
+			http://www.springframework.org/schema/context 
+       		http://www.springframework.org/schema/context/spring-context.xsd">
+			
+<!-- 	<bean id="ejecutandoBajaUsuarios" class="com.telcel.gsa.dsaf.batch.BajaUsuarios"/> -->
+	
+<!-- 	<bean id="planificadorTarea" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 	   	<property name="targetObject" ref="ejecutandoBajaUsuarios"></property> -->
+<!-- 	   	<property name="targetMethod" value="enviaCorreoBaja"></property> -->
+<!-- 	   	<property name="concurrent" value="false"></property> -->
+<!-- 	</bean> -->
+		
+	<!-- Disparador simple -->
+	<!--
+	<bean id="disparadorTarea" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="planificadorTarea" />
+        <property name="repeatInterval" value="60000" />
+        <property name="startDelay" value="1000" />
+	</bean>
+	-->
+	<!-- Disparador con expresiones de Cron -->
+	<bean id="disparadorCron" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="planificadorTarea"></property>
+        <property name="cronExpression" value="0 0 22 ? * MON-FRI"></property>
+	</bean>
+	
+	<bean id="planificador" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="disparadorCron"></ref>
+            </list>
+        </property>
+	</bean>
+
+	 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.telcel.com"/>
+	  	<property name="port" value="25"/>
+	  	<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage"/>
+
+</beans>
+

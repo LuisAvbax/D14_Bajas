@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content" >
+		<h:panelGrid columns="1">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.tit_genera_respaldo}</div>
+		</h:panelGrid>
+		
+		<h:form id="repaldoForm" enctype="multipart/form-data">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="true" closable="false" globalOnly="true"/>
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+			
+				<h:outputLabel id="comentario_lbl" for="comentarioVal"
+					value="#{msg.respaldo_comentario}:" />
+				<p:inputText id="comentarioVal" value="#{datEnvio.mensaje}"
+					style="width:250px;font-weight: bold;" required="true"
+					requiredMessage="#{msg.admsitio_campoobl}"
+					onkeyup="this.value=this.value.toUpperCase();" />
+				<h:message
+					style="color: red;
+			     	font-family: 'New Century Schoolbook', serif;"
+					id="comentarioMsg" for="comentarioVal" />
+			
+			</h:panelGrid>				
+		    <p:spacer height="10px" />
+          	<h:panelGrid columns="1" style="margin: 0 auto;">
+				<p:commandButton id="solicbt" value="Generar" action="generaRespaldo" 
+				global="true" update="msgFile" disabled="#{datEnvio.disable}" />
+				
+		
+			</h:panelGrid>
+            
+          
+             
+		</h:form>
+	
+	</ui:define>
+</ui:composition>
+</html>

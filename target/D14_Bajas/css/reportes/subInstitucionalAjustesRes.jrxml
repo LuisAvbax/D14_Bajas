@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subInstitucionalAjustesRes" language="groovy" pageWidth="752" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a2950bf8-3de9-4abf-bcdf-fcf5c7688ba6">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="regionPos4" class="java.lang.String"/>
+	<parameter name="regionPos5" class="java.lang.String"/>
+	<parameter name="regionPos3" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="adq_baja_r2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r2]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r5" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r5]]></fieldDescription>
+	</field>
+	<field name="costo_act_r5" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r5]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r8" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r8]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r0" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r0]]></fieldDescription>
+	</field>
+	<field name="costo_act_r4" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r4]]></fieldDescription>
+	</field>
+	<field name="costo_act_r9" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r9]]></fieldDescription>
+	</field>
+	<field name="costo_act_r7" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r7]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r7" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r7]]></fieldDescription>
+	</field>
+	<field name="costo_act_r2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r2]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r3" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r3]]></fieldDescription>
+	</field>
+	<field name="costo_act_r6" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r6]]></fieldDescription>
+	</field>
+	<field name="costo_act_r3" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r3]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r9" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r9]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r4" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r4]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r6" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r6]]></fieldDescription>
+	</field>
+	<field name="costo_act_r8" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r8]]></fieldDescription>
+	</field>
+	<field name="costo_act_r0" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r0]]></fieldDescription>
+	</field>
+	<field name="costo_act_r1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_r1]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r0" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r0]]></fieldDescription>
+	</field>
+	<field name="costo_act_total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[costo_act_total]]></fieldDescription>
+	</field>
+	<field name="adq_baja_r1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_r1]]></fieldDescription>
+	</field>
+	<field name="adq_baja_total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[adq_baja_total]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r2]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r1]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r3" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r3]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r4" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r4]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r5" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r5]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r6" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r6]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r7" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r7]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r8" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r8]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_r9" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_r9]]></fieldDescription>
+	</field>
+	<field name="depre_anual_act_total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[depre_anual_act_total]]></fieldDescription>
+	</field>
+	<field name="texto_baja" class="java.lang.String">
+		<fieldDescription><![CDATA[texto_baja]]></fieldDescription>
+	</field>
+	<field name="reference" class="java.lang.String"/>
+	<variable name="adq_baja_r3_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja_r3}]]></variableExpression>
+	</variable>
+	<variable name="costo_act_r3_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_act_r3}]]></variableExpression>
+	</variable>
+	<variable name="depre_anual_act_r3_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{depre_anual_act_r3}]]></variableExpression>
+	</variable>
+	<variable name="adq_baja_r3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja_r3}]]></variableExpression>
+	</variable>
+	<variable name="costo_act_r3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_act_r3}]]></variableExpression>
+	</variable>
+	<variable name="depre_anual_act_r3_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{depre_anual_act_r3}]]></variableExpression>
+	</variable>
+	<variable name="adq_baja_r4_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja_r4}]]></variableExpression>
+	</variable>
+	<variable name="costo_act_r4_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_act_r4}]]></variableExpression>
+	</variable>
+	<variable name="depre_anual_act_r4_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{depre_anual_act_r4}]]></variableExpression>
+	</variable>
+	<variable name="adq_baja_r5_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{adq_baja_r5}]]></variableExpression>
+	</variable>
+	<variable name="costo_act_r5_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{costo_act_r5}]]></variableExpression>
+	</variable>
+	<variable name="depre_anual_act_r5_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{depre_anual_act_r5}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="95" height="20" uuid="afc66713-f703-4bf1-b5ba-25c6a7214117"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[TEXTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="0" width="219" height="20" uuid="8be9ec0c-eac6-48e2-8e0c-0815a543ca51"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{regionPos3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="20" uuid="aacd2449-6c70-4862-b293-9313618db5f1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="314" y="0" width="219" height="20" uuid="2ab3a1a2-dd23-4154-b477-fe7dccc27a6f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{regionPos4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="0" width="219" height="20" uuid="f89ea08b-6617-4eb3-baf8-f44b3634becf"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{regionPos5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="20" width="73" height="20" uuid="993e5f4b-e396-465b-bd4d-c84c8c9cab95"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COSTO"+"\n"+"ACTUALIZADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="20" width="73" height="20" uuid="36fcd08a-9e7f-4ebd-9a8d-fbb4b937de53"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COSTO"+"\n"+"ACTUALIZADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="20" width="73" height="20" uuid="2e0e4dab-e26a-4011-aadb-1388becf566a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ADQUISICIÓN"+"\n"+"BAJA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="20" width="73" height="20" uuid="0d49bc4e-1a99-4556-ab6c-0ff4485ea36d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ADQUISICIÓN"+"\n"+"BAJA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="20" width="73" height="20" uuid="3832a5b8-0375-45ee-8078-337727c895aa"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ADQUISICIÓN"+"\n"+"BAJA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="20" width="73" height="20" uuid="bf0555c6-2cae-4f5b-8174-35de9781306a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEP. AÑO"+"\n"+"ACTUALIZADA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="606" y="20" width="73" height="20" uuid="2e478d6e-bae6-4f23-b228-58babc3c1788"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COSTO"+"\n"+"ACTUALIZADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="20" width="73" height="20" uuid="fa45a431-2b30-473e-8d83-241a75486ba3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEP. AÑO"+"\n"+"ACTUALIZADA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="679" y="20" width="73" height="20" uuid="3006c343-8d40-42f9-be60-1feb320ee2ea"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEP. AÑO"+"\n"+"ACTUALIZADA"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{reference}.equals( "SIN@INFO" )]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="95" height="20" uuid="f29821a8-f419-48a2-b738-170bcef8271c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{texto_baja}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="95" y="0" width="73" height="20" uuid="3b2df204-2c17-4d46-bb60-52111df4377f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adq_baja_r3}==null?0.00:$F{adq_baja_r3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="168" y="0" width="73" height="20" uuid="ed8156b1-9e26-4f9d-8671-286fa44b5ccf"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{costo_act_r3}==null?0.00:$F{costo_act_r3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="241" y="0" width="73" height="20" uuid="e0eb7ef6-0d42-49e8-8bf1-3aec7c2a3e33"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{depre_anual_act_r3}==null?0.00:$F{depre_anual_act_r3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="314" y="0" width="73" height="20" uuid="74317488-47bd-4209-9af4-6d14f0fdc14b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adq_baja_r4}==null?0.00:$F{adq_baja_r4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="387" y="0" width="73" height="20" uuid="57bdbd40-5198-4dbb-a1a0-f63b513fec1c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{costo_act_r4}==null?0.00:$F{costo_act_r4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="460" y="0" width="73" height="20" uuid="6549185e-76ba-44b0-b11a-e629764af533"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{depre_anual_act_r4}==null?0.00:$F{depre_anual_act_r4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="533" y="0" width="73" height="20" uuid="21523a88-dda1-4b86-b672-03c052a3cc92"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adq_baja_r5}==null?0.00:$F{adq_baja_r5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="606" y="0" width="73" height="20" uuid="977812e7-da44-4b83-84b7-acde4ccd35d8"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{costo_act_r5}==null?0.00:$F{costo_act_r5}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="679" y="0" width="73" height="20" uuid="878eb36a-b09a-49e3-a0bb-d095edf1657a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{depre_anual_act_r5}==null?0.00:$F{depre_anual_act_r5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="20" uuid="63ac7868-5a20-4d2a-9e55-750a3e24e659"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="95" y="0" width="73" height="20" uuid="556b6887-2c9f-45c4-a076-83e116818119"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{adq_baja_r3_2}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="168" y="0" width="73" height="20" uuid="07fb6242-e409-414a-a569-97b584fb4f55"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{costo_act_r3_2}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="241" y="0" width="73" height="20" uuid="4d941602-1a16-48f5-a849-08e353c63e18"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{depre_anual_act_r3_2}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="314" y="0" width="73" height="20" uuid="43560c71-be80-45b0-99b5-d658c2d8ef5d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{adq_baja_r4_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="387" y="0" width="73" height="20" uuid="363d8a1c-d174-4e3c-a9bd-4622b0b5fc0e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{costo_act_r4_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="460" y="0" width="73" height="20" uuid="9e7b6745-0f07-4fce-8ef7-7770e2014d5f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{depre_anual_act_r4_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="533" y="0" width="73" height="20" uuid="c42c4f05-2b6a-4a6c-9c34-ffaf13ae06ca"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{adq_baja_r5_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="606" y="0" width="73" height="20" uuid="a141b3d9-8d49-4d49-b3a1-2275ae2fbf27"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{costo_act_r5_1}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="#,##0.00">
+				<reportElement x="679" y="0" width="73" height="20" uuid="af3c28c3-3e69-4f5f-afaf-18dd0701a36d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{depre_anual_act_r5_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

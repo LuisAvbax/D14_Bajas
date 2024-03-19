@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="gState">
+
+<view-state id="gState" view="../views/graficosPie.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="graficoPieAction.initFlow(flowRequestContext)" />
+    </on-entry>
+	
+    <transition on="queryGrapSite">
+		<evaluate expression="graficoPieAction.graficoPie(flowRequestContext)" />
+	</transition>
+	
+	<transition on="limpia" to="ccInip" />
+	
+	<transition on="regresa" to="iniciop" />
+	
+</view-state>
+
+<view-state id="iniciop" view="flowRedirect:parent-flow" />
+
+<view-state id="ccInip" view="flowRedirect:graficospie-flow" />
+
+</flow>

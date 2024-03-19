@@ -1,0 +1,1148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.reporte_tit_instaju}</div>	
+		</h:panelGrid>
+		<h:form id="totregForm">
+		<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+		
+		<h:panelGrid id="gridfiltros" columns="1" border="0" >
+			<h:outputText value="#{instAj.calculotxt}" style="font-size:11px;"/>
+			<c:choose>    
+			    <c:when test="#{instAj.acum eq 'true'}">  
+			      <h:outputText value="#{instAj.mesSeleccion}" style="font-size:11px;" />
+			    </c:when>  
+			    <c:otherwise>  
+			       <h:outputText value="#{instAj.mesSeleccion}" style="font-size:11px;" />
+				   <h:outputText value="AÑO: #{instAj.anio}" style="font-size:11px;" />
+			    </c:otherwise>  
+			</c:choose>
+			<h:outputText value="CLASE: #{instAj.claseReptxt}" style="font-size:11px;" />
+			<h:outputText value="REGIÓN: #{instAj.regionReptxt}" style="font-size:11px;" />
+			<h:outputText value="#{instAj.textosTitulos}" style="font-size:11px;" />
+			
+			
+			</h:panelGrid>
+		
+		
+			<p:spacer height="10px" />
+			
+			<h:panelGrid id="griddescarga" columns="5" cellpadding="5" border="0" columnClasses="center,center,center,center,center">
+				<h:commandLink  id="linkdescarga" action="descarga" >
+					<h:graphicImage value="/css/iconos/excel-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDFCorp" action="dDesPDFCorp">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDF" action="dDesPDF">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDFR46" action="dDesPDFR4a6">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				<h:commandLink  id="linkdescargaPDFR79" action="dDesPDFR7a9">
+				<h:graphicImage value="/css/iconos/Pdf-icon.png" style="width : 43px; height : 43px;"/>
+				</h:commandLink>
+				
+				<h:outputText value="R0-9" />
+				<h:outputText value="R0-2" />
+				<h:outputText value="R3-5" />
+				<h:outputText value="R6-8" />
+				<h:outputText value="R9" />	
+			</h:panelGrid>
+			
+			<p:spacer height="5px"/>
+			<p:scrollPanel mode="native" style="width:3500px">
+			
+			
+<!-- 		         TABLA GENERAL        -->
+				<table id="detGeneral" width="100%">
+					<tr>
+					<td class="customTableHTxtIA"><h:outputText value="" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="CORPORATIVO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="TIJUANA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="HERMOSILLO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="CHIHUAHUA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="MONTERREY" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="GUADALAJARA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="QUERETARO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="PUEBLA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="MERIDA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="METROPOLITANO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="TOTAL" /></td>
+					</tr>
+					<tr>
+					<td  class="customTableHTxtIA"><h:outputText value="CLASE" /></td>
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					</tr>
+				<ui:repeat var="clase" value="#{instAj.detClases}" varStatus="clastc">
+		            <tr>
+			            <td colspan="34" class="customTableHCombIA">
+			            	<h:outputText value="CLASE: #{clase.nombre}" />
+			            </td>
+					</tr>
+						<ui:repeat var="texto" value="#{clase.textos}" varStatus="txtstc">
+						<tr>
+						<td class="customTableDTxtIA">
+							<h:outputText value="#{texto.texto_baja}" />
+						</td>
+				
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						</tr>
+						</ui:repeat>
+					<tr>
+						<td colspan="1" class="customTableDetTTxtIA">
+							<h:outputText value="TOTAL CLASE: #{clase.nombreCorto}" />
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_adq_baja_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_costo_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{clase.all_depre_anual_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</ui:repeat>
+				<tr>
+						<td colspan="1" class="customTableDetTTxtIA">
+							<h:outputText value="TOTAL:" />
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.adq_baja_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.costo_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totReporteGeneral.depre_anual_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</table>
+				</p:scrollPanel>
+				<p:spacer height="25px"/>
+
+				<h:outputText styleClass="subTituloPantalla" value="RESUMEN POR REGIÓN" />
+				<br/>
+<!-- 		         TABLA RESUMEN        -->
+				<p:scrollPanel mode="native" style="width:3500px">
+				<table id="resGeneral" width="100%">
+					<tr>
+					<td class="customTableHTxtIA"><h:outputText value="" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="CORPORATIVO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="TIJUANA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="HERMOSILLO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="CHIHUAHUA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="MONTERREY" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="GUADALAJARA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="QUERETARO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="PUEBLA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="MERIDA" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="METROPOLITANO" /></td>
+					<td colspan="3" class="customTableHIA"><h:outputText value="TOTAL" /></td>
+					</tr>
+					<tr>
+					<td  class="customTableHTxtIA"><h:outputText value="TEXTO" /></td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					
+					<td  class="customTableHIADet">ADQUISICION&nbsp;&nbsp; <br/> BAJA</td>
+					<td  class="customTableHIADet">COSTO <br/>ACTUALIZADO&nbsp;&nbsp;</td>
+					<td  class="customTableHIADet">DEP. AÑO <br/>ACTUALIZADA&nbsp;&nbsp;</td>
+					</tr>
+				<ui:repeat var="texto" value="#{instAj.detResumen}" varStatus="resstc">
+						<tr>
+						<td class="customTableDTxtIA">
+							<h:outputText value="#{texto.texto_baja}" />
+						</td>
+				
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r0}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r1}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r2}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r3}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r4}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r5}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r6}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r7}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r8}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_r9}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.adq_baja_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.costo_act_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetIA">
+							<h:outputText value="#{texto.depre_anual_act_total}">
+								<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						</tr>
+				</ui:repeat>
+				<tr>
+						<td colspan="1" class="customTableDetTTxtIA">
+							<h:outputText value="TOTAL:" />
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r0}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r1}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r2}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r3}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r4}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r5}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r6}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r7}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r8}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_r9}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.adq_baja_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.costo_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+						<td class="customTableDetTInstIA">
+							<h:outputText value="#{instAj.totResumen.depre_anual_act_total}">
+							<f:convertNumber pattern="##,##0.00" locale="es_MX" />
+							</h:outputText>
+						</td>
+					</tr>
+				</table>
+				</p:scrollPanel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../templates/desktop.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<div id="TituloPantalla" class="tituloPantalla">#{msg.menu_depre_anioregc}</div>
+		</h:panelGrid>
+		<h:messages globalOnly="true" showSummary="false" />
+		<h:form id="adqregForm">
+			<p:messages id="msgFile" showSummary="false" showDetail="true" autoUpdate="false" closable="false" globalOnly="true" />
+			<h:panelGrid id="panelCarga" columns="3" border="0" style="margin: 0 auto;">
+
+
+				<h:outputText for="acum" value="#{msg.cat_adq_acum}:" />
+				<p:selectBooleanCheckbox id="acum" value="#{dprclas.acum}" required="true" requiredMessage="Campo requerido">
+            		<p:ajax update="adqregForm" listener="#{depreAnioClasAct.acumulaMesesAcum(flowRequestContext)}" />
+        		</p:selectBooleanCheckbox>
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="acumMsg" for="acum" />
+				
+				<h:outputText for="months" value="#{msg.cat_adq_mes}:" />
+				<p:selectManyCheckbox id="months" value="#{dprclas.mesesselect}">
+        			<f:selectItems value="#{dprclas.meses}" var="m" itemLabel="#{m}" itemValue="#{m}" />
+        			<p:ajax update="adqregForm" listener="#{depreAnioClasAct.validaAcumulado(flowRequestContext)}" />
+    			</p:selectManyCheckbox>
+				<h:message style="color: red;
+					       font-family: 'New Century Schoolbook', serif;"
+					       id="monthsMsg" for="months" />
+					       
+				<h:outputLabel id="anio_lbl"  for="anio" value="#{msg.reporte_consumoreg_anio}:" />
+        		<p:selectOneMenu id="anio" value="#{dprclas.anio}" 
+				style="width:153px" required="true"
+				requiredMessage="#{msg.admsitio_campoobl}">
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{dprclas.anios}"/>
+					<p:ajax event="valueChange"
+                		listener="#{depreAnioClasAct.computeYearVal(flowRequestContext)}" update="adqregForm" />
+					
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="anioNsg" for="anio"/>
+					     	
+				<h:outputLabel id="calc_lbl"  for="calc" value="#{msg.cat_adq_calculo}:" />
+        		<p:selectOneMenu id="calc" value="#{dprclas.calculo.id}" 
+				style="width:153px" required="true" requiredMessage="#{msg.admsitio_campoobl}" >
+				 	<f:selectItem itemLabel="#{msg.reporte_consumoreg_seleccione}" itemValue="" />
+					<f:selectItems value="#{dprclas.calculos}" var="c"
+        				itemLabel="#{c.descripcion}"
+        				itemValue="#{c.id}" />
+        			<p:ajax event="valueChange"
+                		listener="#{depreAnioClasAct.computeCalcDependants(flowRequestContext)}" update="adqregForm" />
+        		</p:selectOneMenu>
+        		<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="calcNsg" for="calc"/>
+
+				<h:outputLabel id="region_lbl"  for="region" value="#{msg.reporte_polizasap_region}:" />
+        		<p:selectCheckboxMenu id="region" value="#{dprclas.region}" filter="true" filterMatchMode="contains" disabled="#{dprclas.regDisabled}"
+				style="width:153px">
+<!-- 				 	<f:selectItem itemLabel="#{msg.reporte_todas_regiones}" itemValue="0" /> -->
+					<f:selectItems value="#{dprclas.regiones}"  var="r"
+        				itemLabel="#{r.descripcion}"
+        				itemValue="#{r.id}" />
+        				<p:ajax event="change"
+                			listener="#{depreAnioClasAct.computeRegDependants(flowRequestContext)}" update="adqregForm" />
+                		<p:ajax  event="toggleSelect"
+			            	listener="#{depreAnioClasAct.computeRegDependants(flowRequestContext)}"
+			            	update="adqregForm"/>
+        		</p:selectCheckboxMenu>
+				<h:message style="color: red;
+					     	font-family: 'New Century Schoolbook', serif;"
+					     	id="regionNsg" for="region"/>
+			
+				<h:outputLabel id="clase_lbl"  for="clase" value="#{msg.cat_adq_clase}:" />
+	        	<p:selectCheckboxMenu id="clase" value="#{dprclas.clase}" filter="true" filterMatchMode="contains" disabled="#{dprclas.claseDisabled}"
+					style="width:153px">
+<!-- 					 	<f:selectItem itemLabel="#{msg.reporte_todas_clases}" itemValue="0" /> -->
+						<f:selectItems value="#{dprclas.clases}"  var="r"
+	        				itemLabel="#{r.descripcion}"
+	        				itemValue="#{r.clave}" />
+	        			<p:ajax event="change"
+                			listener="#{depreAnioClasAct.computeClassDependants(flowRequestContext)}" update="adqregForm" />
+                		<p:ajax  event="toggleSelect"
+			            	listener="#{depreAnioClasAct.computeClassDependants(flowRequestContext)}"
+			            	update="adqregForm"/>
+	        	</p:selectCheckboxMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="claseNsg" for="clase"/>
+						     	
+						     	
+				<p:outputLabel for="txt" value="#{msg.cat_adq_txt}" />
+		        <p:selectOneRadio id="txt" value="#{dprclas.texto}"  layout="grid" columns="3">
+		            <f:selectItems value="#{dprclas.textos}" var="t" itemLabel="#{t}" itemValue="#{t}"/>
+		            <p:ajax update="txtd" event="valueChange" listener="#{depreAnioClasAct.updateTxt(flowRequestContext)}" />
+		        </p:selectOneRadio>
+		        <h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="txtNsg" for="txt"/>
+		        
+        		<h:outputLabel id="txtd_lbl"  for="txtd" value="" />       		
+        		<p:selectCheckboxMenu id="txtd" value="#{dprclas.txtDesc}" filter="true" filterMatchMode="contains" disabled="#{dprclas.txtDisabled}"
+					style="width:250px">
+						<f:selectItems value="#{dprclas.txtsDesc}" var="r"
+	        				itemLabel="#{r}"
+	        				itemValue="#{r}" />
+	        	</p:selectCheckboxMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="txtdNsg" for="txtd"/>
+						     	
+				<h:outputLabel id="ajuste_lbl"  for="ajuste" value="#{msg.reporte_ajuste}" />
+        		<p:selectOneMenu id="ajuste" value="#{dprclas.ajuste.clave}" 
+					style="width:153px" required="false">
+				 	<f:selectItem itemLabel="NINGUNO" itemValue="NA" />
+				 	<f:selectItems value="#{dprclas.ajustes}"  var="a"
+	        				itemLabel="#{a.descripcion}"
+	        				itemValue="#{a.clave}" />
+				</p:selectOneMenu>
+				<h:message style="color: red;
+						     	font-family: 'New Century Schoolbook', serif;"
+						     	id="ajusteNsg" for="ajuste"/>
+			
+						     	
+			</h:panelGrid>
+
+			<p:spacer height="10px" />
+
+			<h:panelGrid columns="3" style="margin: 0 auto;">
+				<p:commandButton id="admSitBtn" value="#{msg.btn_consultar}" action="query" actionListener="#{depreAnioClasAct.consulta(flowRequestContext)}" global="true" update="adqregForm" disabled="#{dprclas.queryDisabled}"/>
+				<p:commandButton value="#{msg.btn_regresar}" action="regresa" />
+				<p:commandButton value="#{msg.btn_limpiar}" action="limpia" />
+			</h:panelGrid>
+			<p:spacer height="30px" />
+
+			<h:panelGrid id="griddescarga" columns="2" cellpadding="5" border="0">
+				<h:commandLink id="linkdescarga" action="descargaadq" rendered="#{dprclas.descarga}">
+					<h:graphicImage value="/css/iconos/excel-icon.png"
+						style="width : 43px; height : 43px;" />
+				</h:commandLink>
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow" start-state="bienvenidaView">
+
+	<view-state id="bienvenidaView" view="index.xhtml"
+		redirect="true" popup="true">
+		<transition on="error" to="bienvenidaView" history="invalidate"/>
+		<transition on="cancelar" to="bienvenidaView" history="invalidate"/>
+		
+	</view-state>
+
+	<!-- FLOWS TO OTHER FLOWS -->
+	<view-state id="prevalidarClienteFlow" view="flowRedirect:prevalidarCliente-flow" />
+	<view-state id="despedidaPreguntaFlow" view="flowRedirect:despedidaPregunta-flow" />
+	<view-state id="salirView" view="../views/salir.xhtml" redirect="true" />
+	<view-state id="manualView" view="flowRedirect:documentacion-flow" redirect="true" />
+	
+	<end-state id="continuaNextFlow"
+		view="flowRedirect:#{flowScope.headerViewBean.nextFlow}" />
+</flow>

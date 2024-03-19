@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+  parent="parent-flow" start-state="sitioState">
+
+<view-state id="sitioState" view="../views/admSitio.xhtml" redirect="true"
+		popup="true" >
+	<on-entry>
+      <evaluate expression="admSitioAction.initFlow(flowRequestContext)" />
+    </on-entry>
+    
+    <transition on="querySite">
+		<evaluate expression="admSitioAction.consultaSitios(flowRequestContext)" />
+	</transition>
+	
+	<transition on="saveSite">
+		<evaluate expression="admSitioAction.guardaSitio(flowRequestContext)" />
+	</transition>
+	
+	<transition on="descargaSitios">
+		<evaluate expression="admSitioAction.descargaSitios(flowRequestContext)" />
+	</transition>
+	
+	<transition on="conceco">
+		<evaluate expression="admSitioAction.consultaCentrosCosto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="buscaCeco">
+		<evaluate expression="admSitioAction.consultaCc(flowRequestContext)" />
+	</transition>
+	
+	<transition on="initBusca">
+		<evaluate expression="admSitioAction.initBusqCc(flowRequestContext)" />
+	</transition>
+	
+	<transition on="guardacc">
+		<evaluate expression="admSitioAction.guardaCentroCosto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="editacc">
+		<evaluate expression="admSitioAction.editaCentroCosto(flowRequestContext)" />
+	</transition>
+	
+	<transition on="cleanAddCc">
+		<evaluate expression="admSitioAction.limpiaAddCc(flowRequestContext)" />
+	</transition>
+	
+	<transition on="bajaCc">
+		<evaluate expression="admSitioAction.bajaCc(flowRequestContext)" />
+	</transition>
+	
+	<transition on="regresa" to="inicioSit"/>
+    
+    <transition on="limpia" to="adminSitioIn" />
+</view-state>
+
+<view-state id="inicioSit" view="flowRedirect:parent-flow" />
+
+<view-state id="adminSitioIn" view="flowRedirect:adminSitio-flow" />
+
+</flow>
